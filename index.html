@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clint Saúde — O software para clínicas médicas que sempre lembra do paciente</title>
+<meta name="description" content="Sistema que confirma consulta sozinho, chama o paciente de volta na hora certa e recupera quem sumiu há meses usando IA." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   CLINT SAÚDE — Landing Page
+   DNA visual: Poppins · deep-purple tech surfaces · glass cards
+   · gradiente grape→magenta · verde WhatsApp · saúde premium
+   ============================================================ */
+
+:root{
+  --surface:#0B0A22;
+  --surface-2:#0D0B2E;
+  --card:#15123A;
+
+  --purple:#4E3AFF;
+  --grape:#8B5CFF;
+  --grape-soft:#B9A5FF;
+  --pink:#FF2D6F;
+  --pink-deep:#D11E5B;
+  --magenta:#FF3D81;
+  --whatsapp:#25D366;
+  --whatsapp-fg:#04361B;
+
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+  --ink:#1A1730;
+  --ink-soft:#4B4763;
+  --paper:#F5F4FA;
+  --paper-2:#ECEAF6;
+
+  --grad-text:linear-gradient(120deg,#9F7CFF 0%,#FF2D6F 100%);
+  --grad-brand:linear-gradient(135deg,#8B5CFF 0%,#FF2D6F 100%);
+  --grad-card:linear-gradient(160deg,rgba(139,92,255,.14),rgba(255,45,111,.06));
+
+  --radius:22px;
+  --maxw:1180px;
+  --shadow-soft:0 24px 60px -28px rgba(11,10,34,.5);
+  --shadow-glow:0 20px 60px -18px rgba(139,92,255,.55);
+  --shadow-green:0 16px 44px -14px rgba(37,211,102,.6);
+
+  font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+section{overflow-x:clip}
+body{
+  background:var(--surface);
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  line-height:1.55;
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+em{font-style:normal}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+
+/* ---------- gradientes de texto & utilitários ---------- */
+.grad{
+  background:var(--grad-text);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--font-mono);
+  font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+}
+.eyebrow .dash{color:var(--grape);font-weight:700}
+.eyebrow .txt{color:var(--grape-soft)}
+.section-light .eyebrow .txt{color:var(--purple)}
+.section-light .divider-label .dash{color:var(--pink)}
+/* barra-divisora gradiente (assinatura Clint) sob o hero */
+.hero-divider{height:5px;width:100%;
+  background:linear-gradient(90deg,transparent,#FF2D6F 20%,#D11E5B 50%,#FF2D6F 80%,transparent);
+  box-shadow:0 0 24px rgba(255,45,111,.55),0 0 60px rgba(255,45,111,.3)}
+
+h1,h2,h3{letter-spacing:-.02em;line-height:1.08;font-weight:700}
+.h-sec{font-size:clamp(28px,4vw,46px);font-weight:700;max-width:20ch}
+.lead{font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:rgba(255,255,255,.72);max-width:60ch}
+.section-light .lead{color:var(--ink-soft)}
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:inherit;font-weight:600;font-size:15px;
+  border-radius:999px;padding:15px 26px;cursor:pointer;border:0;
+  transition:transform .18s ease,filter .18s ease,box-shadow .25s ease,background .2s ease;
+  white-space:nowrap;
+}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-wa{background:var(--whatsapp);color:var(--whatsapp-fg);box-shadow:var(--shadow-green)}
+.btn-wa:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.btn-wa .arw{transition:transform .2s ease}
+.btn-wa:hover .arw{transform:translateX(3px)}
+.btn-grad{background:var(--grad-brand);color:#fff;box-shadow:0 16px 40px -12px rgba(139,92,255,.6)}
+.btn-grad:hover{filter:brightness(1.06);transform:translateY(-2px)}
+.btn-grad .arw{transition:transform .2s ease}
+.btn-grad:hover .arw{transform:translateX(3px)}
+.btn-ghost{
+  background:rgba(255,255,255,.04);color:#fff;
+  border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(6px);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+.section-light .btn-ghost{background:#fff;color:var(--ink);border-color:rgba(26,23,48,.14);box-shadow:0 6px 24px -12px rgba(26,23,48,.25)}
+.section-light .btn-ghost:hover{background:#fff;box-shadow:0 12px 30px -14px rgba(26,23,48,.3)}
+.cta-caption{font-size:13.5px;color:rgba(255,255,255,.6);margin-top:10px}
+.section-light .cta-caption{color:var(--ink-soft)}
+
+/* ---------- cards glass ---------- */
+.card{
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:var(--radius);
+  padding:26px;
+  backdrop-filter:blur(10px);
+  transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(139,92,255,.4);background:rgba(255,255,255,.06)}
+.section-light .card{background:#fff;border-color:rgba(26,23,48,.08);box-shadow:0 1px 2px rgba(26,23,48,.04)}
+.section-light .card:hover{box-shadow:0 26px 50px -24px rgba(26,23,48,.22);border-color:rgba(139,92,255,.35)}
+
+.ico{
+  width:52px;height:52px;border-radius:15px;display:grid;place-items:center;
+  background:var(--grad-card);border:1px solid rgba(139,92,255,.28);color:var(--grape-soft);
+  margin-bottom:18px;
+}
+.ico svg{width:26px;height:26px;stroke-width:1.8}
+.section-light .ico{color:#7d5bd8;background:linear-gradient(160deg,rgba(139,92,255,.12),rgba(255,45,111,.06));border-color:rgba(139,92,255,.22)}
+
+/* ---------- seções ---------- */
+section{position:relative}
+.section-dark{background:var(--surface);color:#fff}
+.section-deeper{background:var(--surface-2)}
+.section-light{background:var(--paper);color:var(--ink)}
+.pad{padding:96px 0}
+.pad-sm{padding:72px 0}
+
+.divider-label{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+.divider-label .dash{color:var(--pink);font-size:20px;line-height:1}
+.divider-label .lbl{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.section-light .divider-label .lbl{color:#8a86a0}
+
+/* efeitos de fundo */
+.glow-top{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.glow-top::before{
+  content:"";position:absolute;top:-260px;left:50%;transform:translateX(-50%);
+  width:900px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,255,.5),transparent 60%);
+  filter:blur(120px);opacity:.55;
+}
+.grid-bg{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(to right,rgba(255,255,255,.045) 1px,transparent 1px),
+                   linear-gradient(to bottom,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:58px 58px;
+  -webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 78%);
+  mask-image:radial-gradient(circle at 50% 30%,#000,transparent 78%);
+}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.5}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header{
+  position:sticky;top:0;z-index:60;
+  backdrop-filter:blur(14px);
+  background:rgba(11,10,34,.72);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{font-size:24px;font-weight:700;letter-spacing:-.04em}
+.logo .dot{color:var(--pink)}
+.brand .pill{
+  font-family:var(--font-mono);
+  font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 10px;border-radius:999px;color:var(--grape-soft);
+  background:rgba(139,92,255,.14);border:1px solid rgba(139,92,255,.3);
+}
+.nav-links{display:flex;gap:30px;font-size:14px;font-weight:500}
+.nav-links a{color:rgba(255,255,255,.7);transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav .btn{padding:11px 20px;font-size:14px}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{overflow:hidden}
+.hero .wrap{padding-top:72px;padding-bottom:88px}
+.hero-center{max-width:860px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero h1{font-size:clamp(34px,5.2vw,62px);font-weight:800;line-height:1.04;letter-spacing:-.03em;margin:26px 0 22px}
+.hero h1 em{font-style:italic;font-weight:700}
+.hero .lead{font-size:clamp(16px,1.5vw,20px);margin-left:auto;margin-right:auto}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:20px;margin-top:36px;justify-content:center}
+.hero-cta-group{display:flex;flex-direction:column;align-items:center}
+.trust-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;justify-content:center}
+
+/* hero video */
+.hero-video{max-width:920px;margin:60px auto 0;position:relative;border-radius:24px;padding:1px;
+  background:linear-gradient(135deg,rgba(255,45,111,.65),transparent 42%,transparent 58%,rgba(78,58,255,.65))}
+.video-facade{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;cursor:pointer;
+  border-radius:23px;overflow:hidden;background:linear-gradient(160deg,#1a1248,#0e0b2e)}
+.video-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.video-facade::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,transparent,rgba(11,10,34,.6))}
+.video-play{position:absolute;z-index:2;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:84px;height:84px;border-radius:50%;display:grid;place-items:center;
+  background:var(--grad-brand);box-shadow:0 22px 55px -10px rgba(139,92,255,.75);transition:transform .2s ease}
+.video-play svg{width:32px;height:32px;color:#fff;fill:#fff;margin-left:5px}
+.video-facade:hover .video-play{transform:translate(-50%,-50%) scale(1.09)}
+.hero-video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:23px;display:block}
+.stat-pill{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 22px;border-radius:16px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);
+}
+.stat-pill .num{font-size:30px;font-weight:800;line-height:1}
+.stat-pill .lbl{font-size:13px;color:rgba(255,255,255,.66);max-width:16ch;line-height:1.35}
+
+/* hero mockup - telefone */
+.phone{
+  position:relative;width:308px;margin:0 auto;color:#fff;
+  border-radius:42px;padding:12px;
+  background:linear-gradient(160deg,#1c1846,#100e30);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:var(--shadow-glow),0 50px 90px -40px rgba(0,0,0,.7);
+}
+.phone-screen{
+  border-radius:32px;overflow:hidden;background:#0a0820;
+  height:560px;display:flex;flex-direction:column;
+}
+.wa-top{display:flex;align-items:center;gap:12px;padding:16px 16px;background:#141140;border-bottom:1px solid rgba(255,255,255,.06)}
+.wa-avatar{width:40px;height:40px;border-radius:50%;background:var(--grad-brand);display:grid;place-items:center;font-weight:700;font-size:15px;flex:none;overflow:hidden}
+.wa-avatar img{width:100%;height:100%;object-fit:cover}
+.wa-top .who{font-size:14px;font-weight:600}
+.wa-top .st{font-size:11px;color:var(--whatsapp)}
+.wa-body{flex:1;padding:18px 14px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;scroll-behavior:smooth;
+  background:radial-gradient(circle at 30% 0%,rgba(139,92,255,.1),transparent 60%),#0a0820}
+.wa-body::-webkit-scrollbar{width:0;height:0}
+.wa-body{scrollbar-width:none}
+.bubble{max-width:82%;padding:11px 14px;border-radius:16px;font-size:13px;line-height:1.45;position:relative;
+  animation:bubble-in .38s ease-out both}
+.bubble.in{align-self:flex-start;background:#211d52;border-bottom-left-radius:5px;color:#eae7ff}
+.bubble.out{align-self:flex-end;background:var(--grape);border-bottom-right-radius:5px;color:#fff}
+.bubble .t{font-size:10px;opacity:.6;display:block;text-align:right;margin-top:4px}
+.bubble.typing{padding:14px 16px}
+.bubble.typing .dots{display:inline-flex;gap:5px;align-items:center}
+.bubble.typing i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);display:block;animation:dot-bounce 1.2s infinite}
+.bubble.typing i:nth-child(2){animation-delay:.15s}
+.bubble.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bubble-in{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes dot-bounce{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
+.floaty{position:absolute;z-index:5;background:rgba(21,18,58,.9);border:1px solid rgba(139,92,255,.35);
+  border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:11px;backdrop-filter:blur(10px);
+  box-shadow:var(--shadow-soft);font-size:13px;font-weight:600}
+.floaty .fico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none}
+.f-1{top:24px;left:-46px}
+.f-2{bottom:60px;right:-52px}
+@media(max-width:1080px){.f-1{left:-16px}.f-2{right:-16px}}
+@media(max-width:520px){.f-1,.f-2{display:none}}
+.hero-mock{position:relative}
+.float-anim{animation:floaty 6s ease-in-out infinite}
+.float-anim.delay{animation-delay:-3s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* ============================================================
+   PROBLEMAS
+   ============================================================ */
+.prob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
+@media(max-width:760px){.prob-grid{grid-template-columns:1fr}}
+.prob-card h3{font-size:19px;margin-bottom:10px;font-weight:600}
+.prob-card p{font-size:15px;color:var(--ink-soft);line-height:1.55}
+.prob-card .ico{color:var(--pink);background:linear-gradient(160deg,rgba(255,45,111,.12),rgba(255,45,111,.04));border-color:rgba(255,45,111,.25)}
+.intro-note{font-size:clamp(17px,1.8vw,21px);font-weight:500;color:var(--ink);max-width:52ch;margin-top:18px;line-height:1.5}
+
+/* ============================================================
+   PASSOS (timeline)
+   ============================================================ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:52px}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+.step{position:relative}
+.step .num{
+  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+  font-weight:800;font-size:18px;color:#fff;background:var(--grad-brand);
+  box-shadow:var(--shadow-glow);margin-bottom:20px;
+}
+.step h3{font-size:18px;font-weight:600;margin-bottom:10px}
+.step p{font-size:14.5px;color:rgba(255,255,255,.68);line-height:1.55}
+.step .connector{position:absolute;top:23px;left:60px;right:-10px;height:2px;
+  background:linear-gradient(to right,rgba(139,92,255,.5),rgba(139,92,255,0))}
+@media(max-width:900px){.step .connector{display:none}}
+.steps-cta{margin-top:52px;display:flex;justify-content:center}
+
+/* ============================================================
+   CONVERSA (Na prática)
+   ============================================================ */
+.pratica-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:8px}
+@media(max-width:900px){.pratica-grid{grid-template-columns:1fr;gap:44px}}
+.pratica-copy .intro-note{max-width:42ch}
+.pratica-badge{display:inline-flex;align-items:center;gap:9px;margin-top:26px;padding:10px 18px;border-radius:999px;
+  background:var(--whatsapp);color:var(--whatsapp-fg);font-size:13px;font-weight:600;box-shadow:var(--shadow-green)}
+.pratica-badge svg{width:16px;height:16px}
+.pratica-phone{display:flex;justify-content:center}
+
+/* ============================================================
+   SISTEMA COMPLETO (features) — linhas em zigzag, fundo claro
+   ============================================================ */
+.sys-rows{display:flex;flex-direction:column;gap:clamp(52px,7vw,96px);margin-top:60px}
+.sys-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.sys-row:nth-child(even) .sys-media{order:-1}
+.sys-media{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;
+  background:#EEF0F7;border:1px solid rgba(26,23,48,.07);
+  box-shadow:0 34px 64px -30px rgba(26,23,48,.22)}
+.sys-media video{width:100%;height:100%;object-fit:cover;display:block}
+.sys-copy h3{font-size:clamp(20px,2vw,26px);font-weight:700;color:var(--ink);margin-bottom:10px}
+.sys-copy p{font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:46ch}
+.chan-icons{display:flex;gap:8px;margin-top:16px}
+.chan-icons span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(26,23,48,.05);border:1px solid rgba(26,23,48,.08)}
+.chan-icons svg{width:18px;height:18px}
+@media(max-width:760px){
+  .sys-row{grid-template-columns:1fr;gap:20px}
+  .sys-row .sys-copy{order:1}
+  .sys-row .sys-media{order:2}
+}
+
+/* ============================================================
+   COMPARATIVO
+   ============================================================ */
+.cmp{max-width:940px;margin:52px auto 0;border-radius:24px;overflow:hidden;background:#fff;
+  border:1px solid rgba(26,23,48,.1);box-shadow:0 36px 80px -44px rgba(26,23,48,.42)}
+.cmp-head{display:grid;grid-template-columns:1fr 1fr}
+.cmp-head>div{padding:22px 26px;font-weight:700;font-size:15px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.cmp-head .others{background:#F2F0FA;color:#3b3655;text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-family:var(--font-mono);font-weight:600;border-right:1px solid rgba(26,23,48,.08)}
+.cmp-head .clint{background:linear-gradient(135deg,#FFFFFF 0%,#F8F3FF 58%,#FFE8F0 100%);color:var(--ink);text-transform:uppercase;letter-spacing:.16em;font-size:12px}
+.cmp-logo{height:22px;width:auto}
+.cmp-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(26,23,48,.08)}
+.cmp-row>div{padding:20px 26px;font-size:14.5px;line-height:1.5;display:flex;gap:12px;align-items:flex-start}
+.cmp-row .others{background:#fff;color:#5d5871;border-right:1px solid rgba(26,23,48,.08)}
+.cmp-row .clint{background:#FBFAFF;color:var(--ink);font-weight:600}
+.cmp-row .mk{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+.cmp-row .mk.no{background:rgba(255,45,111,.12);color:#D11E5B}
+.cmp-row .mk.yes{background:rgba(37,211,102,.16);color:#0A8D42}
+.cmp-row .mk svg{width:13px;height:13px;stroke-width:3}
+@media(max-width:640px){.cmp-row>div,.cmp-head>div{padding:15px 16px;font-size:13px}}
+
+/* ============================================================
+   RESULTADO / DEPOIMENTOS
+   ============================================================ */
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:52px}
+@media(max-width:800px){.testi-grid{grid-template-columns:1fr}}
+.testi{padding:0;border-radius:24px;background:var(--grad-card);border:1px solid rgba(139,92,255,.2);position:relative;overflow:hidden}
+.section-light .testi{background:#fff;border-color:rgba(26,23,48,.08);box-shadow:var(--shadow-soft)}
+.testi .quote-mark{font-size:80px;line-height:.6;font-weight:800;color:rgba(139,92,255,.25);position:absolute;top:22px;right:26px}
+.testi-media{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;cursor:pointer;overflow:hidden;background:#100d33}
+.testi-media video,.testi-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1.02);pointer-events:none}
+.testi-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,34,.02),rgba(11,10,34,.38))}
+.testi-media .video-play{width:68px;height:68px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.68);
+  -webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
+  box-shadow:0 22px 48px -20px rgba(0,0,0,.65),inset 0 1px 1px rgba(255,255,255,.8)}
+.testi-content{padding:30px 34px 34px;position:relative}
+.testi blockquote{font-size:clamp(19px,2vw,24px);font-weight:600;line-height:1.4;position:relative;z-index:1}
+.section-light .testi blockquote{color:var(--ink)}
+.testi .who{display:flex;align-items:center;gap:14px;margin-top:26px}
+.testi .av{width:54px;height:54px;border-radius:50%;background:var(--grad-brand);display:grid;place-items:center;font-weight:700;font-size:19px;color:#fff;flex:none;overflow:hidden}
+.testi .av img{width:100%;height:100%;object-fit:cover}
+.testi .who .nm{font-size:15px;font-weight:600}
+.section-light .testi .who .nm{color:var(--ink)}
+.testi .who .rl{font-size:13.5px;color:var(--ink-soft)}
+.section-dark .testi .who .rl{color:rgba(255,255,255,.6)}
+.result-lead{max-width:60ch;margin-top:18px}
+.play-badge{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:inherit;font-size:13px;color:rgba(255,255,255,.66);font-weight:500;
+  border:0;background:transparent;padding:0;cursor:pointer}
+.play-badge:hover{color:#fff}
+.play-badge .pb{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.52);display:grid;place-items:center;
+  -webkit-backdrop-filter:blur(10px) saturate(150%);backdrop-filter:blur(10px) saturate(150%)}
+.play-badge svg{width:13px;height:13px;fill:#fff;color:#fff}
+
+/* ============================================================
+   PRÓXIMO PASSO + FORM
+   ============================================================ */
+.next-grid{display:grid;grid-template-columns:1fr .95fr;gap:56px;align-items:center}
+@media(max-width:860px){.next-grid{grid-template-columns:1fr;gap:32px}}
+.next-copy{display:flex;flex-direction:column}
+.next-copy .h-sec{margin-top:14px}
+.next-copy .lead{margin-top:18px;font-size:clamp(17px,1.6vw,21px)}
+.next-copy .btn{margin-top:28px;align-self:flex-start}
+.form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.11);border-radius:24px;padding:34px;backdrop-filter:blur(10px)}
+.form-card.typebot-card{padding:26px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.55)}
+.form-card.typebot-card h3{margin-bottom:16px}
+.form-card.typebot-card iframe{border-radius:14px;display:block;height:560px}
+@media(max-width:480px){.form-card.typebot-card iframe{height:520px}}
+.form-card h3{font-size:20px;font-weight:600;margin-bottom:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:7px}
+.field input{width:100%;padding:14px 16px;border-radius:13px;border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-size:15px;transition:border-color .2s,background .2s}
+.field input::placeholder{color:rgba(255,255,255,.35)}
+.field input:focus{outline:none;border-color:var(--grape);background:rgba(139,92,255,.08)}
+.form-card .btn{width:100%;justify-content:center;margin-top:8px}
+.next-copy .btn{margin-top:28px}
+.next-highlight{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:15px;color:rgba(255,255,255,.75)}
+.next-highlight .hi{width:38px;height:38px;border-radius:11px;background:var(--grad-card);border:1px solid rgba(139,92,255,.3);display:grid;place-items:center;flex:none;color:var(--grape-soft)}
+.next-highlight svg{width:20px;height:20px}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq{max-width:820px;margin:48px auto 0;display:flex;flex-direction:column;gap:14px}
+.faq-item{border:1px solid rgba(26,23,48,.1);border-radius:18px;background:#fff;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.faq-item[open]{border-color:rgba(139,92,255,.4);box-shadow:0 18px 40px -22px rgba(26,23,48,.25)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;font-weight:600;font-size:16.5px;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .qi{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;background:var(--paper-2);color:#7d5bd8;transition:transform .25s ease,background .2s}
+.faq-item[open] summary .qi{transform:rotate(45deg);background:var(--grad-brand);color:#fff}
+.faq summary .qi svg{width:16px;height:16px;stroke-width:2.4}
+.faq .ans{padding:0 26px 24px;font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:64ch}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:var(--surface-2);border-top:1px solid rgba(255,255,255,.07);padding:52px 0 40px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.foot .brand{flex-direction:column;align-items:flex-start;gap:12px}
+.foot-logo{height:24px;width:auto;display:block;filter:brightness(0) invert(1)}
+.foot .tag{font-size:14px;color:rgba(255,255,255,.5);max-width:38ch}
+.foot .btn{padding:12px 22px;font-size:14px}
+.foot-bottom{margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.4)}
+.meta-badge{height:54px;width:auto;display:block;opacity:1;filter:brightness(0) invert(1)}
+@media(max-width:560px){.meta-badge{height:42px}}
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .float-anim,.brain-glow,.play-orb::before{animation:none}
+}
+
+/* ============================================================
+   HEADER — transparente sobre o hero claro, vidro ao rolar
+   ============================================================ */
+header{position:fixed;top:0;left:0;right:0;background:transparent;border-bottom:1px solid transparent;box-shadow:none;
+  transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
+header.scrolled{background:rgba(245,244,250,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(26,23,48,.08);box-shadow:0 12px 34px -20px rgba(26,23,48,.3)}
+.logo{color:var(--ink)}
+header .btn-wa{text-transform:none;letter-spacing:normal;font-size:14px;padding:12px 22px}
+header .btn-wa svg{width:17px;height:17px}
+
+/* ============================================================
+   HERO — spec Figma 1440×810 (posições em % do hero)
+   ============================================================ */
+.logo-img{height:22px;width:auto;display:block}
+
+.lhero{position:relative;overflow:hidden;isolation:isolate;color:var(--ink);
+  height:max(680px,min(100vh,56.25vw));
+  background:radial-gradient(115% 130% at 30% 0%, #EDF1F7 0%, #E2E8F1 44%, #D5DDE9 100%)}
+
+/* fundo decorativo: anéis concêntricos + tick ring + watermark */
+.lhero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ring{position:absolute;left:68.6%;top:50.4%;transform:translate(-50%,-50%);
+  border-radius:50%;aspect-ratio:1;pointer-events:none}
+.ring-1{width:78vw;border:1.5px solid rgba(255,255,255,.75)}
+.ring-2{width:93vw;border:1px solid rgba(255,255,255,.45)}
+.ring-dash{width:35vw;border:1.5px dashed rgba(255,255,255,.65)}
+.lhero-watermark{position:absolute;left:-2%;bottom:-14%;font-weight:800;letter-spacing:-.02em;
+  font-size:24vw;line-height:.8;color:rgba(255,255,255,.4);user-select:none}
+
+/* zona do cérebro — full-bleed no desktop (posições = % do hero, spec 1440×810) */
+.brain-zone{position:absolute;inset:0;z-index:1}
+.brain-video{position:absolute;left:16.6%;top:6.2%;width:94.6%;aspect-ratio:16/9;
+  object-fit:cover;pointer-events:none;filter:saturate(1.05) brightness(1.02);
+  -webkit-mask-image:radial-gradient(ellipse 56% 58% at 54% 47%, #000 60%, transparent 86%);
+          mask-image:radial-gradient(ellipse 56% 58% at 54% 47%, #000 60%, transparent 86%)}
+
+/* ---- glassmorphism real ---- */
+.glass{position:absolute;z-index:5;border-radius:24px;color:#fff;overflow:hidden;
+  background:linear-gradient(135deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.2) 100%);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 28px 60px -26px rgba(35,48,90,.4),
+    inset 0 1px 1px rgba(255,255,255,.75),
+    inset 0 -22px 38px -26px rgba(255,255,255,.45);
+  text-shadow:0 1px 3px rgba(25,35,65,.3)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 30%);opacity:.55}
+
+/* card IA — spec: x545 y150 w230 h175 */
+.fc-ia{left:37.85%;top:18.5%;width:clamp(190px,16vw,246px);padding:1.25vw 1.4vw 1.1vw}
+.fc-ia-head{display:flex;align-items:center;gap:.9vw}
+.fc-ia-badge{width:clamp(46px,4.45vw,68px);height:clamp(46px,4.45vw,68px);flex:none;border-radius:50%;
+  display:grid;place-items:center;background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 8px 20px -10px rgba(35,48,90,.35)}
+.fc-ia-badge svg{width:64%;height:64%;
+  filter:drop-shadow(0 1px 2px rgba(25,35,65,.3))}
+.fc-ia-text{display:flex;flex-direction:column;line-height:1.2}
+.fc-ia-text strong{font-size:clamp(20px,2vw,30px);font-weight:700}
+.fc-ia-text span{font-size:clamp(10px,.82vw,12.5px);opacity:.92}
+.fc-wave{width:100%;height:clamp(26px,2.6vw,40px);margin-top:.9vw;overflow:visible}
+.fc-wave path{stroke:rgba(255,255,255,.95);stroke-width:2;fill:none;stroke-linecap:round;
+  filter:drop-shadow(0 1px 2px rgba(25,35,65,.25))}
+.fc-wave circle{fill:#fff}
+
+/* play orb — spec: centro (893,405) Ø132 */
+.play-orb{position:absolute;z-index:6;left:62%;top:50%;transform:translate(-50%,-50%);
+  width:clamp(96px,9.2vw,140px);aspect-ratio:1;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;border:1px solid rgba(255,255,255,.65);
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.45),rgba(255,255,255,.12) 60%,rgba(255,255,255,.22));
+  -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
+  box-shadow:0 24px 60px -20px rgba(35,48,90,.45),inset 0 1px 1px rgba(255,255,255,.8),
+    inset 0 -14px 24px -18px rgba(255,255,255,.5);
+  transition:transform .22s ease}
+.play-orb svg{width:30%;height:30%;color:#fff;fill:#fff;margin-left:6%;
+  filter:drop-shadow(0 2px 4px rgba(25,35,65,.35))}
+.play-orb:hover{transform:translate(-50%,-50%) scale(1.06)}
+
+/* card 24/7 — spec: x1090 y402 w230 h166 */
+.fc-stat{left:75.7%;top:49.6%;width:clamp(190px,16vw,246px);
+  padding:1.1vw 1.2vw 1.25vw;text-align:center}
+.fc-gauge{width:clamp(110px,10.4vw,160px);height:auto;margin:0 auto -4px;display:block;overflow:visible}
+.fc-gauge line{stroke:rgba(255,255,255,.9);stroke-width:2;stroke-linecap:round}
+.fc-num{font-size:clamp(28px,2.8vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff}
+.fc-lbl{font-size:clamp(10px,.82vw,12.5px);opacity:.92;margin-top:5px}
+
+/* bloco de texto — spec: x36 y158 */
+.lhero-copy{position:absolute;z-index:8;left:2.5%;top:18.8%;width:min(38vw,540px)}
+.lhero-title{font-weight:700;line-height:1.06;letter-spacing:-.008em;white-space:nowrap;
+  text-transform:uppercase;color:#2E3A56;font-size:clamp(24px,3.15vw,48px)}
+.lhero-title .ghost{display:block;font-family:'Poppins',sans-serif;font-weight:600;
+  font-size:1.36em;line-height:1.02;letter-spacing:-.008em;
+  background:linear-gradient(180deg,#9BADC7 0%,#444D8E 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 1px 1px rgba(255,255,255,.55))}
+.lhero-sub{margin-top:1.6vw;max-width:28.6vw;font-size:clamp(13px,1.15vw,17.5px);
+  line-height:1.5;color:#46536F}
+.lhero-ctas{display:flex;flex-wrap:wrap;gap:1.5vw;margin-top:2.6vw;width:max-content;max-width:60vw}
+.lhero-ctas .hero-cta-group{width:344px;max-width:100%}
+.lhero-ctas .btn{width:100%;height:54px;padding-top:0;padding-bottom:0;justify-content:center;border:1px solid transparent;line-height:1}
+.lhero .cta-caption{color:#55607A}
+/* CTA secundário em vidro (spec Figma) */
+.btn-glass{background:rgba(255,255,255,.42);color:#26324F;
+  border:1px solid rgba(255,255,255,.75);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
+  box-shadow:0 14px 34px -20px rgba(35,48,90,.45),inset 0 1px 1px rgba(255,255,255,.8)}
+.btn-glass:hover{background:rgba(255,255,255,.58);transform:translateY(-2px)}
+
+/* modal de vídeo — grande, quase página inteira */
+.vmodal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:16px;
+  background:rgba(8,7,25,.88);backdrop-filter:blur(12px);opacity:0;transition:opacity .25s ease}
+.vmodal.open{display:flex;opacity:1}
+.vmodal-inner{position:relative;width:min(97vw,calc(94vh*16/9));aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#000;box-shadow:0 60px 140px -30px rgba(0,0,0,.9);
+  transform:scale(.97);transition:transform .25s ease}
+.vmodal.open .vmodal-inner{transform:scale(1)}
+.vmodal-inner.is-file{width:min(96vw,1180px);aspect-ratio:16/9;max-height:92vh}
+.vmodal-slot{width:100%;height:100%}
+.vmodal-inner iframe,.vmodal-inner video{width:100%;height:100%;border:0;display:block;background:#000}
+.vmodal-inner video{object-fit:contain}
+.vmodal-close{position:absolute;z-index:2;top:14px;right:14px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.4);cursor:pointer;
+  background:rgba(20,20,30,.55);color:#fff;display:grid;place-items:center;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .2s ease}
+.vmodal-close:hover{background:rgba(255,45,111,.75)}
+.vmodal-close svg{width:20px;height:20px}
+
+/* responsivo */
+@media(max-width:640px){
+  .nav-cta .nav-cta-label{display:none}
+  .nav-cta{padding:12px;gap:0}
+  .nav-cta svg{width:18px;height:18px}
+}
+@media(max-width:1080px){
+  .lhero{height:auto;display:flex;flex-direction:column;padding-top:96px}
+  .lhero-copy{position:static;order:-1;width:auto;max-width:640px;margin:0 auto;padding:0 22px;text-align:center}
+  .lhero-title{font-size:clamp(30px,7.4vw,44px)}
+  .lhero-title .ghost{font-size:1.22em}
+  .lhero-sub{max-width:52ch;margin:18px auto 0;font-size:15.5px}
+  .lhero-ctas{justify-content:center;margin:26px auto 0;gap:18px;width:auto;max-width:none}
+  .brain-zone{position:relative;inset:auto;width:100%;max-width:680px;margin:6px auto 0;aspect-ratio:4/3}
+  .brain-video{left:50%;top:50%;width:165%;transform:translate(-50%,-50%);
+    -webkit-mask-image:radial-gradient(ellipse 42% 48% at 50% 47%, #000 55%, transparent 80%);
+            mask-image:radial-gradient(ellipse 42% 48% at 50% 47%, #000 55%, transparent 80%)}
+  .fc-ia{left:2%;top:5%;width:200px;padding:14px 16px 12px}
+  .fc-ia-head{gap:10px}
+  .fc-wave{margin-top:10px}
+  .play-orb{left:50%;top:48%;width:96px}
+  .fc-stat{left:auto;right:2%;top:auto;bottom:6%;width:196px;padding:12px 14px 14px}
+  .ring{left:50%;top:44%}
+  .ring-1{width:120vw}.ring-2{display:none}.ring-dash{width:70vw}
+  .lhero-watermark{font-size:40vw;bottom:-8%}
+}
+@media(max-width:560px){
+  .brain-zone{aspect-ratio:1/1.05;max-width:none}
+  .brain-video{width:190%}
+  .fc-ia{width:170px;top:3%}
+  .fc-ia-badge{width:42px;height:42px}
+  .fc-ia-text strong{font-size:15px}.fc-ia-text span{font-size:10px}
+  .play-orb{width:84px}
+  .fc-stat{width:158px;bottom:3%}
+  .fc-gauge{width:104px}.fc-num{font-size:28px}.fc-lbl{font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <a href="#topo" aria-label="Clint"><img class="logo-img" src="/Logo%20Clint.svg" alt="Clint" /></a>
+    </div>
+    <a class="btn btn-wa nav-cta" href="#proximo-passo" aria-label="Falar com a IA no WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+      <span class="nav-cta-label">Falar com a IA no WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<!-- ===================== HERO (spec Figma 1440×810) ===================== -->
+<section class="lhero" id="topo">
+  <div class="lhero-bg" aria-hidden="true">
+    <span class="ring ring-1"></span>
+    <span class="ring ring-2"></span>
+    <span class="ring ring-dash"></span>
+    <span class="lhero-watermark">IA</span>
+  </div>
+
+  <!-- zona do cérebro: vídeo + play + cards -->
+  <div class="brain-zone">
+    <video class="brain-video" src="/Human_brain_with_glowing_energy.mp4" autoplay loop muted playsinline preload="auto" aria-hidden="true"></video>
+
+    <button class="play-orb" type="button" aria-label="Assistir ao vídeo" data-embed="https://www.youtube.com/embed/lMQhW_iArJg?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+
+    <div class="glass fc-ia reveal">
+      <div class="fc-ia-head">
+        <span class="fc-ia-badge">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 8c1.2 6.5 3.5 8.8 10 10-6.5 1.2-8.8 3.5-10 10-1.2-6.5-3.5-8.8-10-10 6.5-1.2 8.8-3.5 10-10Z"/>
+            <path d="M33 26c.8 4.3 2.3 5.9 6.6 6.6-4.3.8-5.9 2.3-6.6 6.6-.8-4.3-2.3-5.9-6.6-6.6 4.3-.8 5.9-2.3 6.6-6.6Z"/>
+          </svg>
+        </span>
+        <div class="fc-ia-text"><strong>IA</strong><span>resolve ações repetitivas</span></div>
+      </div>
+      <svg class="fc-wave" viewBox="0 0 190 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M2 26 C 20 26, 26 12, 44 12 S 72 32, 94 24 S 126 8, 148 14 S 180 22, 188 18"/>
+        <circle cx="44" cy="12" r="3"/>
+        <circle cx="94" cy="24" r="3"/>
+      </svg>
+    </div>
+
+    <div class="glass fc-stat reveal">
+      <svg class="fc-gauge" viewBox="0 0 200 104" aria-hidden="true">
+        <g id="gauge-ticks"></g>
+      </svg>
+      <div class="fc-num">24/7</div>
+      <div class="fc-lbl">sem depender de recepção</div>
+    </div>
+  </div>
+
+  <div class="lhero-copy reveal">
+    <h1 class="lhero-title">O software<br>para clínicas<br><span class="ghost">médicas</span>que sempre lembra<br>do paciente</h1>
+    <p class="lhero-sub">Sistema que confirma consulta sozinho, chama o paciente de volta na hora certa e recupera quem sumiu há meses usando IA. Sem depender de recepcionista correndo atrás de todo mundo.</p>
+
+    <div class="lhero-ctas">
+      <div class="hero-cta-group">
+        <a class="btn btn-wa" href="#proximo-passo">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+          Falar com a IA no WhatsApp <span class="arw">→</span>
+        </a>
+        <span class="cta-caption">Teste a IA que vai funcionar na sua clínica</span>
+      </div>
+      <div class="hero-cta-group">
+        <a class="btn btn-glass" href="#proximo-passo">Marcar conversa com especialista <span>→</span></a>
+        <span class="cta-caption">Nosso especialista em clínicas te atende</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- modal de vídeo -->
+<div class="vmodal" id="videoModal" role="dialog" aria-modal="true" aria-label="Vídeo">
+  <div class="vmodal-inner">
+    <button class="vmodal-close" type="button" aria-label="Fechar vídeo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="vmodal-slot"></div>
+  </div>
+</div>
+
+<!-- ===================== O DIA A DIA ===================== -->
+<section id="dia-a-dia" class="section-light pad">
+  <div class="wrap">
+    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">O dia a dia da clínica</span></div>
+    <h2 class="h-sec reveal">Alguma dessas situações já aconteceu na sua clínica</h2>
+    <p class="intro-note reveal">Não é sobre atrair paciente novo, mas não deixar o paciente que você já tem escapar pela sua agenda.</p>
+
+    <div class="prob-grid">
+      <div class="card prob-card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+        </div>
+        <h3>Paciente marca e não aparece</h3>
+        <p>Ele agenda com duas semanas de antecedência, esquece, ninguém confirma direito.</p>
+      </div>
+      <div class="card prob-card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 5 5M22 8l-5 5"/></svg>
+        </div>
+        <h3>Paciente some depois da consulta</h3>
+        <p>O médico pede retorno em 30 dias. Ele esquece e ninguém liga.</p>
+      </div>
+      <div class="card prob-card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4M18 12h4M12 2v4M12 18v4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg>
+        </div>
+        <h3>Tem paciente parado no sistema há meses</h3>
+        <p>Fica esquecido, enquanto você paga anúncio pra atrair gente nova pelo mesmo motivo.</p>
+      </div>
+      <div class="card prob-card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
+        <h3>A recepção não dá conta de tudo</h3>
+        <p>Confirmar consulta, marcar e remarcar horário, responder WhatsApp e ainda cuidar de quem chega na clínica. Uma pessoa só não segura isso o dia inteiro, todo dia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMO RESOLVE (passos) ===================== -->
+<section id="como-resolve" class="section-dark pad">
+  <div class="grid-bg"></div>
+  <div class="orb" style="width:400px;height:400px;background:#8B5CFF;top:0;right:-140px;opacity:.28"></div>
+  <div class="wrap">
+    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">Como o sistema da Clint resolve</span></div>
+    <h2 class="h-sec reveal">Quatro passos, sem complicação</h2>
+
+    <div class="steps">
+      <div class="step reveal">
+        <span class="connector"></span>
+        <div class="num">1</div>
+        <h3>Paciente chama</h3>
+        <p>Alguém responde na hora, mesmo fora do horário de expediente da clínica.</p>
+      </div>
+      <div class="step reveal">
+        <span class="connector"></span>
+        <div class="num">2</div>
+        <h3>Consulta confirmada</h3>
+        <p>Confirmação automática 48h e 4h antes, com opção de reagendar em 1 toque.</p>
+      </div>
+      <div class="step reveal">
+        <span class="connector"></span>
+        <div class="num">3</div>
+        <h3>Retorno agendado</h3>
+        <p>No prazo indicado pelo médico, o paciente é chamado de volta sem precisar que alguém lembre.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">4</div>
+        <h3>Perguntas repetitivas</h3>
+        <p>“Quanto custa”, “qual endereço”, “atendem convênio ‘x’” etc. A IA responde tudo, sem depender da recepção.</p>
+      </div>
+    </div>
+
+    <div class="steps-cta reveal">
+      <a class="btn btn-wa" href="#proximo-passo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+        Falar com a IA no WhatsApp <span class="arw">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NA PRÁTICA (conversa) ===================== -->
+<section class="section-light pad">
+  <div class="wrap">
+    <div class="pratica-grid">
+      <div class="pratica-copy reveal">
+        <div class="divider-label"><span class="dash">—</span><span class="lbl">Na prática</span></div>
+        <h2 class="h-sec">Veja como fica uma conversa de verdade</h2>
+        <p class="intro-note">O paciente chama no WhatsApp e a Inteligência Artificial cuida de tudo.</p>
+        <span class="pratica-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+          WhatsApp · Clara, agente inteligente da Clint
+        </span>
+      </div>
+
+      <div class="pratica-phone reveal">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="wa-top">
+              <div class="wa-avatar"><img src="/ia-clint.webp" alt="Clara" /></div>
+              <div>
+                <div class="who">Clara · Clint Saúde</div>
+                <div class="st">● online agora</div>
+              </div>
+            </div>
+            <div class="wa-body" id="chatAnim" aria-label="Exemplo de conversa"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SISTEMA COMPLETO ===================== -->
+<section id="sistema" class="section-light pad">
+  <div class="wrap">
+    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">O sistema completo</span></div>
+    <h2 class="h-sec reveal">A mesma IA que atende seu paciente mora aqui dentro</h2>
+    <p class="lead reveal" style="margin-top:16px">A inteligência que sempre lembra do paciente está dentro da plataforma da Clint, junto dos recursos que toda clínica precisa.</p>
+
+    <div class="sys-rows">
+      <div class="sys-row">
+        <div class="sys-copy reveal">
+          <h3>Kanban visual</h3>
+          <p>Veja de relance quem confirmou, quem falta confirmar e quem já foi atendido.</p>
+        </div>
+        <div class="sys-media reveal">
+          <video autoplay loop muted playsinline preload="auto">
+            <source src="https://legacy2025.b-cdn.net/16x9_ANIM_lead-avanc%CC%A7ando-funil%20(1).mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="sys-row">
+        <div class="sys-copy reveal">
+          <h3>CRM</h3>
+          <p>Cada paciente com histórico, consulta e status num só lugar. Sua recepção não precisa mais perguntar quem é o paciente antes de atender.</p>
+        </div>
+        <div class="sys-media reveal">
+          <video autoplay loop muted playsinline preload="auto">
+            <source src="https://clintsite.b-cdn.net/video-funil-levantada-de-mao-compress-final.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="sys-row">
+        <div class="sys-copy reveal">
+          <h3>WhatsApp e Instagram</h3>
+          <p>Paciente fala pelo canal que já usa todo dia e a conversa cai no mesmo lugar, sem você abrir três telas diferentes.</p>
+          <div class="chan-icons">
+            <span style="color:#3ee27f"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg></span>
+            <span style="color:#e879b9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></span>
+          </div>
+        </div>
+        <div class="sys-media reveal">
+          <video autoplay loop muted playsinline preload="auto">
+            <source src="https://clintsite.b-cdn.net/tela01-compress.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="sys-row">
+        <div class="sys-copy reveal">
+          <h3>SMS, Flash e voz</h3>
+          <p>Quem não abre o WhatsApp a tempo recebe a confirmação por SMS, mensagem rápida ou ligação. Ninguém perde o horário por falta de aviso.</p>
+        </div>
+        <div class="sys-media reveal">
+          <video autoplay loop muted playsinline preload="auto">
+            <source src="https://clintsite.b-cdn.net/campanha-whats.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="sys-row">
+        <div class="sys-copy reveal">
+          <h3>Indicadores</h3>
+          <p>Um painel mostrando quantas consultas foram confirmadas, quantas faltaram e quantos pacientes voltaram, sem precisar somar nada na mão.</p>
+        </div>
+        <div class="sys-media reveal">
+          <video autoplay loop muted playsinline preload="auto">
+            <source src="https://landingpagesclint.b-cdn.net/monitora%20com%20clareza_v1.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== A DIFERENÇA (comparativo) ===================== -->
+<section class="section-light pad">
+  <div class="wrap">
+    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">A diferença na prática</span></div>
+    <h2 class="h-sec reveal">Entenda o que muda quando você escolhe a Clint</h2>
+    <p class="intro-note reveal">O mercado de saúde já tem vários robôs de WhatsApp. A diferença não está em ter IA, está no que essa IA consegue fazer.</p>
+
+    <div class="cmp reveal">
+      <div class="cmp-head">
+        <div class="others">Outros sistemas</div>
+        <div class="clint"><img class="cmp-logo" src="/Logo%20Clint.svg" alt="Clint" /></div>
+      </div>
+      <div class="cmp-row">
+        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Chatbot mecânico, com perguntas decoradas</div>
+        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>IA que entende o que o paciente escreve, mesmo fora do roteiro</div>
+      </div>
+      <div class="cmp-row">
+        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Roda sozinho, sem ninguém acompanhando a conversa</div>
+        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Squad da Clint calibra a operação periodicamente</div>
+      </div>
+      <div class="cmp-row">
+        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Só confirma consulta</div>
+        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Confirma consulta, chama o retorno e reativa paciente parado</div>
+      </div>
+      <div class="cmp-row">
+        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Pede pra trocar de sistema</div>
+        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Conecta com os sistemas que sua clínica já usa</div>
+      </div>
+      <div class="cmp-row">
+        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Número não oficial, risco de bloqueio no WhatsApp</div>
+        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Parceiro oficial Meta, sem risco de perder a conversa</div>
+      </div>
+      <div class="cmp-row">
+        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Bot genérico adaptado pra qualquer tipo de negócio</div>
+        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Feito pra saúde, com inteligência pra consultórios e clínicas</div>
+      </div>
+    </div>
+
+    <div class="steps-cta reveal" style="margin-top:44px">
+      <a class="btn btn-wa" href="#proximo-passo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+        Falar com a IA no WhatsApp <span class="arw">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTADO REAL ===================== -->
+<section id="resultado" class="section-dark pad">
+  <div class="grid-bg"></div>
+  <div class="orb" style="width:380px;height:380px;background:#FF2D6F;top:10%;left:-140px;opacity:.22"></div>
+  <div class="wrap">
+    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">Resultado real</span></div>
+    <h2 class="h-sec reveal">De agenda vazia pra fatura maior</h2>
+    <p class="lead result-lead reveal">Quem tinha agenda vazia e bagunçada hoje fatura mais, sem gastar mais em anúncio e sem planilha que só uma pessoa da equipe sabia usar.</p>
+
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <button class="testi-media" type="button" aria-label="Ver depoimento do Dr. Gustavo Inácio" data-embed="https://www.youtube.com/embed/eemo-c8F1Kw?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
+          <video class="testi-loop" muted loop playsinline preload="none" poster="https://cdn.prod.website-files.com/6026d425b6d9d8a3eacdbfc8/698dd706bbc129e0abd79231_Captura%20de%20Tela%202025-03-05%20a%CC%80s%2012.14.19%206.jpg" data-src="https://marketing2026.b-cdn.net/Dr.%20Gustavo%20Ina%CC%81cio%2C.mp4"></video>
+          <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <div class="testi-content">
+          <span class="quote-mark">”</span>
+          <blockquote>“Eu pensava que CRM era coisa de empresa grande. Hoje eu faturo 7x mais”.</blockquote>
+          <div class="who">
+            <div class="av"><img src="https://cdn.prod.website-files.com/6026d425b6d9d8a3eacdbfc8/698dd706bbc129e0abd79231_Captura%20de%20Tela%202025-03-05%20a%CC%80s%2012.14.19%206.jpg" alt="Dr. Gustavo Inácio" loading="lazy" /></div>
+            <div>
+              <div class="nm">Dr. Gustavo Inácio, médico urologista</div>
+              <button class="play-badge" type="button" data-embed="https://www.youtube.com/embed/eemo-c8F1Kw?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1"><span class="pb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span> Ver o depoimento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <button class="testi-media" type="button" aria-label="Ver depoimento da Dra. Michelle Cecchin" data-embed="https://www.youtube.com/embed/_910sF2_dxo?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
+          <video class="testi-loop" muted loop playsinline preload="none" poster="https://cdn.prod.website-files.com/5f906e5e35f79f2a13828e8b/663aa29568b0080b3c4f43ab_michelle-cecchin-img-avatar.png" data-src="https://marketing2026.b-cdn.net/Dra.%20Michelle%20Cecchin.mp4"></video>
+          <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <div class="testi-content">
+          <span class="quote-mark">”</span>
+          <blockquote>“A gente não tinha muito controle do que estava acontecendo. Hoje eu tenho a visão geral num lugar só”.</blockquote>
+          <div class="who">
+            <div class="av"><img src="https://cdn.prod.website-files.com/5f906e5e35f79f2a13828e8b/663aa29568b0080b3c4f43ab_michelle-cecchin-img-avatar.png" alt="Dra. Michelle Cecchin" loading="lazy" /></div>
+            <div>
+              <div class="nm">Dra. Michelle Cecchin, a “nutricionista dos famosos”</div>
+              <button class="play-badge" type="button" data-embed="https://www.youtube.com/embed/_910sF2_dxo?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1"><span class="pb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span> Ver o depoimento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRÓXIMO PASSO + FORM ===================== -->
+<section id="proximo-passo" class="section-deeper pad">
+  <div class="glow-top"></div>
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="next-grid">
+      <div class="next-copy reveal">
+        <div class="divider-label"><span class="dash">—</span><span class="lbl">Próximo passo</span></div>
+        <h2 class="h-sec">Sua clínica também pode operar assim</h2>
+        <p class="lead">Manda uma mensagem agora no WhatsApp e fale com a Clara, a agente inteligente da Clint. Ou marque uma conversa com um especialista.</p>
+        <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+          Falar com a IA no WhatsApp <span class="arw">→</span>
+        </a>
+      </div>
+
+      <div class="form-card typebot-card reveal">
+        <h3>Preencha pra conversar com um especialista</h3>
+        <iframe
+          title="Typebot"
+          src="https://typebot.co/chat-clint"
+          style="border: none; width: 100%"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="section-light pad">
+  <div class="wrap">
+    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">FAQ</span></div>
+    <h2 class="h-sec reveal">As dúvidas que toda clínica tem</h2>
+
+    <div class="faq">
+      <details class="faq-item reveal">
+        <summary>Meu paciente vai gostar de receber mensagem no WhatsApp de clínica?
+          <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="ans">Só recebe quem já é paciente da sua clínica. A mensagem chega com nome, procedimento e horário certos, do jeito que parece atendimento de verdade, não um disparo em massa.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Minha recepção vai ficar sem função?
+          <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="ans">Ela continua fazendo o que só uma pessoa faz bem, que é cuidar do paciente presencialmente. A parte repetitiva, como confirmar consulta e lembrar do retorno, passa a rodar sozinha.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Preciso ter equipe técnica pra configurar isso?
+          <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="ans">Não. Um time da Clint configura tudo, incluindo a conexão com os sistemas que você já usa, em até 30 dias.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>A Clint funciona pra qualquer tipo de clínica?
+          <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="ans">Funciona pra consultório de um médico só até clínica com várias unidades. A IA é ajustada pra especialidade e pro jeito que sua clínica atende, não é um modelo genérico que serve pra qualquer negócio.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Preciso cancelar as ferramentas que já tenho?
+          <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="ans">Não. A Clint conecta com os sistemas que sua clínica já usa. Nossa equipe configira tudo e você não perde nenhum dado.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="brand">
+        <img class="foot-logo" src="/Logo%20Clint.svg" alt="Clint" />
+        <span class="tag">O software para clínicas médicas que sempre lembra do paciente.</span>
+      </div>
+      <a class="btn btn-wa" href="#proximo-passo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
+        Falar com a IA no WhatsApp
+      </a>
+    </div>
+    <div class="foot-bottom">
+      <span>© Clint · Clint Saúde</span>
+      <img class="meta-badge" src="/meta-business-partner.svg" alt="Parceiro oficial Meta" />
+    </div>
+  </div>
+</footer>
+
+<script>
+/* reveal on scroll */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vis')});return;}
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+  els.forEach(function(e,i){e.style.transitionDelay=Math.min((i%4)*70,240)+'ms';io.observe(e);});
+})();
+
+/* FAQ: um aberto por vez */
+(function(){
+  var items = document.querySelectorAll('.faq-item');
+  items.forEach(function(it){
+    it.addEventListener('toggle',function(){
+      if(it.open){items.forEach(function(o){if(o!==it)o.open=false;});}
+    });
+  });
+})();
+
+/* header: vidro fosco ao rolar */
+(function(){
+  var h=document.querySelector('header');
+  function onScroll(){h.classList.toggle('scrolled',window.scrollY>10);}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+
+/* medidor em arco do card 24/7 */
+(function(){
+  var g=document.getElementById('gauge-ticks');
+  if(!g)return;
+  var cx=100,cy=100,r=86,n=34;
+  var svgns='http://www.w3.org/2000/svg';
+  for(var i=0;i<n;i++){
+    var a=Math.PI*(1 - i/(n-1));           /* de 180° a 0° */
+    var x1=cx+Math.cos(a)*r, y1=cy-Math.sin(a)*r;
+    var x2=cx+Math.cos(a)*(r-12), y2=cy-Math.sin(a)*(r-12);
+    var ln=document.createElementNS(svgns,'line');
+    ln.setAttribute('x1',x1.toFixed(1));ln.setAttribute('y1',y1.toFixed(1));
+    ln.setAttribute('x2',x2.toFixed(1));ln.setAttribute('y2',y2.toFixed(1));
+    var t=i/(n-1);
+    ln.setAttribute('stroke', t<0.75 ? 'rgba(255,255,255,.85)' : '#FFFFFF');
+    ln.setAttribute('stroke-width', t<0.75 ? '2' : '2.4');
+    g.appendChild(ln);
+  }
+})();
+
+/* modal de vídeo */
+(function(){
+  var modal=document.getElementById('videoModal');
+  if(!modal)return;
+  var slot=modal.querySelector('.vmodal-slot');
+  var inner=modal.querySelector('.vmodal-inner');
+  var closeBtn=modal.querySelector('.vmodal-close');
+  function open(el){
+    var embed=el.getAttribute('data-embed');
+    var videoSrc=el.getAttribute('data-video');
+    slot.innerHTML='';
+    inner.classList.toggle('is-file',!!videoSrc);
+    if(videoSrc){
+      var vid=document.createElement('video');
+      vid.src=videoSrc;vid.controls=true;vid.autoplay=true;vid.playsInline=true;
+      vid.setAttribute('playsinline','');
+      vid.setAttribute('controlsList','nodownload');
+      slot.appendChild(vid);
+      vid.play().catch(function(){});
+    } else if(embed){
+      var ifr=document.createElement('iframe');
+      var src=new URL(embed);
+      if(window.location.origin&&window.location.origin!=='null'){
+        src.searchParams.set('origin',window.location.origin);
+      }
+      ifr.src=src.toString();ifr.title='Vídeo Clint Saúde';
+      ifr.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+      ifr.setAttribute('allowfullscreen','');
+      ifr.referrerPolicy='strict-origin-when-cross-origin';
+      slot.appendChild(ifr);
+    }
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function close(){
+    modal.classList.remove('open');
+    slot.innerHTML='';
+    inner.classList.remove('is-file');
+    document.body.style.overflow='';
+  }
+  document.querySelectorAll('[data-embed],[data-video]').forEach(function(el){
+    el.addEventListener('click',function(){open(el);});
+  });
+  closeBtn.addEventListener('click',close);
+  modal.addEventListener('click',function(e){if(e.target===modal)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+})();
+
+/* loops leves dos depoimentos: carrega só perto da viewport */
+(function(){
+  var videos=document.querySelectorAll('.testi-loop[data-src]');
+  if(!videos.length)return;
+  function activate(v){
+    if(v.dataset.loaded)return;
+    v.src=v.getAttribute('data-src');
+    v.dataset.loaded='true';
+    v.play().catch(function(){});
+  }
+  if(!('IntersectionObserver' in window)){
+    videos.forEach(activate);
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        activate(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  },{rootMargin:'500px 0px',threshold:.01});
+  videos.forEach(function(v){io.observe(v);});
+})();
+
+/* vídeo: troca facade -> iframe do YouTube ao clicar */
+(function(){
+  document.querySelectorAll('.video-facade').forEach(function(f){
+    f.addEventListener('click',function(){
+      var ifr=document.createElement('iframe');
+      var src=new URL(f.getAttribute('data-embed'));
+      if(window.location.origin&&window.location.origin!=='null'){
+        src.searchParams.set('origin',window.location.origin);
+      }
+      ifr.src=src.toString();
+      ifr.title='Vídeo Clint Saúde';
+      ifr.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');
+      ifr.setAttribute('allowfullscreen','');
+      ifr.referrerPolicy='strict-origin-when-cross-origin';
+      f.replaceWith(ifr);
+    });
+  });
+})();
+
+/* animação da conversa (Na prática): mensagens aparecendo uma a uma */
+(function(){
+  var body=document.getElementById('chatAnim');
+  if(!body)return;
+  var script=[
+    {s:'in', t:'Oi Marina, tudo bem? Passando pra lembrar da sua consulta amanhã às 14h com a Dra. Camila.', time:'14:02'},
+    {s:'out',t:'pode confirmar sim', time:'14:05 ✓✓'},
+    {s:'in', t:'Consulta confirmada. Até amanhã 😊', time:'14:05'},
+    {s:'in', t:'Marina, já faz 6 meses da sua última limpeza. Quer marcar o retorno essa semana?', time:'14:06'},
+    {s:'out',t:'pode ser quinta de manhã', time:'14:08 ✓✓'}
+  ];
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function scrollBottom(){body.scrollTop=body.scrollHeight;}
+  function makeBubble(m){
+    var d=document.createElement('div');
+    d.className='bubble '+m.s;
+    d.textContent=m.t;                 /* textContent preserva a copy exata */
+    var sp=document.createElement('span');sp.className='t';sp.textContent=m.time;
+    d.appendChild(sp);
+    return d;
+  }
+  function makeTyping(){
+    var d=document.createElement('div');
+    d.className='bubble in typing';
+    d.innerHTML='<span class="dots"><i></i><i></i><i></i></span>';
+    return d;
+  }
+  var played=false;
+  function playAll(){
+    if(played)return;played=true;
+    if(reduce){script.forEach(function(m){body.appendChild(makeBubble(m));});scrollBottom();return;}
+    (async function(){
+      await sleep(400);
+      for(var i=0;i<script.length;i++){
+        var m=script[i];
+        if(m.s==='in'){
+          var tp=makeTyping();body.appendChild(tp);scrollBottom();
+          await sleep(1050);
+          body.removeChild(tp);
+        } else {
+          await sleep(520);
+        }
+        body.appendChild(makeBubble(m));scrollBottom();
+        await sleep(720);
+      }
+    })();
+  }
+  function inView(){
+    var r=body.getBoundingClientRect();
+    var h=window.innerHeight||document.documentElement.clientHeight;
+    return r.top < h*0.82 && r.bottom > 0;
+  }
+  function maybePlay(){
+    if(played)return;
+    if(inView()){
+      playAll();
+      window.removeEventListener('scroll',maybePlay);
+      window.removeEventListener('resize',maybePlay);
+    }
+  }
+  window.addEventListener('scroll',maybePlay,{passive:true});
+  window.addEventListener('resize',maybePlay);
+  maybePlay();
+})();
+</script>
+</body>
+</html>
