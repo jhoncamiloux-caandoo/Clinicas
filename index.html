@@ -314,24 +314,54 @@ header{
 .pratica-phone{display:flex;justify-content:center}
 
 /* ============================================================
-   SISTEMA COMPLETO (features) — linhas em zigzag, fundo claro
+   SISTEMA COMPLETO (features) — fundo premium diferenciado + zigzag
    ============================================================ */
-.sys-rows{display:flex;flex-direction:column;gap:clamp(52px,7vw,96px);margin-top:60px}
-.sys-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
-.sys-row:nth-child(even) .sys-media{order:-1}
-.sys-media{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;
+#sistema{position:relative;isolation:isolate;
+  background:radial-gradient(120% 90% at 18% 0%, #FBFAFF 0%, #F6F5FB 38%, #F2F1F8 100%)}
+.sys-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.sys-grid{position:absolute;inset:-10%;
+  background-image:linear-gradient(to right,rgba(26,23,48,.035) 1px,transparent 1px),
+                   linear-gradient(to bottom,rgba(26,23,48,.035) 1px,transparent 1px);
+  background-size:58px 58px;
+  -webkit-mask-image:radial-gradient(circle at 50% 25%,#000,transparent 72%);
+          mask-image:radial-gradient(circle at 50% 25%,#000,transparent 72%)}
+.sys-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.16;pointer-events:none}
+.sys-orb.o1{width:520px;height:520px;top:-140px;left:-80px;background:radial-gradient(circle,#8B5CFF,transparent 70%)}
+.sys-orb.o2{width:460px;height:460px;top:38%;right:-120px;background:radial-gradient(circle,#FF2D6F,transparent 70%)}
+.sys-orb.o3{width:420px;height:420px;bottom:-140px;left:22%;background:radial-gradient(circle,#8B5CFF,transparent 70%)}
+
+.sys-rows{position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(64px,8vw,108px);margin-top:60px}
+.sys-row{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(32px,5vw,64px);align-items:center}
+.sys-row:nth-child(even){grid-template-columns:1.28fr .72fr}
+.sys-row:nth-child(even) .sys-copy{order:2}
+.sys-row:nth-child(even) .sys-media-wrap{order:1}
+
+.sys-media-wrap{position:relative}
+.sys-media-wrap::before{content:"";position:absolute;inset:6%;z-index:-1;border-radius:28px;
+  filter:blur(46px);opacity:.4;background:radial-gradient(circle,var(--sys-glow,#8B5CFF),transparent 72%)}
+.sys-row:nth-of-type(2) .sys-media-wrap{--sys-glow:#FF2D6F}
+.sys-row:nth-of-type(3) .sys-media-wrap{--sys-glow:#8B5CFF}
+.sys-row:nth-of-type(4) .sys-media-wrap{--sys-glow:#FF2D6F}
+.sys-row:nth-of-type(5) .sys-media-wrap{--sys-glow:#8B5CFF}
+.sys-row:nth-child(odd) .sys-media-wrap{margin-right:-6%}
+.sys-row:nth-child(even) .sys-media-wrap{margin-left:-6%}
+
+.sys-media{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/10;
   background:#EEF0F7;border:1px solid rgba(26,23,48,.07);
-  box-shadow:0 34px 64px -30px rgba(26,23,48,.22)}
+  box-shadow:0 40px 80px -32px rgba(26,23,48,.28)}
 .sys-media video{width:100%;height:100%;object-fit:cover;display:block}
-.sys-copy h3{font-size:clamp(20px,2vw,26px);font-weight:700;color:var(--ink);margin-bottom:10px}
-.sys-copy p{font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:46ch}
+.sys-copy h3{font-size:clamp(21px,2.1vw,27px);font-weight:700;color:var(--ink);margin-bottom:10px}
+.sys-copy p{font-size:15.5px;line-height:1.6;color:var(--ink-soft);max-width:40ch}
 .chan-icons{display:flex;gap:8px;margin-top:16px}
 .chan-icons span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(26,23,48,.05);border:1px solid rgba(26,23,48,.08)}
 .chan-icons svg{width:18px;height:18px}
-@media(max-width:760px){
-  .sys-row{grid-template-columns:1fr;gap:20px}
+@media(max-width:900px){
+  .sys-row,.sys-row:nth-child(even){grid-template-columns:1fr;gap:20px}
+  .sys-row:nth-child(even) .sys-copy,
   .sys-row .sys-copy{order:1}
-  .sys-row .sys-media{order:2}
+  .sys-row:nth-child(even) .sys-media-wrap,
+  .sys-row .sys-media-wrap{order:2;margin:0}
+  .sys-orb{opacity:.1}
 }
 
 /* ============================================================
@@ -437,8 +467,8 @@ footer{background:var(--surface-2);border-top:1px solid rgba(255,255,255,.07);pa
 .foot .btn{padding:12px 22px;font-size:14px}
 .foot-bottom{margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);
   display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.4)}
-.meta-badge{height:54px;width:auto;display:block;opacity:1;filter:brightness(0) invert(1)}
-@media(max-width:560px){.meta-badge{height:42px}}
+.meta-badge{height:54px;width:auto;min-width:140px;display:block;opacity:1;filter:none}
+@media(max-width:560px){.meta-badge{height:42px;min-width:108px}}
 
 /* ---------- reveal on scroll ---------- */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
@@ -818,6 +848,12 @@ header .btn-wa svg{width:17px;height:17px}
 
 <!-- ===================== SISTEMA COMPLETO ===================== -->
 <section id="sistema" class="section-light pad">
+  <div class="sys-bg" aria-hidden="true">
+    <span class="sys-grid"></span>
+    <span class="sys-orb o1"></span>
+    <span class="sys-orb o2"></span>
+    <span class="sys-orb o3"></span>
+  </div>
   <div class="wrap">
     <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">O sistema completo</span></div>
     <h2 class="h-sec reveal">A mesma IA que atende seu paciente mora aqui dentro</h2>
@@ -829,10 +865,12 @@ header .btn-wa svg{width:17px;height:17px}
           <h3>Kanban visual</h3>
           <p>Veja de relance quem confirmou, quem falta confirmar e quem já foi atendido.</p>
         </div>
-        <div class="sys-media reveal">
-          <video autoplay loop muted playsinline preload="auto">
-            <source src="https://legacy2025.b-cdn.net/16x9_ANIM_lead-avanc%CC%A7ando-funil%20(1).mp4" type="video/mp4">
-          </video>
+        <div class="sys-media-wrap reveal">
+          <div class="sys-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="https://legacy2025.b-cdn.net/16x9_ANIM_lead-avanc%CC%A7ando-funil%20(1).mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
 
@@ -841,10 +879,12 @@ header .btn-wa svg{width:17px;height:17px}
           <h3>CRM</h3>
           <p>Cada paciente com histórico, consulta e status num só lugar. Sua recepção não precisa mais perguntar quem é o paciente antes de atender.</p>
         </div>
-        <div class="sys-media reveal">
-          <video autoplay loop muted playsinline preload="auto">
-            <source src="https://clintsite.b-cdn.net/video-funil-levantada-de-mao-compress-final.mp4" type="video/mp4">
-          </video>
+        <div class="sys-media-wrap reveal">
+          <div class="sys-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="https://clintsite.b-cdn.net/video-funil-levantada-de-mao-compress-final.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
 
@@ -857,10 +897,12 @@ header .btn-wa svg{width:17px;height:17px}
             <span style="color:#e879b9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></span>
           </div>
         </div>
-        <div class="sys-media reveal">
-          <video autoplay loop muted playsinline preload="auto">
-            <source src="https://clintsite.b-cdn.net/tela01-compress.mp4" type="video/mp4">
-          </video>
+        <div class="sys-media-wrap reveal">
+          <div class="sys-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="https://clintsite.b-cdn.net/tela01-compress.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
 
@@ -869,10 +911,12 @@ header .btn-wa svg{width:17px;height:17px}
           <h3>SMS, Flash e voz</h3>
           <p>Quem não abre o WhatsApp a tempo recebe a confirmação por SMS, mensagem rápida ou ligação. Ninguém perde o horário por falta de aviso.</p>
         </div>
-        <div class="sys-media reveal">
-          <video autoplay loop muted playsinline preload="auto">
-            <source src="https://clintsite.b-cdn.net/campanha-whats.mp4" type="video/mp4">
-          </video>
+        <div class="sys-media-wrap reveal">
+          <div class="sys-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="https://clintsite.b-cdn.net/campanha-whats.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
 
@@ -881,10 +925,12 @@ header .btn-wa svg{width:17px;height:17px}
           <h3>Indicadores</h3>
           <p>Um painel mostrando quantas consultas foram confirmadas, quantas faltaram e quantos pacientes voltaram, sem precisar somar nada na mão.</p>
         </div>
-        <div class="sys-media reveal">
-          <video autoplay loop muted playsinline preload="auto">
-            <source src="https://landingpagesclint.b-cdn.net/monitora%20com%20clareza_v1.mp4" type="video/mp4">
-          </video>
+        <div class="sys-media-wrap reveal">
+          <div class="sys-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="https://landingpagesclint.b-cdn.net/monitora%20com%20clareza_v1.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
     </div>
@@ -1070,7 +1116,7 @@ header .btn-wa svg{width:17px;height:17px}
     </div>
     <div class="foot-bottom">
       <span>© Clint · Clint Saúde</span>
-      <img class="meta-badge" src="/meta-business-partner.svg" alt="Parceiro oficial Meta" />
+      <img class="meta-badge" src="meta-business-partner.svg" alt="Parceiro oficial Meta" />
     </div>
   </div>
 </footer>
