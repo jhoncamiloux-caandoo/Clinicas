@@ -669,7 +669,10 @@ header .btn-wa svg{width:17px;height:17px}
 
   <!-- zona do cérebro: vídeo + play + cards -->
   <div class="brain-zone">
-    <video class="brain-video" src="/Human_brain_with_glowing_energy.mp4" autoplay loop muted playsinline preload="auto" aria-hidden="true"></video>
+    <video class="brain-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+      <source src="/Human_brain_with_glowing_energy.webm" type="video/webm">
+      <source src="/Human_brain_with_glowing_energy.mp4" type="video/mp4">
+    </video>
 
     <button class="play-orb" type="button" aria-label="Assistir ao vídeo" data-embed="https://www.youtube.com/embed/lMQhW_iArJg?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
