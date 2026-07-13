@@ -394,6 +394,11 @@ header{
 .testi .quote-mark{font-size:80px;line-height:.6;font-weight:800;color:rgba(139,92,255,.25);position:absolute;top:22px;right:26px}
 .testi-media{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;cursor:pointer;overflow:hidden;background:#100d33}
 .testi-media video,.testi-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1.02);pointer-events:none}
+.testi-media img.testi-loop{display:none}
+@media(max-width:800px){
+  .testi-media video.testi-loop{display:none}
+  .testi-media img.testi-loop{display:block}
+}
 .testi-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,34,.02),rgba(11,10,34,.38))}
 .testi-media .video-play{width:68px;height:68px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.68);
   -webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
@@ -514,6 +519,11 @@ header .btn-wa svg{width:17px;height:17px}
   object-fit:cover;pointer-events:none;filter:saturate(1.05) brightness(1.02);
   -webkit-mask-image:radial-gradient(ellipse 56% 58% at 54% 47%, #000 60%, transparent 86%);
           mask-image:radial-gradient(ellipse 56% 58% at 54% 47%, #000 60%, transparent 86%)}
+img.brain-video{display:none}
+@media(max-width:1080px){
+  video.brain-video{display:none}
+  img.brain-video{display:block}
+}
 
 /* ---- glassmorphism real ---- */
 .glass{position:absolute;z-index:5;border-radius:24px;color:#fff;overflow:hidden;
@@ -651,7 +661,7 @@ header .btn-wa svg{width:17px;height:17px}
     <div class="brand">
       <a href="#topo" aria-label="Clint"><img class="logo-img" src="/Logo%20Clint.svg" alt="Clint" /></a>
     </div>
-    <a class="btn btn-wa nav-cta" href="#proximo-passo" aria-label="Falar com a IA no WhatsApp">
+    <a class="btn btn-wa nav-cta" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer" aria-label="Falar com a IA no WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
       <span class="nav-cta-label">Falar com a IA no WhatsApp</span>
     </a>
@@ -669,10 +679,9 @@ header .btn-wa svg{width:17px;height:17px}
 
   <!-- zona do cérebro: vídeo + play + cards -->
   <div class="brain-zone">
-    <video class="brain-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
-      <source src="/Human_brain_with_glowing_energy.webm" type="video/webm">
-      <source src="/Human_brain_with_glowing_energy.mp4" type="video/mp4">
-    </video>
+    <video class="brain-video" loop muted playsinline aria-hidden="true"
+      data-webm="/Human_brain_with_glowing_energy.webm" data-mp4="/Human_brain_with_glowing_energy.mp4"></video>
+    <img class="brain-video" src="/image-header-clinicas-clint.webp" alt="Médica usando a Clint no notebook" />
 
     <button class="play-orb" type="button" aria-label="Assistir ao vídeo" data-embed="https://www.youtube.com/embed/lMQhW_iArJg?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -710,7 +719,7 @@ header .btn-wa svg{width:17px;height:17px}
 
     <div class="lhero-ctas">
       <div class="hero-cta-group">
-        <a class="btn btn-wa" href="#proximo-passo">
+        <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
           Falar com a IA no WhatsApp <span class="arw">→</span>
         </a>
@@ -809,7 +818,7 @@ header .btn-wa svg{width:17px;height:17px}
     </div>
 
     <div class="steps-cta reveal">
-      <a class="btn btn-wa" href="#proximo-passo">
+      <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
         Falar com a IA no WhatsApp <span class="arw">→</span>
       </a>
@@ -979,7 +988,7 @@ header .btn-wa svg{width:17px;height:17px}
     </div>
 
     <div class="steps-cta reveal" style="margin-top:44px">
-      <a class="btn btn-wa" href="#proximo-passo">
+      <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
         Falar com a IA no WhatsApp <span class="arw">→</span>
       </a>
@@ -1000,6 +1009,7 @@ header .btn-wa svg{width:17px;height:17px}
       <div class="testi reveal">
         <button class="testi-media" type="button" aria-label="Ver depoimento do Dr. Gustavo Inácio" data-embed="https://www.youtube.com/embed/eemo-c8F1Kw?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
           <video class="testi-loop" muted loop playsinline preload="none" poster="https://cdn.prod.website-files.com/6026d425b6d9d8a3eacdbfc8/698dd706bbc129e0abd79231_Captura%20de%20Tela%202025-03-05%20a%CC%80s%2012.14.19%206.jpg" data-src="https://marketing2026.b-cdn.net/Dr.%20Gustavo%20Ina%CC%81cio%2C.mp4"></video>
+          <img class="testi-loop" src="/Dr.%20Gustavo%20In%C3%A1cio.webp" alt="Dr. Gustavo Inácio" />
           <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
         </button>
         <div class="testi-content">
@@ -1017,6 +1027,7 @@ header .btn-wa svg{width:17px;height:17px}
       <div class="testi reveal">
         <button class="testi-media" type="button" aria-label="Ver depoimento da Dra. Michelle Cecchin" data-embed="https://www.youtube.com/embed/_910sF2_dxo?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1">
           <video class="testi-loop" muted loop playsinline preload="none" poster="https://cdn.prod.website-files.com/5f906e5e35f79f2a13828e8b/663aa29568b0080b3c4f43ab_michelle-cecchin-img-avatar.png" data-src="https://marketing2026.b-cdn.net/Dra.%20Michelle%20Cecchin.mp4"></video>
+          <img class="testi-loop" src="/Dra.%20Michelle%20Cecchin.webp" alt="Dra. Michelle Cecchin" />
           <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
         </button>
         <div class="testi-content">
@@ -1045,7 +1056,7 @@ header .btn-wa svg{width:17px;height:17px}
         <div class="divider-label"><span class="dash">—</span><span class="lbl">Próximo passo</span></div>
         <h2 class="h-sec">Sua clínica também pode operar assim</h2>
         <p class="lead">Manda uma mensagem agora no WhatsApp e fale com a Clara, a agente inteligente da Clint. Ou marque uma conversa com um especialista.</p>
-        <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080" target="_blank" rel="noopener noreferrer">
+        <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
           Falar com a IA no WhatsApp <span class="arw">→</span>
         </a>
@@ -1112,7 +1123,7 @@ header .btn-wa svg{width:17px;height:17px}
         <img class="foot-logo" src="/Logo%20Clint.svg" alt="Clint" />
         <span class="tag">O software para clínicas médicas que sempre lembra do paciente.</span>
       </div>
-      <a class="btn btn-wa" href="#proximo-passo">
+      <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
         Falar com a IA no WhatsApp
       </a>
@@ -1223,8 +1234,27 @@ header .btn-wa svg{width:17px;height:17px}
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))close();});
 })();
 
-/* loops leves dos depoimentos: carrega só perto da viewport */
+/* vídeo do hero: só carrega em telas de desktop; no mobile usa a foto estática */
 (function(){
+  if(window.innerWidth<=1080)return;
+  var v=document.querySelector('video.brain-video');
+  if(!v||v.dataset.loaded)return;
+  ['webm','mp4'].forEach(function(fmt){
+    var src=v.getAttribute('data-'+fmt);
+    if(!src)return;
+    var s=document.createElement('source');
+    s.src=src;s.type='video/'+fmt;
+    v.appendChild(s);
+  });
+  v.dataset.loaded='true';
+  v.autoplay=true;
+  v.load();
+  v.play().catch(function(){});
+})();
+
+/* loops leves dos depoimentos: carrega só perto da viewport (não no mobile) */
+(function(){
+  if(window.innerWidth<=800)return;
   var videos=document.querySelectorAll('.testi-loop[data-src]');
   if(!videos.length)return;
   function activate(v){
