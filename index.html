@@ -48,7 +48,7 @@ src="https://www.facebook.com/tr?id=427686280751612&ev=PageView&noscript=1"
 <!-- End Microsoft Clarity -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Clint Saúde — O software para clínicas médicas que sempre lembra do paciente</title>
+<title>Clint Saúde | O software para clínicas médicas que sempre lembra do paciente</title>
 <meta name="description" content="Sistema que confirma consulta sozinho, chama o paciente de volta na hora certa e recupera quem sumiu há meses usando IA." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -124,7 +124,7 @@ em{font-style:normal}
 .eyebrow .dash{color:var(--grape);font-weight:700}
 .eyebrow .txt{color:var(--grape-soft)}
 .section-light .eyebrow .txt{color:var(--purple)}
-.section-light .divider-label .dash{color:var(--pink)}
+.section-light .divider-label .dash{background:var(--pink)}
 /* barra-divisora gradiente (assinatura Clint) sob o hero */
 .hero-divider{height:5px;width:100%;
   background:linear-gradient(90deg,transparent,#FF2D6F 20%,#D11E5B 50%,#FF2D6F 80%,transparent);
@@ -192,7 +192,7 @@ section{position:relative}
 .pad-sm{padding:72px 0}
 
 .divider-label{display:flex;align-items:center;gap:16px;margin-bottom:26px}
-.divider-label .dash{color:var(--pink);font-size:20px;line-height:1}
+.divider-label .dash{display:inline-block;width:22px;height:2px;border-radius:2px;background:var(--pink);flex:none}
 .divider-label .lbl{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 .section-light .divider-label .lbl{color:#8a86a0}
 
@@ -321,11 +321,146 @@ header{
 /* ============================================================
    PROBLEMAS
    ============================================================ */
-.prob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
-@media(max-width:760px){.prob-grid{grid-template-columns:1fr}}
-.prob-card h3{font-size:19px;margin-bottom:10px;font-weight:600}
-.prob-card p{font-size:15px;color:var(--ink-soft);line-height:1.55}
-.prob-card .ico{color:var(--pink);background:linear-gradient(160deg,rgba(255,45,111,.12),rgba(255,45,111,.04));border-color:rgba(255,45,111,.25)}
+.pain-stack{margin-top:56px;position:relative}
+.pain-card{
+  position:sticky;top:calc(96px + var(--i)*20px);
+  display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:40px;
+  min-height:460px;margin-bottom:9vh;padding:44px 44px 44px 52px;
+  background:#fff;border:1px solid #E6E3F2;border-radius:32px;
+  box-shadow:0 30px 70px -40px rgba(26,23,48,.35),0 2px 0 rgba(255,255,255,.8) inset;
+  transform-origin:50% 0;transform:scale(calc(1 - var(--p,0)*.05));
+  filter:brightness(calc(1 - var(--p,0)*.06));will-change:transform;
+}
+.pain-card:last-child{margin-bottom:0}
+.pain-num{display:inline-flex;align-items:baseline;gap:2px;font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--pink);margin-bottom:22px}
+.pain-num i{font-style:normal;color:#b3afc6}
+.pain-copy h3{font-size:clamp(24px,2.6vw,34px);line-height:1.12;margin-bottom:16px;color:var(--ink)}
+.pain-copy p{font-size:clamp(16px,1.3vw,18px);color:var(--ink-soft);line-height:1.6;max-width:40ch}
+.pain-scene{position:relative;border-radius:24px;padding:14px;
+  background:radial-gradient(120% 90% at 80% 0%,rgba(255,45,111,.09),transparent 60%),linear-gradient(160deg,#F7F5FF,#F1EEFB);
+  border:1px solid #ECE9F7}
+.pain-scene svg{width:100%;height:auto;overflow:visible}
+@media(max-width:860px){
+  .pain-card{grid-template-columns:1fr;gap:22px;padding:26px 20px 20px;min-height:0;top:calc(76px + var(--i)*12px);border-radius:26px;margin-bottom:6vh}
+  .pain-num{margin-bottom:12px}
+  .pain-copy h3{margin-bottom:10px}
+  .pain-copy p{font-size:15px}
+  .pain-scene{padding:8px;border-radius:18px}
+}
+@media(max-width:860px) and (max-height:760px){.pain-copy p{display:none}}
+
+/* textos e peças comuns das cenas */
+.pain-scene text{font-family:'Poppins',sans-serif;fill:var(--ink)}
+.pain-scene .panel{fill:#fff;stroke:#E6E3F2}
+.pain-scene .t-h{font-size:17px;font-weight:700}
+.pain-scene .t-s{font-size:11.5px;fill:#8a86a0}
+.pain-scene .t-name{font-size:14px;font-weight:600}
+.pain-scene .t-time{font-size:15px;font-weight:700;fill:var(--ink)}
+.pain-scene .t-b{font-size:12px;font-weight:500}
+.pain-scene .b{font-weight:700;fill:var(--pink)}
+.pain-scene .pk{fill:var(--pink)!important}
+.pain-scene *{transform-box:fill-box;transform-origin:center}
+.pain-scene [class]{animation-play-state:paused!important}
+.pain-scene.play [class]{animation-play-state:running!important}
+
+/* 01 no-show */
+.sc-noshow .slot>rect{fill:#F7F6FC}
+.sc-noshow .pill.ok{fill:rgba(37,211,102,.14)}.sc-noshow .t-pill{font-size:9.5px;font-weight:600;text-anchor:middle}
+.sc-noshow .t-pill.ok{fill:#139a4a}.sc-noshow .pill.wait{fill:rgba(245,166,35,.18)}.sc-noshow .t-pill.wait{fill:#b8740b}
+.sc-noshow .slot-maria>rect{fill:#fff;stroke:#F5A623;stroke-dasharray:5 4;animation:dash 1.2s linear infinite}
+.sc-noshow .miss{opacity:0;animation:n-miss 9s infinite}
+.sc-noshow .miss rect{fill:#FFEFF4;stroke:var(--pink);stroke-width:1.5}
+.sc-noshow .miss .x{stroke:var(--pink);stroke-width:3;stroke-linecap:round}
+.sc-noshow .slot-maria{animation:n-shake 9s infinite}
+.sc-noshow .bubble{animation:n-bubble 9s infinite}
+.sc-noshow .bubble rect{fill:#DCF8C6;filter:drop-shadow(0 10px 18px rgba(26,23,48,.12))}
+.sc-noshow .tick{fill:none;stroke:#9a97ad;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sc-noshow .noreply{opacity:0;animation:n-noreply 9s infinite}
+.sc-noshow .noreply rect{fill:#fff;stroke:#E6E3F2}.sc-noshow .noreply text{font-size:11px;font-weight:600;fill:#8a86a0;text-anchor:middle}
+.sc-noshow .clock circle{fill:#fff;stroke:#E6E3F2}.sc-noshow .clock .c-in{fill:#FBFAFF;stroke:none}
+.sc-noshow .clock line{stroke:var(--ink);stroke-width:3;stroke-linecap:round;transform-box:view-box;transform-origin:0 0}
+.sc-noshow .clock .h-m{stroke:var(--pink);animation:spin 3s linear infinite}
+.sc-noshow .clock .h-h{animation:spin 36s linear infinite}
+.sc-noshow .clock .dot{fill:var(--ink);stroke:none}
+.sc-noshow .cap{text-anchor:middle;font-weight:600}
+@keyframes dash{to{stroke-dashoffset:-18}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes n-bubble{0%{opacity:0;transform:translateY(14px) scale(.96)}8%,92%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes n-noreply{0%,26%{opacity:0;transform:translateY(-6px)}32%,92%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes n-miss{0%,52%{opacity:0}57%,92%{opacity:1}100%{opacity:0}}
+@keyframes n-shake{0%,54%,64%,100%{transform:none}56%{transform:translateX(-6px)}58%{transform:translateX(6px)}60%{transform:translateX(-4px)}62%{transform:translateX(3px)}}
+
+/* 02 retorno */
+.sc-return .note{transform:rotate(-3deg)}
+.sc-return .note rect{fill:#FFF6D8;stroke:#F2E3AE}
+.sc-return .t-hand{font-size:19px;font-weight:600;font-style:italic;fill:#3b3561}
+.sc-return .scribble{fill:none;stroke:#c9b979;stroke-width:1.5}
+.sc-return .patient rect{fill:#fff;stroke:#E6E3F2}
+.sc-return .patient{transition:opacity .6s,filter .6s}
+.sc-return .av{fill:#EDE8FF}.sc-return .av-h{fill:var(--grape)}.sc-return .av-b{fill:none;stroke:var(--grape);stroke-width:2.5;stroke-linecap:round}
+.sc-return .t-big{font-size:58px;font-weight:700;letter-spacing:-.03em}
+.sc-return .track{stroke:#E1DDF0;stroke-width:8;stroke-linecap:round}
+.sc-return .track-fill{stroke:var(--grape);stroke-width:8;stroke-linecap:round;stroke-dasharray:400;stroke-dashoffset:calc(400 - var(--prog,0)*400);transition:stroke .4s}
+.sc-return .runner{fill:#fff;stroke:var(--grape);stroke-width:4;transform:translateX(calc(var(--prog,0)*400px));transform-box:view-box;transform-origin:0 0}
+.sc-return .mark30 line{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 3}
+.sc-return .mark30 rect{fill:var(--ink)}.sc-return .mark30 text{font-size:10.5px;font-weight:600;fill:#fff}
+.sc-return .calls path{fill:#b3afc6}
+.sc-return .late{opacity:0;transform:scale(.8);transition:opacity .35s,transform .35s}
+.sc-return .late rect{fill:var(--pink)}.sc-return .late text{font-size:11px;font-weight:600;fill:#fff}
+.sc-return.is-late .late{opacity:1;transform:none}
+.sc-return.is-late .track-fill{stroke:var(--pink)}
+.sc-return.is-late .runner{stroke:var(--pink)}
+.sc-return.is-late .patient{opacity:.45;filter:grayscale(1)}
+.sc-return.is-late .d-count{fill:var(--pink)}
+
+/* 03 base parada */
+.sc-idle .row rect{fill:#F7F6FC}.sc-idle .row circle{fill:#DAD6E8}
+.sc-idle .row{animation:fadeRow 4s ease-in-out infinite;animation-delay:var(--d)}
+.sc-idle .t-age{font-size:12px;font-weight:700;fill:var(--pink)}
+.sc-idle .zz{font-size:15px;font-weight:700;fill:#b3afc6;opacity:0;animation:zz 3.2s ease-out infinite;animation-delay:var(--d)}
+.sc-idle .ad rect{fill:var(--surface)}
+.sc-idle .t-ad-s{font-size:11px;fill:rgba(255,255,255,.6)!important}
+.sc-idle .t-ad{font-size:30px;font-weight:700;fill:#fff!important;letter-spacing:-.02em}
+.sc-idle .spark{fill:none;stroke:var(--pink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:140;stroke-dashoffset:140;animation:draw 3s ease-out infinite}
+.sc-idle .coins g{opacity:0;animation:coin 2.8s ease-in infinite;animation-delay:var(--d)}
+.sc-idle .coins circle{fill:#FFD66B;stroke:#E8B230;stroke-width:1.5}
+.sc-idle .coins text{font-size:12px;font-weight:700;fill:#8a5a00;text-anchor:middle}
+.sc-idle .lead rect{fill:#fff;stroke:var(--pink);stroke-dasharray:5 4;animation:dash 1.2s linear infinite}
+@keyframes fadeRow{0%,100%{opacity:.62}50%{opacity:.4}}
+@keyframes zz{0%{opacity:0;transform:translate(0,0) scale(.7)}30%{opacity:1}100%{opacity:0;transform:translate(14px,-26px) scale(1.2)}}
+@keyframes draw{0%{stroke-dashoffset:140}60%,100%{stroke-dashoffset:0}}
+@keyframes coin{0%{opacity:0;transform:translateY(-10px)}15%{opacity:1}100%{opacity:0;transform:translateY(90px) rotate(160deg)}}
+
+/* 04 recepção */
+.sc-desk .phone{fill:var(--surface)}
+.sc-desk .screen{fill:#F4F1EC}
+.sc-desk .badge circle{fill:var(--pink)}
+.sc-desk .badge{animation:pop 1s ease-in-out infinite}
+.sc-desk .w-count{font-size:12px;font-weight:700;fill:#fff!important;text-anchor:middle}
+.sc-desk .msgs g{opacity:0;animation:msg 6s ease-out infinite;animation-delay:var(--d)}
+.sc-desk .msgs rect{fill:#fff;filter:drop-shadow(0 4px 8px rgba(26,23,48,.08))}
+.sc-desk .t-b{font-size:11px}
+.sc-desk .card-r rect{fill:#fff;stroke:#E6E3F2}
+.sc-desk .bell path{fill:var(--pink)}
+.sc-desk .rng .bell{animation:ring 1.4s ease-in-out infinite}
+.sc-desk .rng rect{animation:ringbox 1.4s ease-in-out infinite}
+.sc-desk .queue circle{fill:var(--grape)}.sc-desk .queue path{fill:none;stroke:var(--grape);stroke-width:3;stroke-linecap:round}
+.sc-desk .queue .q2{fill:#c9bcff;animation:pop 2s ease-in-out infinite}
+.sc-desk .warn rect{stroke:rgba(255,45,111,.45)}
+.sc-desk .clk{fill:#FFEFF4;stroke:var(--pink);stroke-width:2}
+.sc-desk .warn line{stroke:var(--pink);stroke-width:2.5;stroke-linecap:round;transform-box:view-box;transform-origin:0 0;animation:spin 2s linear infinite}
+@keyframes msg{0%{opacity:0;transform:translateX(-18px)}8%,85%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes ring{0%,40%,100%{transform:rotate(0)}5%,15%,25%{transform:rotate(-16deg)}10%,20%,30%{transform:rotate(16deg)}}
+@keyframes ringbox{0%,40%,100%{stroke:#E6E3F2}10%,30%{stroke:var(--pink)}}
+
+@media(prefers-reduced-motion:reduce){
+  .pain-card{transform:none;filter:none}
+  .pain-scene [class]{animation:none!important}
+  .sc-noshow .miss,.sc-noshow .noreply,.sc-desk .msgs g{opacity:1}
+  .sc-idle .coins g,.sc-idle .zz{opacity:0}
+  .sc-idle .spark{stroke-dashoffset:0}
+}
 .intro-note{font-size:clamp(17px,1.8vw,21px);font-weight:500;color:var(--ink);max-width:52ch;margin-top:18px;line-height:1.5}
 
 /* ============================================================
@@ -797,39 +932,112 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===================== O DIA A DIA ===================== -->
 <section id="dia-a-dia" class="section-light pad">
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">O dia a dia da clínica</span></div>
+    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">O dia a dia da clínica</span></div>
     <h2 class="h-sec reveal">Alguma dessas situações já aconteceu na sua clínica</h2>
     <p class="intro-note reveal">Não é sobre atrair paciente novo, mas não deixar o paciente que você já tem escapar pela sua agenda.</p>
 
-    <div class="prob-grid">
-      <div class="card prob-card reveal">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+    <div class="pain-stack">
+
+      <!-- 01 · no-show -->
+      <article class="pain-card" style="--i:0">
+        <div class="pain-copy">
+          <span class="pain-num">01<i>/04</i></span>
+          <h3>Paciente marca e não aparece</h3>
+          <p>Ele agenda com duas semanas de antecedência, esquece, ninguém confirma direito.</p>
         </div>
-        <h3>Paciente marca e não aparece</h3>
-        <p>Ele agenda com duas semanas de antecedência, esquece, ninguém confirma direito.</p>
-      </div>
-      <div class="card prob-card reveal">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 5 5M22 8l-5 5"/></svg>
+        <div class="pain-scene sc-noshow" aria-hidden="true">
+          <svg viewBox="0 0 480 380">
+            <rect class="panel" x="16" y="18" width="292" height="344" rx="20"/>
+            <text class="t-h" x="38" y="54">Agenda de terça</text>
+            <text class="t-s" x="38" y="74">3 consultas marcadas</text>
+            <g class="slot"><rect x="34" y="92" width="256" height="70" rx="14"/><text class="t-time" x="52" y="123">13:00</text><text class="t-name" x="110" y="123">Carlos Lima</text><text class="t-s" x="110" y="143">Retorno</text><rect class="pill ok" x="212" y="112" width="64" height="20" rx="10"/><text class="t-pill ok" x="244" y="126">Confirmado</text></g>
+            <g class="slot slot-maria"><rect x="34" y="174" width="256" height="70" rx="14"/><text class="t-time" x="52" y="205">14:00</text><text class="t-name" x="110" y="205">Maria Souza</text><text class="t-s" x="110" y="225">Primeira consulta</text><rect class="pill wait" x="212" y="194" width="64" height="20" rx="10"/><text class="t-pill wait" x="244" y="208">Pendente</text>
+              <g class="miss"><rect x="34" y="174" width="256" height="70" rx="14"/><text class="t-time pk" x="52" y="205">14:00</text><text class="t-name pk" x="110" y="205">Horário vazio</text><text class="t-s pk" x="110" y="225">Maria não compareceu</text><path class="x" d="M246 196l18 18M264 196l-18 18"/></g>
+            </g>
+            <g class="slot"><rect x="34" y="256" width="256" height="70" rx="14"/><text class="t-time" x="52" y="287">15:00</text><text class="t-name" x="110" y="287">Pedro Alves</text><text class="t-s" x="110" y="307">Exame</text><rect class="pill ok" x="212" y="276" width="64" height="20" rx="10"/><text class="t-pill ok" x="244" y="290">Confirmado</text></g>
+            <g class="bubble"><rect x="296" y="46" width="172" height="78" rx="16"/><text class="t-b" x="312" y="74">Oi Maria! Confirma sua</text><text class="t-b" x="312" y="92">consulta de amanhã, 14h?</text><text class="t-s" x="400" y="113">09:12</text><path class="tick" d="M436 108l4 4 7-8"/></g>
+            <g class="noreply"><rect x="330" y="136" width="104" height="26" rx="13"/><text x="382" y="153">Sem resposta</text></g>
+            <g class="clock" transform="translate(394 262)"><circle r="44"/><circle class="c-in" r="36"/><line class="h-h" x1="0" y1="0" x2="0" y2="-18"/><line class="h-m" x1="0" y1="0" x2="0" y2="-27"/><circle class="dot" r="3.5"/></g>
+            <text class="t-s cap" x="394" y="332">14:20 e nada</text>
+          </svg>
         </div>
-        <h3>Paciente some depois da consulta</h3>
-        <p>O médico pede retorno em 30 dias. Ele esquece e ninguém liga.</p>
-      </div>
-      <div class="card prob-card reveal">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4M18 12h4M12 2v4M12 18v4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg>
+      </article>
+
+      <!-- 02 · retorno esquecido -->
+      <article class="pain-card" style="--i:1">
+        <div class="pain-copy">
+          <span class="pain-num">02<i>/04</i></span>
+          <h3>Paciente some depois da consulta</h3>
+          <p>O médico pede retorno em 30 dias. Ele esquece e ninguém liga.</p>
         </div>
-        <h3>Tem paciente parado no sistema há meses</h3>
-        <p>Fica esquecido, enquanto você paga anúncio pra atrair gente nova pelo mesmo motivo.</p>
-      </div>
-      <div class="card prob-card reveal">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <div class="pain-scene sc-return" aria-hidden="true">
+          <svg viewBox="0 0 480 380">
+            <g class="note"><rect x="22" y="26" width="200" height="92" rx="10"/><text class="t-s" x="40" y="54">Receituário</text><text class="t-hand" x="40" y="84">Retorno em 30 dias</text><path class="scribble" d="M40 100c20-6 40 4 60-2s30-4 44 0"/></g>
+            <g class="patient"><rect x="248" y="30" width="210" height="84" rx="16"/><circle class="av" cx="286" cy="72" r="20"/><circle class="av-h" cx="286" cy="66" r="7"/><path class="av-b" d="M273 86c3-8 23-8 26 0"/><text class="t-name" x="318" y="66">Ana Paula</text><text class="t-s" x="318" y="86">Última consulta: 12/03</text></g>
+            <text class="t-big" x="240" y="200" text-anchor="middle"><tspan>Dia </tspan><tspan class="d-count">0</tspan></text>
+            <text class="t-s" x="240" y="226" text-anchor="middle">desde a última consulta</text>
+            <line class="track" x1="40" y1="282" x2="440" y2="282"/>
+            <line class="track-fill" x1="40" y1="282" x2="440" y2="282"/>
+            <g class="mark30"><line x1="173" y1="264" x2="173" y2="300"/><rect x="118" y="244" width="110" height="22" rx="11"/><text x="173" y="259" text-anchor="middle">Retorno previsto</text></g>
+            <text class="t-s" x="40" y="318" text-anchor="middle">0</text><text class="t-s" x="173" y="318" text-anchor="middle">30</text><text class="t-s" x="307" y="318" text-anchor="middle">60</text><text class="t-s" x="440" y="318" text-anchor="middle">90 dias</text>
+            <circle class="runner" cx="40" cy="282" r="8"/>
+            <g class="calls"><path d="M40 344c0-4 3-7 7-7l3 5-3 3c2 4 5 7 9 9l3-3 5 3c0 4-3 7-7 7-9 0-17-8-17-17z"/><text class="t-s" x="74" y="356">Ligações feitas: <tspan class="b">0</tspan></text></g>
+            <g class="late"><rect x="316" y="338" width="124" height="26" rx="13"/><text x="378" y="355" text-anchor="middle">Retorno atrasado</text></g>
+          </svg>
         </div>
-        <h3>A recepção não dá conta de tudo</h3>
-        <p>Confirmar consulta, marcar e remarcar horário, responder WhatsApp e ainda cuidar de quem chega na clínica. Uma pessoa só não segura isso o dia inteiro, todo dia.</p>
-      </div>
+      </article>
+
+      <!-- 03 · base parada -->
+      <article class="pain-card" style="--i:2">
+        <div class="pain-copy">
+          <span class="pain-num">03<i>/04</i></span>
+          <h3>Tem paciente parado no sistema há meses</h3>
+          <p>Fica esquecido, enquanto você paga anúncio pra atrair gente nova pelo mesmo motivo.</p>
+        </div>
+        <div class="pain-scene sc-idle" aria-hidden="true">
+          <svg viewBox="0 0 480 380">
+            <rect class="panel" x="16" y="18" width="270" height="344" rx="20"/>
+            <text class="t-h" x="36" y="54">Pacientes</text>
+            <text class="t-s" x="36" y="74">Sem voltar à clínica</text>
+            <g class="row" style="--d:0s"><rect x="32" y="92" width="238" height="56" rx="12"/><circle cx="58" cy="120" r="13"/><text class="t-name" x="82" y="116">Juliana M.</text><text class="t-s" x="82" y="134">Última visita</text><text class="t-age" x="256" y="125" text-anchor="end">8 meses</text></g>
+            <g class="row" style="--d:.6s"><rect x="32" y="156" width="238" height="56" rx="12"/><circle cx="58" cy="184" r="13"/><text class="t-name" x="82" y="180">Roberto S.</text><text class="t-s" x="82" y="198">Última visita</text><text class="t-age" x="256" y="189" text-anchor="end">1 ano</text></g>
+            <g class="row" style="--d:1.2s"><rect x="32" y="220" width="238" height="56" rx="12"/><circle cx="58" cy="248" r="13"/><text class="t-name" x="82" y="244">Fernanda L.</text><text class="t-s" x="82" y="262">Última visita</text><text class="t-age" x="256" y="253" text-anchor="end">6 meses</text></g>
+            <g class="row" style="--d:1.8s"><rect x="32" y="284" width="238" height="56" rx="12"/><circle cx="58" cy="312" r="13"/><text class="t-name" x="82" y="308">Marcos T.</text><text class="t-s" x="82" y="326">Última visita</text><text class="t-age" x="256" y="317" text-anchor="end">11 meses</text></g>
+            <text class="zz" x="236" y="112" style="--d:0s">z</text><text class="zz" x="236" y="240" style="--d:1.4s">z</text><text class="zz" x="236" y="304" style="--d:2.4s">z</text>
+            <g class="ad"><rect x="302" y="36" width="162" height="130" rx="18"/><text class="t-ad-s" x="320" y="66">Anúncios este mês</text><text class="t-ad" x="320" y="108">R$ <tspan class="ad-count">0</tspan></text><path class="spark" d="M320 146l20-6 18 3 20-12 18 2 20-14 16-6"/></g>
+            <g class="coins"><g style="--d:0s"><circle cx="383" cy="190" r="11"/><text x="383" y="194">$</text></g><g style="--d:.7s"><circle cx="360" cy="190" r="11"/><text x="360" y="194">$</text></g><g style="--d:1.4s"><circle cx="406" cy="190" r="11"/><text x="406" y="194">$</text></g><g style="--d:2.1s"><circle cx="383" cy="190" r="11"/><text x="383" y="194">$</text></g></g>
+            <g class="lead"><rect x="302" y="292" width="162" height="60" rx="16"/><text class="t-s" x="320" y="316">Procurando</text><text class="t-name" x="320" y="336">paciente novo</text></g>
+          </svg>
+        </div>
+      </article>
+
+      <!-- 04 · recepção sobrecarregada -->
+      <article class="pain-card" style="--i:3">
+        <div class="pain-copy">
+          <span class="pain-num">04<i>/04</i></span>
+          <h3>A recepção não dá conta de tudo</h3>
+          <p>Confirmar consulta, marcar e remarcar horário, responder WhatsApp e ainda cuidar de quem chega na clínica. Uma pessoa só não segura isso o dia inteiro, todo dia.</p>
+        </div>
+        <div class="pain-scene sc-desk" aria-hidden="true">
+          <svg viewBox="0 0 480 380">
+            <rect class="phone" x="24" y="14" width="210" height="352" rx="30"/>
+            <rect class="screen" x="34" y="24" width="190" height="332" rx="22"/>
+            <text class="t-h" x="52" y="58">WhatsApp</text>
+            <g class="badge"><circle cx="198" cy="52" r="15"/><text class="w-count" x="198" y="57">3</text></g>
+            <g class="msgs">
+              <g style="--d:0s"><rect x="46" y="78" width="166" height="44" rx="12"/><text class="t-b" x="58" y="98">Consigo remarcar pra sexta?</text><text class="t-s" x="58" y="114">Luciana</text></g>
+              <g style="--d:.9s"><rect x="46" y="130" width="166" height="44" rx="12"/><text class="t-b" x="58" y="150">Qual o valor da consulta?</text><text class="t-s" x="58" y="166">Número novo</text></g>
+              <g style="--d:1.8s"><rect x="46" y="182" width="166" height="44" rx="12"/><text class="t-b" x="58" y="202">Vocês aceitam convênio?</text><text class="t-s" x="58" y="218">Tiago</text></g>
+              <g style="--d:2.7s"><rect x="46" y="234" width="166" height="44" rx="12"/><text class="t-b" x="58" y="254">Preciso do meu exame</text><text class="t-s" x="58" y="270">Dona Célia</text></g>
+              <g style="--d:3.6s"><rect x="46" y="286" width="166" height="44" rx="12"/><text class="t-b" x="58" y="306">Oi? Alguém aí?</text><text class="t-s" x="58" y="322">Luciana</text></g>
+            </g>
+            <g class="card-r rng"><rect x="252" y="22" width="210" height="96" rx="18"/><g class="bell"><path d="M284 52c0-4 3-7 7-7l4 7-4 4c3 5 7 9 12 12l4-4 7 4c0 4-3 7-7 7-13 0-23-10-23-23z"/></g><text class="t-name" x="332" y="62">Telefone tocando</text><text class="t-s" x="332" y="82">Perdidas: <tspan class="b call-count">1</tspan></text></g>
+            <g class="card-r"><rect x="252" y="138" width="210" height="96" rx="18"/><g class="queue"><circle cx="286" cy="176" r="8"/><path d="M272 204c2-10 26-10 28 0"/><circle class="q2" cx="304" cy="182" r="6"/></g><text class="t-name" x="332" y="178">No balcão</text><text class="t-s" x="332" y="198"><tspan class="b q-count">1</tspan> esperando</text></g>
+            <g class="card-r warn"><rect x="252" y="254" width="210" height="96" rx="18"/><g transform="translate(288 302)"><circle class="clk" r="17"/><line class="h-m" x1="0" y1="0" x2="0" y2="-11"/></g><text class="t-name" x="332" y="294">Tempo de resposta</text><text class="t-s" x="332" y="316"><tspan class="b t-count">4</tspan> min</text></g>
+          </svg>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -839,7 +1047,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="grid-bg"></div>
   <div class="orb" style="width:400px;height:400px;background:#8B5CFF;top:0;right:-140px;opacity:.28"></div>
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">Como o sistema da Clint resolve</span></div>
+    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">Como o sistema da Clint resolve</span></div>
     <h2 class="h-sec reveal">Quatro passos, sem complicação</h2>
 
     <div class="steps">
@@ -882,7 +1090,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="pratica-grid">
       <div class="pratica-copy reveal">
-        <div class="divider-label"><span class="dash">—</span><span class="lbl">Na prática</span></div>
+        <div class="divider-label"><span class="dash" aria-hidden="true"></span><span class="lbl">Na prática</span></div>
         <h2 class="h-sec">Veja como fica uma conversa de verdade</h2>
         <p class="intro-note">O paciente chama no WhatsApp e a Inteligência Artificial cuida de tudo.</p>
         <span class="pratica-badge">
@@ -918,7 +1126,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="sys-orb o3"></span>
   </div>
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">O sistema completo</span></div>
+    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">O sistema completo</span></div>
     <h2 class="h-sec reveal">A mesma IA que atende seu paciente mora aqui dentro</h2>
     <p class="lead reveal" style="margin-top:16px">A inteligência que sempre lembra do paciente está dentro da plataforma da Clint, junto dos recursos que toda clínica precisa.</p>
 
@@ -1003,7 +1211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===================== A DIFERENÇA (comparativo) ===================== -->
 <section class="section-light pad">
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">A diferença na prática</span></div>
+    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">A diferença na prática</span></div>
     <h2 class="h-sec reveal">Entenda o que muda quando você escolhe a Clint</h2>
     <p class="intro-note reveal">O mercado de saúde já tem vários robôs de WhatsApp. A diferença não está em ter IA, está no que essa IA consegue fazer.</p>
 
@@ -1052,7 +1260,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="grid-bg"></div>
   <div class="orb" style="width:380px;height:380px;background:#FF2D6F;top:10%;left:-140px;opacity:.22"></div>
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">Resultado real</span></div>
+    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">Resultado real</span></div>
     <h2 class="h-sec reveal">De agenda vazia pra fatura maior</h2>
     <p class="lead result-lead reveal">Quem tinha agenda vazia e bagunçada hoje fatura mais, sem gastar mais em anúncio e sem planilha que só uma pessoa da equipe sabia usar.</p>
 
@@ -1104,7 +1312,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="next-grid">
       <div class="next-copy reveal">
-        <div class="divider-label"><span class="dash">—</span><span class="lbl">Próximo passo</span></div>
+        <div class="divider-label"><span class="dash" aria-hidden="true"></span><span class="lbl">Próximo passo</span></div>
         <h2 class="h-sec">Sua clínica também pode operar assim</h2>
         <p class="lead">Manda uma mensagem agora no WhatsApp e fale com a Clara, a agente inteligente da Clint. Ou marque uma conversa com um especialista.</p>
         <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
@@ -1128,7 +1336,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===================== FAQ ===================== -->
 <section id="faq" class="section-light pad">
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash">—</span><span class="lbl">FAQ</span></div>
+    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">FAQ</span></div>
     <h2 class="h-sec reveal">As dúvidas que toda clínica tem</h2>
 
     <div class="faq">
@@ -1412,6 +1620,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   window.addEventListener('scroll',maybePlay,{passive:true});
   window.addEventListener('resize',maybePlay);
   maybePlay();
+})();
+/* seção de dores: stack sticky + cenas animadas */
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.pain-card'));
+  if(!cards.length)return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* cartões de trás encolhem conforme o próximo sobe */
+  if(!reduce){
+    var tick=false;
+    function stack(){
+      tick=false;
+      for(var i=0;i<cards.length-1;i++){
+        var a=cards[i].getBoundingClientRect(),b=cards[i+1].getBoundingClientRect();
+        var p=(a.bottom-b.top)/a.height;
+        cards[i].style.setProperty('--p',Math.max(0,Math.min(1,p)).toFixed(3));
+      }
+    }
+    window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(stack);}},{passive:true});
+    window.addEventListener('resize',stack);stack();
+  }
+
+  /* contadores que rodam em loop enquanto a cena está visível */
+  function loop(scene,dur,hold,step){
+    var t0=null,raf=null;
+    function frame(t){
+      if(t0===null)t0=t;
+      var k=((t-t0)%(dur+hold))/dur;step(Math.min(1,k));
+      raf=requestAnimationFrame(frame);
+    }
+    scene._start=function(){if(!raf){t0=null;raf=requestAnimationFrame(frame);}};
+    scene._stop=function(){cancelAnimationFrame(raf);raf=null;};
+  }
+  function fmt(n){return Math.round(n).toLocaleString('pt-BR');}
+
+  var ret=document.querySelector('.sc-return');
+  if(ret){
+    var dc=ret.querySelector('.d-count');
+    var set=function(k){
+      var d=Math.round(k*90);dc.textContent=d;
+      ret.querySelector('svg').style.setProperty('--prog',k);
+      ret.classList.toggle('is-late',d>30);
+    };
+    if(reduce)set(1);else loop(ret,6500,2200,set);
+  }
+  var idle=document.querySelector('.sc-idle');
+  if(idle){
+    var ac=idle.querySelector('.ad-count');
+    var s3=function(k){ac.textContent=fmt(k*2480);};
+    if(reduce)s3(1);else loop(idle,5000,2000,s3);
+  }
+  var desk=document.querySelector('.sc-desk');
+  if(desk){
+    var wc=desk.querySelector('.w-count'),cc=desk.querySelector('.call-count'),qc=desk.querySelector('.q-count'),tc=desk.querySelector('.t-count');
+    var s4=function(k){
+      wc.textContent=3+Math.round(k*44);cc.textContent=1+Math.round(k*4);
+      qc.textContent=1+Math.round(k*3);tc.textContent=4+Math.round(k*43);
+    };
+    if(reduce)s4(1);else loop(desk,6000,1500,s4);
+  }
+
+  var scenes=document.querySelectorAll('.pain-scene');
+  if(reduce||!('IntersectionObserver' in window)){scenes.forEach(function(s){s.classList.add('play');s._start&&s._start();});return;}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var s=e.target;s.classList.toggle('play',e.isIntersecting);
+      if(e.isIntersecting){s._start&&s._start();}else{s._stop&&s._stop();}
+    });
+  },{threshold:.35});
+  scenes.forEach(function(s){io.observe(s);});
 })();
 </script>
 </body>
