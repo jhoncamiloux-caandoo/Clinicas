@@ -295,6 +295,15 @@ T = {
   ('Eliges entre el plan mensual o el anual. Y antes de decidir, puedes probar Clint 7 días gratis, sin registrar tarjeta de crédito.',
    'You choose between a monthly or annual plan. And before you decide, you can try Clint free for 7 days, no credit card required.'),
 
+'Quanto custa?': ('¿Cuánto cuesta?', 'How much does it cost?'),
+'Depende do tamanho da sua clínica e do que ela precisa. Numa conversa rápida com nosso especialista, a gente entende como sua clínica funciona hoje e te passa o valor certo, sem empurrar recurso que você nunca vai usar.':
+  ('Depende del tamaño de tu clínica y de lo que necesita. En una llamada rápida con nuestro especialista entendemos cómo funciona tu clínica hoy y te damos el precio justo, sin venderte funciones que nunca vas a usar.',
+   'It depends on the size of your clinic and what it needs. In a quick call, our specialist learns how your clinic runs today and gives you the right price, without pushing features you will never use.'),
+'Tem fidelidade ou multa se eu quiser cancelar?': ('¿Hay plazo forzoso o penalización si quiero cancelar?', 'Is there a lock-in or a fee if I want to cancel?'),
+'No plano mensal, não. Você pode cancelar quando quiser, sem multa. A gente prefere que você fique porque a Clint está fazendo diferença na sua agenda todo mês, não por causa de letra miúda.':
+  ('En el plan mensual, no. Puedes cancelar cuando quieras, sin penalización. Preferimos que te quedes porque Clint hace la diferencia en tu agenda cada mes, no por letras chiquitas.',
+   'Not on the monthly plan. You can cancel anytime, no fee. We would rather you stay because Clint makes a difference in your schedule every month, not because of fine print.'),
+
 # footer
 'O software para clínicas médicas que sempre lembra do paciente.': ('El software para clínicas médicas que siempre recuerda al paciente.', 'The software for medical clinics that never forgets a patient.'),
 '© Clint · Clint Saúde': ('© Clint · Clint Salud', '© Clint · Clint Health'),
