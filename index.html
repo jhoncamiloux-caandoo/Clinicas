@@ -857,6 +857,121 @@ img.brain-video{display:none}
   .fc-stat{width:158px;bottom:3%}
   .fc-gauge{width:104px}.fc-num{font-size:28px}.fc-lbl{font-size:10px}
 }
+
+/* ============================================================
+   JORNADA DO PACIENTE (section 3, isolada com prefixo jr-)
+   ============================================================ */
+.jr{--jb:#4E3AFF;--jb-2:#6F5CFF;--jb-soft:#EEF0FF;--jcy:#E7F7FB;--jok:#12924A;--jline:#D9DCF3;
+  position:relative;color:var(--ink);padding:120px 0 72px;
+  background:linear-gradient(180deg,var(--paper) 0,#fff 260px,#fff 100%)}
+.jr-head{text-align:center}
+.jr-title{margin:0 auto;max-width:18ch;color:var(--ink)}
+.jr-sub{margin:20px auto 0;max-width:40ch;font-size:clamp(17px,1.6vw,20px);color:var(--ink-soft);font-weight:500}
+.jr-track{position:relative;margin-top:56px}
+.jr-sticky{position:relative}
+.jr-stage{position:relative}
+.jr-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.jr-rail{fill:none;stroke:var(--jline);stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.jr-path{fill:none;stroke:var(--jb);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.jr-flow{fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;opacity:0;stroke-dasharray:3 60}
+.jr.done .jr-flow{opacity:.7;animation:jrflow 7s linear infinite}
+@keyframes jrflow{to{stroke-dashoffset:-630}}
+.jr-steps{list-style:none;margin:0;padding:0}
+
+/* ---- centro: Mário ---- */
+.jr-center{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:#fff;border:1px solid #E4E6F5;border-radius:28px;padding:26px 30px 22px;
+  box-shadow:0 30px 60px -34px rgba(46,40,140,.35)}
+.jr-avatar{position:relative;width:84px;height:84px;margin-bottom:12px}
+.jr-avatar svg{width:100%;height:100%}
+.jr-avatar .av-bg{fill:var(--jb-soft)}.jr-avatar .av-body{fill:var(--jb)}.jr-avatar .av-head{fill:#F2C9A8}.jr-avatar .av-hair{fill:#3B2A20}
+.jr-ring{position:absolute;inset:-7px;border-radius:50%;border:2px solid var(--jb);opacity:.18}
+.jr.done .jr-ring{animation:jrring 3.2s ease-in-out infinite}
+@keyframes jrring{0%,100%{transform:scale(1);opacity:.18}50%{transform:scale(1.06);opacity:.32}}
+.jr-name{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.jr-role{margin-top:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--jb);background:var(--jb-soft);border-radius:999px;padding:4px 10px}
+
+/* ---- etapas: microinterfaces ---- */
+.jr-node{position:relative;z-index:2;background:#fff;border:1px solid #E6E8F4;border-radius:18px;padding:14px 16px 14px;
+  box-shadow:0 18px 40px -28px rgba(46,40,140,.3);font-size:13.5px;line-height:1.4;
+  opacity:0;transform:translateY(12px) scale(.96);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1),border-color .6s}
+.jr-node.is-on{opacity:1;transform:none}
+.jr-node.is-now{border-color:rgba(78,58,255,.45);box-shadow:0 22px 44px -26px rgba(78,58,255,.45)}
+.jr-k{position:absolute;top:12px;right:14px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;color:#A9A6C0}
+.jr-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-right:26px;min-width:0}
+.jr-label{font-weight:600;font-size:14px;color:var(--ink);line-height:1.25}
+.jr-top .ic{width:18px;height:18px;fill:var(--jb);flex:none}
+.ic-wa{width:18px;height:18px;fill:#25D366;flex:none}
+.jr-dot{width:8px;height:8px;border-radius:50%;background:#25D366;flex:none}
+.jr.done .n-wa .jr-dot{animation:jrdot 2.6s ease-in-out infinite}
+@keyframes jrdot{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}50%{box-shadow:0 0 0 6px rgba(37,211,102,0)}}
+.jr-bubble{margin:0;padding:9px 12px;border-radius:14px;font-size:13.5px;line-height:1.4;max-width:100%;overflow-wrap:anywhere}
+.jr-bubble.in{background:#F1F2F7;border-top-left-radius:4px;color:var(--ink)}
+.jr-bubble.out{background:var(--jb-soft);border-top-right-radius:4px;color:#2A2466}
+.n-back .jr-bubble.out{background:#DCF8C6;color:#173a1f}
+.jr-meta{display:block;margin-top:6px;font-size:12px;color:#8a86a0;font-weight:500}
+.jr-pill{display:inline-block;font-weight:600;font-size:12.5px;color:var(--jb);background:var(--jb-soft);border-radius:999px;padding:4px 10px}
+.jr-line{margin:0 0 8px;font-weight:600;font-size:14px}
+.jr-checks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.jr-checks li{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;color:var(--ink-soft)}
+.jr-checks li.who{font-weight:600;color:var(--ink)}
+.jr-checks i{font-style:normal;color:var(--jok);font-weight:700}
+.jr-week{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:8px}
+.jr-week span,.jr-week b{text-align:center;font-size:11px;padding:4px 0;border-radius:8px;color:#8a86a0;background:#F5F6FB}
+.jr-week b{background:var(--jb);color:#fff;font-weight:600}
+.jr-slot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 10px;background:#F7F8FC;border-left:3px solid var(--jb);border-radius:10px;padding:8px 10px}
+.jr-slot .who{font-weight:600}
+.jr-slot .when{font-size:13px;color:var(--ink-soft)}
+.jr-slot .when.ok{color:var(--jok);font-weight:600}
+.n-done .jr-slot{border-left-color:var(--jok)}
+.jr-ok{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--jok);background:rgba(18,146,74,.1);border-radius:999px;padding:4px 10px}
+.jr-ok i{font-style:normal}
+.jr.done .jr-ok.breathe{animation:jrbreathe 3s ease-in-out infinite}
+@keyframes jrbreathe{0%,100%{background:rgba(18,146,74,.1)}50%{background:rgba(18,146,74,.2)}}
+.jr-cal{position:relative;width:30px;height:32px;flex:none;border-radius:7px;background:#fff;border:1.5px solid var(--jb);display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;overflow:hidden}
+.jr-cal::before{content:'';position:absolute;left:0;right:0;top:0;height:8px;background:var(--jb)}
+.jr-cal b{font-size:12px;line-height:1;color:var(--jb)}
+.jr.done .jr-cal{animation:jrcal 4s ease-in-out infinite}
+@keyframes jrcal{0%,100%{transform:rotate(0)}50%{transform:rotate(-4deg)}}
+.jr-days{height:6px;border-radius:6px;background:#EEF0F7;overflow:hidden}
+.jr-days span{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,#9FDCEB,var(--jb));transition:width 1.6s cubic-bezier(.3,.6,.2,1) .2s}
+.n-ret.is-on .jr-days span{width:100%}
+
+/* ---- DESKTOP: composição em volta do Mário ---- */
+.jr.is-ring .jr-stage{height:var(--stage-h,680px)}
+.jr.is-ring .jr-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px}
+.jr.is-ring .jr-node{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);width:clamp(200px,17.5vw,236px);margin:0;
+  translate:-50% -50%}
+.jr.is-ring.is-pinned .jr-sticky{position:sticky;top:var(--stick-top,90px)}
+
+/* ---- TABLET e MOBILE: jornada vertical ---- */
+.jr.is-list .jr-wrap{max-width:640px}
+.jr.is-list .jr-center{flex-direction:row;text-align:left;gap:16px;padding:18px 20px;margin-right:28px;border-radius:22px}
+.jr.is-list .jr-avatar{width:64px;height:64px;margin:0;flex:none}
+.jr.is-list .jr-center .jr-txt{display:flex;flex-direction:column;align-items:flex-start}
+.jr.is-list .jr-steps{display:grid;gap:16px;margin-top:22px;padding-left:40px;padding-right:28px}
+.jr.is-list .jr-node{font-size:15px}
+.jr.is-list .jr-bubble{font-size:15px}
+.jr.is-list .jr-label{font-size:15.5px}
+.jr.is-list .jr-node::before{content:'';position:absolute;left:-31px;top:20px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--jline);transition:border-color .5s,background .5s}
+.jr.is-list .jr-node.is-on::before{border-color:var(--jb);background:var(--jb)}
+.jr.is-list .jr-node{opacity:.0;transform:translateY(18px)}
+.jr.is-list .jr-node.is-on{opacity:1;transform:none}
+@media(max-width:600px){
+  .jr{padding:88px 0 56px}
+  .jr-track{margin-top:40px}
+  .jr.is-list .jr-steps{padding-left:32px;padding-right:22px;gap:14px}
+  .jr.is-list .jr-center{margin-right:22px}
+  .jr.is-list .jr-node::before{left:-27px}
+  .jr-name{font-size:21px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .jr-node,.jr.is-list .jr-node{opacity:1!important;transform:none!important;transition:none}
+  .jr *{animation:none!important}
+  .jr-days span{transition:none;width:100%}
+}
+.jr-txt{display:flex;flex-direction:column;align-items:center}
 </style>
 </head>
 <body>
@@ -1066,6 +1181,88 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JORNADA DO PACIENTE (Mário) ===================== -->
+<section id="jornada" class="jr" aria-labelledby="jr-title">
+  <div class="wrap jr-head">
+    <h2 id="jr-title" class="h-sec jr-title">Agora imagine se sua clínica lembrasse de tudo sozinha.</h2>
+    <p class="jr-sub">Do primeiro “oi” até o paciente voltar para a clínica.</p>
+  </div>
+
+  <div class="jr-track">
+    <div class="jr-sticky">
+      <div class="wrap jr-wrap">
+        <div class="jr-stage">
+          <svg class="jr-lines" aria-hidden="true"><path class="jr-rail"/><path class="jr-path"/><path class="jr-flow"/></svg>
+
+          <div class="jr-center is-on">
+            <div class="jr-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" class="av-bg"/><path class="av-body" d="M13 58c2-11 10-16 19-16s17 5 19 16"/><circle class="av-head" cx="32" cy="27" r="11"/><path class="av-hair" d="M21 25c0-7 5-12 11-12 7 0 12 4 12 11-3-3-8-4-12-4-5 0-8 2-11 5z"/></svg>
+              <span class="jr-ring"></span>
+            </div>
+            <div class="jr-txt"><strong class="jr-name">Mário</strong><span class="jr-role">Paciente</span></div>
+          </div>
+
+          <ol class="jr-steps">
+            <li class="jr-node n-wa" style="--x:12;--y:60">
+              <span class="jr-k">01</span>
+              <div class="jr-top"><svg class="ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg><span class="jr-label">WhatsApp</span><span class="jr-dot" aria-hidden="true"></span></div>
+              <p class="jr-bubble in">Oi, queria marcar uma consulta.</p>
+              <span class="jr-meta">Mário</span>
+            </li>
+            <li class="jr-node n-ia" style="--x:13;--y:24">
+              <span class="jr-k">02</span>
+              <div class="jr-top"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8zM18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg><span class="jr-label">IA respondeu</span></div>
+              <p class="jr-bubble out">Claro! Posso te ajudar com isso.</p>
+            </li>
+            <li class="jr-node n-q" style="--x:36;--y:9">
+              <span class="jr-k">03</span>
+              <div class="jr-top"><span class="jr-label">Qualificado</span></div>
+              <ul class="jr-checks">
+                <li class="who">Mário</li>
+                <li><span>Especialidade definida</span><i aria-hidden="true">✓</i></li>
+                <li><span>Dados coletados</span><i aria-hidden="true">✓</i></li>
+              </ul>
+            </li>
+            <li class="jr-node n-ag" style="--x:64;--y:9">
+              <span class="jr-k">04</span>
+              <div class="jr-top"><span class="jr-label">Consulta agendada</span></div>
+              <div class="jr-week" aria-hidden="true"><span>Seg</span><span>Ter</span><span>Qua</span><b>Qui</b><span>Sex</span></div>
+              <div class="jr-slot"><span class="who">Mário</span><span class="when">Qui · 14:30</span></div>
+              <span class="jr-ok">Agendado <i aria-hidden="true">✓</i></span>
+            </li>
+            <li class="jr-node n-48" style="--x:87;--y:24">
+              <span class="jr-k">05</span>
+              <div class="jr-top"><span class="jr-pill">48h antes</span></div>
+              <p class="jr-bubble out">Oi, Mário! Sua consulta está chegando.</p>
+            </li>
+            <li class="jr-node n-4" style="--x:88;--y:60">
+              <span class="jr-k">06</span>
+              <div class="jr-top"><span class="jr-pill">4h antes</span></div>
+              <p class="jr-line">Consulta hoje · 14:30</p>
+              <span class="jr-ok breathe">Confirmado <i aria-hidden="true">✓</i></span>
+            </li>
+            <li class="jr-node n-done" style="--x:70;--y:89">
+              <span class="jr-k">07</span>
+              <div class="jr-top"><span class="jr-label">Consulta realizada</span></div>
+              <div class="jr-slot"><span class="who">Mário</span><span class="when ok">Consulta concluída ✓</span></div>
+            </li>
+            <li class="jr-node n-ret" style="--x:44;--y:91">
+              <span class="jr-k">08</span>
+              <div class="jr-top"><span class="jr-cal" aria-hidden="true"><b>30</b></span><span class="jr-label">Retorno em 30 dias</span></div>
+              <div class="jr-days" aria-hidden="true"><span></span></div>
+            </li>
+            <li class="jr-node n-back" style="--x:18;--y:88">
+              <span class="jr-k">09</span>
+              <div class="jr-top"><svg class="ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg><span class="jr-label">Novo contato</span><span class="jr-dot" aria-hidden="true"></span></div>
+              <p class="jr-bubble out">Oi, Mário! Está na hora de agendar seu retorno.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1868,6 +2065,131 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     es.forEach(function(e){var s=e.target;s.classList.toggle('play',e.isIntersecting);if(e.isIntersecting){s._start&&s._start();}else{s._stop&&s._stop();}});
   },{threshold:.35});
   scenes.forEach(function(s){io.observe(s);});
+})();
+
+/* jornada do paciente (section 3): caminho desenhado conforme o progresso */
+(function(){
+  var root=document.getElementById('jornada');
+  if(!root)return;
+  var stage=root.querySelector('.jr-stage'),track=root.querySelector('.jr-track'),sticky=root.querySelector('.jr-sticky');
+  var svg=root.querySelector('.jr-lines'),rail=root.querySelector('.jr-rail'),path=root.querySelector('.jr-path'),flow=root.querySelector('.jr-flow');
+  var center=root.querySelector('.jr-center');
+  var nodes=[].slice.call(root.querySelectorAll('.jr-node'));
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mqRing=window.matchMedia('(min-width:1100px)');
+  var header=document.querySelector('header');
+  var listMax=0,mode='',pinned=false,stops=[],total=0,prog=0,autoRaf=null,autoDone=false;
+
+  function rel(el){var a=el.getBoundingClientRect(),b=stage.getBoundingClientRect();return {x:a.left-b.left,y:a.top-b.top,w:a.width,h:a.height};}
+  function lenOf(d){var t=document.createElementNS('http://www.w3.org/2000/svg','path');t.setAttribute('d',d);svg.appendChild(t);var l=t.getTotalLength();svg.removeChild(t);return l;}
+
+  /* curva suave (Catmull-Rom) passando pelos centros: Mário, etapas 1 a 9, Mário */
+  function ringPath(pts){
+    var segs=[];
+    for(var i=0;i<pts.length-1;i++){
+      var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2,k=.18;
+      if(i===0){p0=pts[pts.length-2];}
+      if(i===pts.length-2){p3=pts[1];}
+      segs.push('C'+(p1.x+(p2.x-p0.x)*k).toFixed(1)+' '+(p1.y+(p2.y-p0.y)*k).toFixed(1)+' '+(p2.x-(p3.x-p1.x)*k).toFixed(1)+' '+(p2.y-(p3.y-p1.y)*k).toFixed(1)+' '+p2.x.toFixed(1)+' '+p2.y.toFixed(1));
+    }
+    return {start:'M'+pts[0].x.toFixed(1)+' '+pts[0].y.toFixed(1),segs:segs};
+  }
+
+  function layout(){
+    var ring=mqRing.matches;
+    mode=ring?'ring':'list';
+    root.classList.toggle('is-ring',ring);root.classList.toggle('is-list',!ring);
+    var vh=window.innerHeight,top=(header?header.offsetHeight:72)+16;
+    if(ring){
+      /* palco ocupa a altura útil da tela, dentro de limites legíveis */
+      var sh=Math.max(640,Math.min(760,vh-top-24));
+      root.style.setProperty('--stage-h',sh+'px');
+      pinned=!reduce&&vh-top-24>=640;
+      root.style.setProperty('--stick-top',Math.max(top,(vh-sh)/2)+'px');
+    }else pinned=false;
+    root.classList.toggle('is-pinned',pinned);
+    /* distância de scroll da jornada: 1,6 tela, o bastante para descobrir sem arrastar */
+    track.style.height=pinned?(stage.offsetHeight+Math.round(vh*1.6))+'px':'';
+
+    var W=stage.offsetWidth,H=stage.offsetHeight;
+    /* posição em % vira px limitada pelo tamanho real do card: nunca sai do palco */
+    nodes.forEach(function(n){
+      if(!ring){n.style.left='';n.style.top='';return;}
+      var cs=getComputedStyle(n),w=n.offsetWidth,h=n.offsetHeight;
+      var x=parseFloat(cs.getPropertyValue('--x'))/100*W,y=parseFloat(cs.getPropertyValue('--y'))/100*H;
+      n.style.left=Math.max(w/2+8,Math.min(W-w/2-8,x))+'px';
+      n.style.top=Math.max(h/2+8,Math.min(H-h/2-20,y))+'px';
+    });
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    var c=rel(center),d,segLens=[];
+    if(ring){
+      var pts=[{x:c.x+c.w/2,y:c.y+c.h/2}];
+      nodes.forEach(function(n){var r=rel(n);pts.push({x:r.x+r.w/2,y:r.y+r.h/2});});
+      pts.push(pts[0]);
+      var rp=ringPath(pts);d=rp.start;
+      rp.segs.forEach(function(s){d+=s;segLens.push(lenOf(d));});
+    }else{
+      /* trilho à esquerda descendo pelas etapas; no fim, volta pela direita até o Mário */
+      var steps=root.querySelector('.jr-steps'),sr=rel(steps),pl=parseFloat(getComputedStyle(steps).paddingLeft);
+      var rx=sr.x+pl-25,cy=c.y+c.h/2;
+      d='M'+(c.x+22)+' '+(c.y+c.h)+' L'+rx+' '+(c.y+c.h+12);
+      nodes.forEach(function(n){var r=rel(n);d+=' L'+rx+' '+(r.y+26);segLens.push(lenOf(d));});
+      var last=rel(nodes[nodes.length-1]),by=last.y+last.h+22,ex=W-8;
+      d+=' L'+rx+' '+(by-12)+' Q'+rx+' '+by+' '+(rx+12)+' '+by+' L'+(ex-12)+' '+by+' Q'+ex+' '+by+' '+ex+' '+(by-12)+' L'+ex+' '+(cy+12)+' Q'+ex+' '+cy+' '+(ex-12)+' '+cy+' L'+(c.x+c.w)+' '+cy;
+    }
+    path.setAttribute('d',d);rail.setAttribute('d',d);flow.setAttribute('d',d);
+    total=path.getTotalLength();stops=segLens;
+    path.style.strokeDasharray=total+' '+total;
+    path.style.transition=mode==='list'?'stroke-dashoffset .5s ease':'none';
+    apply(reduce?1:prog,true);
+    update();
+  }
+
+  function apply(p,force){
+    if(!force&&Math.abs(p-prog)<.0005)return;
+    prog=p;var drawn=p*total;
+    if(mode==='list')path.style.transition='stroke-dashoffset '+(p>=.999?'1.6s':'.5s')+' ease';
+    path.style.strokeDashoffset=(total-drawn).toFixed(1);
+    var now=-1;
+    nodes.forEach(function(n,i){var on=drawn>=stops[i]-2;n.classList.toggle('is-on',on);if(on)now=i;});
+    nodes.forEach(function(n,i){n.classList.toggle('is-now',i===now&&p<.999);});
+    root.classList.toggle('done',p>=.999);
+  }
+
+  function update(){
+    if(reduce){apply(1);return;}
+    var vh=window.innerHeight;
+    if(mode==='ring'&&pinned){
+      var tr=track.getBoundingClientRect(),dist=track.offsetHeight-sticky.offsetHeight;
+      var st=parseFloat(root.style.getPropertyValue('--stick-top'))||90;
+      var raw=Math.max(0,Math.min(1,(st-tr.top)/dist));
+      /* começo: só o Mário; fim: pilha completa parada um instante */
+      apply(Math.max(0,Math.min(1,(raw-.05)/.85)));
+    }else if(mode==='ring'){
+      /* notebook baixo: sem sticky, a jornada toca sozinha quando o palco aparece */
+      var r=stage.getBoundingClientRect();
+      if(!autoRaf&&!autoDone&&r.top<vh*.6&&r.bottom>vh*.4){
+        var t0=null;
+        (function f(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/11000);apply(k);if(k<1)autoRaf=requestAnimationFrame(f);else{autoDone=true;autoRaf=null;}})(performance.now());
+      }
+    }else{
+      /* vertical: cada etapa acende ao entrar na tela (88% da altura) e a linha chega até ela */
+      var probe=vh*.88,drawn=0;
+      for(var i=0;i<nodes.length;i++){var y=nodes[i].getBoundingClientRect().top+26;if(y<=probe)drawn=stops[i];else break;}
+      var last=nodes[nodes.length-1].getBoundingClientRect();
+      if(last.bottom<vh*.96)drawn=total;
+      /* só avança: depois de vista, a jornada fica completa */
+      listMax=Math.max(listMax,drawn/total);
+      apply(listMax);
+    }
+  }
+
+  var tick=false;
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;update();});}},{passive:true});
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(layout,120);});
+  (mqRing.addEventListener?mqRing.addEventListener('change',layout):mqRing.addListener(layout));
+  layout();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layout);
 })();
 </script>
 </body>
