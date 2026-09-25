@@ -872,6 +872,10 @@ img.brain-video{display:none}
 .jr-stage{position:relative}
 .jr-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .jr-rail{fill:none;stroke:var(--jline);stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.jr-guide{fill:none;stroke:#F2F3FB;stroke-width:8}
+.jr-pt{fill:#fff;stroke:var(--jline);stroke-width:2;transition:fill .5s,stroke .5s}
+.jr-pt.is-on{fill:var(--jb);stroke:var(--jb)}
+.jr.is-list .jr-guide,.jr.is-list .jr-pt{display:none}
 .jr-path{fill:none;stroke:var(--jb);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .jr-flow{fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;opacity:0;stroke-dasharray:3 60}
 .jr.done .jr-flow{opacity:.7;animation:jrflow 7s linear infinite}
@@ -882,12 +886,11 @@ img.brain-video{display:none}
 .jr-center{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;
   background:#fff;border:1px solid #E4E6F5;border-radius:28px;padding:26px 30px 22px;
   box-shadow:0 30px 60px -34px rgba(46,40,140,.35)}
-.jr-avatar{position:relative;width:84px;height:84px;margin-bottom:12px}
-.jr-avatar svg{width:100%;height:100%}
-.jr-avatar .av-bg{fill:var(--jb-soft)}.jr-avatar .av-body{fill:var(--jb)}.jr-avatar .av-head{fill:#F2C9A8}.jr-avatar .av-hair{fill:#3B2A20}
-.jr-ring{position:absolute;inset:-7px;border-radius:50%;border:2px solid var(--jb);opacity:.18}
+.jr-avatar{position:relative;width:120px;height:120px;margin-bottom:14px}
+.jr-avatar img{display:block;width:100%;height:100%}
+.jr-ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid #7FE3B8;opacity:.35}
 .jr.done .jr-ring{animation:jrring 3.2s ease-in-out infinite}
-@keyframes jrring{0%,100%{transform:scale(1);opacity:.18}50%{transform:scale(1.06);opacity:.32}}
+@keyframes jrring{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.06);opacity:.6}}
 .jr-name{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
 .jr-role{margin-top:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--jb);background:var(--jb-soft);border-radius:999px;padding:4px 10px}
 
@@ -939,7 +942,7 @@ img.brain-video{display:none}
 
 /* ---- DESKTOP: composição em volta do Mário ---- */
 .jr.is-ring .jr-stage{height:var(--stage-h,680px)}
-.jr.is-ring .jr-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px}
+.jr.is-ring .jr-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:210px}
 .jr.is-ring .jr-node{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);width:clamp(200px,17.5vw,236px);margin:0;
   translate:-50% -50%}
 .jr.is-ring.is-pinned .jr-sticky{position:sticky;top:var(--stick-top,90px)}
@@ -1196,13 +1199,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="jr-sticky">
       <div class="wrap jr-wrap">
         <div class="jr-stage">
-          <svg class="jr-lines" aria-hidden="true"><path class="jr-rail"/><path class="jr-path"/><path class="jr-flow"/></svg>
+          <svg class="jr-lines" aria-hidden="true"><path class="jr-guide"/><path class="jr-rail"/><path class="jr-path"/><path class="jr-flow"/></svg>
 
           <div class="jr-center is-on">
-            <div class="jr-avatar" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" class="av-bg"/><path class="av-body" d="M13 58c2-11 10-16 19-16s17 5 19 16"/><circle class="av-head" cx="32" cy="27" r="11"/><path class="av-hair" d="M21 25c0-7 5-12 11-12 7 0 12 4 12 11-3-3-8-4-12-4-5 0-8 2-11 5z"/></svg>
-              <span class="jr-ring"></span>
-            </div>
+            <div class="jr-avatar"><img src="paciente.svg" alt="" width="120" height="120" decoding="async"><span class="jr-ring" aria-hidden="true"></span></div>
             <div class="jr-txt"><strong class="jr-name">Mário</strong><span class="jr-role">Paciente</span></div>
           </div>
 
@@ -2083,18 +2083,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function rel(el){var a=el.getBoundingClientRect(),b=stage.getBoundingClientRect();return {x:a.left-b.left,y:a.top-b.top,w:a.width,h:a.height};}
   function lenOf(d){var t=document.createElementNS('http://www.w3.org/2000/svg','path');t.setAttribute('d',d);svg.appendChild(t);var l=t.getTotalLength();svg.removeChild(t);return l;}
 
-  /* curva suave (Catmull-Rom) passando pelos centros: Mário, etapas 1 a 9, Mário */
-  function ringPath(pts){
-    var segs=[];
-    for(var i=0;i<pts.length-1;i++){
-      var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2,k=.18;
-      if(i===0){p0=pts[pts.length-2];}
-      if(i===pts.length-2){p3=pts[1];}
-      segs.push('C'+(p1.x+(p2.x-p0.x)*k).toFixed(1)+' '+(p1.y+(p2.y-p0.y)*k).toFixed(1)+' '+(p2.x-(p3.x-p1.x)*k).toFixed(1)+' '+(p2.y-(p3.y-p1.y)*k).toFixed(1)+' '+p2.x.toFixed(1)+' '+p2.y.toFixed(1));
-    }
-    return {start:'M'+pts[0].x.toFixed(1)+' '+pts[0].y.toFixed(1),segs:segs};
-  }
-
   function layout(){
     var ring=mqRing.matches;
     mode=ring?'ring':'list';
@@ -2112,22 +2100,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     track.style.height=pinned?(stage.offsetHeight+Math.round(vh*1.6))+'px':'';
 
     var W=stage.offsetWidth,H=stage.offsetHeight;
-    /* posição em % vira px limitada pelo tamanho real do card: nunca sai do palco */
-    nodes.forEach(function(n){
-      if(!ring){n.style.left='';n.style.top='';return;}
-      var cs=getComputedStyle(n),w=n.offsetWidth,h=n.offsetHeight;
-      var x=parseFloat(cs.getPropertyValue('--x'))/100*W,y=parseFloat(cs.getPropertyValue('--y'))/100*H;
-      n.style.left=Math.max(w/2+8,Math.min(W-w/2-8,x))+'px';
-      n.style.top=Math.max(h/2+8,Math.min(H-h/2-20,y))+'px';
-    });
-    svg.setAttribute('viewBox','0 0 '+W+' '+H);
-    var c=rel(center),d,segLens=[];
+    var c,d,segLens=[],guide=root.querySelector('.jr-guide');
+    [].forEach.call(svg.querySelectorAll('.jr-pt'),function(e){e.remove();});
     if(ring){
-      var pts=[{x:c.x+c.w/2,y:c.y+c.h/2}];
-      nodes.forEach(function(n){var r=rel(n);pts.push({x:r.x+r.w/2,y:r.y+r.h/2});});
-      pts.push(pts[0]);
-      var rp=ringPath(pts);d=rp.start;
-      rp.segs.forEach(function(s){d+=s;segLens.push(lenOf(d));});
+      /* órbita elíptica em volta do Mário: 9 etapas em ângulos iguais (sentido horário),
+         com uma abertura à esquerda onde os raios saem e voltam para o Mário */
+      var cw=0,ch=0;nodes.forEach(function(n){cw=Math.max(cw,n.offsetWidth);ch=Math.max(ch,n.offsetHeight);});
+      var gap=40,step=(360-gap)/(nodes.length-1),cx,cy,rx,ry,P;
+      function place(){
+        W=stage.offsetWidth;H=stage.offsetHeight;cx=W/2;cy=H/2;rx=W/2-cw/2-8;ry=H/2-ch/2-8;
+        P=nodes.map(function(n,i){
+          var t=(180+gap/2+i*step)*Math.PI/180,x=cx+rx*Math.cos(t),y=cy+ry*Math.sin(t);
+          n.style.left=x+'px';n.style.top=y+'px';return {x:x,y:y,w:n.offsetWidth,h:n.offsetHeight};
+        });
+      }
+      function clash(){
+        for(var i=0;i<P.length;i++){var a=P[i],b=P[(i+1)%P.length];
+          if(Math.abs(a.x-b.x)<(a.w+b.w)/2+12&&Math.abs(a.y-b.y)<(a.h+b.h)/2+12)return true;}
+        return false;
+      }
+      /* se cards vizinhos se encostam, o palco cresce (e o sticky desliga se não couber na tela) */
+      place();
+      for(var k=0;k<10&&clash();k++){sh+=30;root.style.setProperty('--stage-h',sh+'px');place();}
+      var hh=header?header.offsetHeight:72;
+      if(pinned&&sh>vh-hh-8){pinned=false;root.classList.remove('is-pinned');track.style.height='';}
+      if(pinned)root.style.setProperty('--stick-top',Math.max(hh+8,Math.min(top,(vh-sh)/2))+'px');
+      if(pinned)track.style.height=(stage.offsetHeight+Math.round(vh*1.6))+'px';
+    }else nodes.forEach(function(n){n.style.left='';n.style.top='';});
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    c=rel(center);
+    if(ring){
+      var f=function(v){return v.toFixed(1);},arc=' A'+f(rx)+' '+f(ry)+' 0 0 1 ';
+      d='M'+f(cx)+' '+f(cy)+' L'+f(P[0].x)+' '+f(P[0].y);segLens.push(lenOf(d));
+      for(var i=1;i<P.length;i++){d+=arc+f(P[i].x)+' '+f(P[i].y);segLens.push(lenOf(d));}
+      d+=' L'+f(cx)+' '+f(cy);
+      guide.setAttribute('d','M'+f(cx-rx)+' '+f(cy)+arc+f(cx+rx)+' '+f(cy)+arc+f(cx-rx)+' '+f(cy));
+      P.forEach(function(p){var e=document.createElementNS('http://www.w3.org/2000/svg','circle');e.setAttribute('class','jr-pt');e.setAttribute('cx',p.x);e.setAttribute('cy',p.y);e.setAttribute('r',5);svg.appendChild(e);});
     }else{
       /* trilho à esquerda descendo pelas etapas; no fim, volta pela direita até o Mário */
       var steps=root.querySelector('.jr-steps'),sr=rel(steps),pl=parseFloat(getComputedStyle(steps).paddingLeft);
@@ -2151,7 +2159,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(mode==='list')path.style.transition='stroke-dashoffset '+(p>=.999?'1.6s':'.5s')+' ease';
     path.style.strokeDashoffset=(total-drawn).toFixed(1);
     var now=-1;
-    nodes.forEach(function(n,i){var on=drawn>=stops[i]-2;n.classList.toggle('is-on',on);if(on)now=i;});
+    var pts=svg.querySelectorAll('.jr-pt');
+    nodes.forEach(function(n,i){var on=drawn>=stops[i]-2;n.classList.toggle('is-on',on);if(pts[i])pts[i].classList.toggle('is-on',on);if(on)now=i;});
     nodes.forEach(function(n,i){n.classList.toggle('is-now',i===now&&p<.999);});
     root.classList.toggle('done',p>=.999);
   }
