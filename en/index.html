@@ -812,8 +812,9 @@ img.brain-video{display:none}
 .lhero-sub{margin-top:1.6vw;max-width:28.6vw;font-size:clamp(13px,1.15vw,17.5px);
   line-height:1.5;color:#46536F}
 .lhero-ctas{display:flex;flex-wrap:wrap;gap:1.5vw;margin-top:2.6vw;width:max-content;max-width:60vw}
-.lhero-ctas .hero-cta-group{width:344px;max-width:100%}
-.lhero-ctas .btn{width:100%;height:54px;padding-top:0;padding-bottom:0;justify-content:center;border:1px solid transparent;line-height:1}
+.lhero-ctas .hero-cta-group{width:auto;min-width:min(344px,100%);max-width:100%}
+.lhero-ctas .btn{width:100%;min-height:54px;height:auto;padding:12px 24px;justify-content:center;border:1px solid transparent;line-height:1.25;white-space:nowrap}
+@media(max-width:560px){.lhero-ctas .btn{white-space:normal;text-align:center}}
 .lhero .cta-caption{color:#55607A}
 /* CTA secundário em vidro (spec Figma) */
 .btn-glass{background:rgba(255,255,255,.42);color:#26324F;
@@ -879,9 +880,6 @@ img.brain-video{display:none}
 /* mobile e tablet: play sólido e evidente, com rótulo e pulso */
 .play-cta{display:none}
 @media(max-width:1080px){
-  .play-orb{background:#fff;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;
-    box-shadow:0 18px 40px -12px rgba(78,58,255,.55),0 0 0 7px rgba(255,255,255,.45)}
-  .play-orb svg{fill:#4E3AFF;color:#4E3AFF;filter:none;width:32%;height:32%}
   .play-orb::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(255,255,255,.9);animation:orbPulse 2.2s ease-out infinite;pointer-events:none}
   .play-cta{display:block;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);white-space:nowrap;
     font-size:13px;font-weight:600;color:#fff;background:#4E3AFF;border-radius:999px;padding:6px 14px;box-shadow:0 10px 24px -10px rgba(78,58,255,.7)}
@@ -891,10 +889,10 @@ img.brain-video{display:none}
 @media(max-width:560px){
   .brain-zone{aspect-ratio:1/1.2}
   .fc-stat{bottom:1%;width:150px}
-  .brain-video{width:158%;left:50%;top:44%;transform:translate(-61%,-46%);
-    -webkit-mask-image:radial-gradient(ellipse 56% 52% at 58% 50%, #000 55%, transparent 80%);
-            mask-image:radial-gradient(ellipse 56% 52% at 58% 50%, #000 55%, transparent 80%)}
-  .play-orb{left:26%;top:60%;width:78px}
+  .brain-video{width:190%;max-width:none;left:50%;top:46%;transform:translate(-62%,-46%);
+    -webkit-mask-image:radial-gradient(ellipse 62% 60% at 60% 48%, #000 60%, transparent 84%);
+            mask-image:radial-gradient(ellipse 62% 60% at 60% 48%, #000 60%, transparent 84%)}
+  .play-orb{left:50%;top:60%;width:84px}
   .play-orb:hover{transform:translate(-50%,-50%) scale(1.06)}
 }
 @media(prefers-reduced-motion:reduce){.play-orb::after{animation:none}}
@@ -1176,14 +1174,24 @@ img.brain-video{display:none}
 
 @media(prefers-reduced-motion:reduce){.pd *{transition:none!important}}
 
-/* seletor de idioma: bandeiras circulares */
+/* seletor de idioma: mostra a bandeira atual; clique abre as outras */
 .nav-right{display:flex;align-items:center;gap:14px}
-.lang{display:flex;align-items:center;gap:6px;padding:4px;border-radius:999px;background:rgba(255,255,255,.55);border:1px solid rgba(26,23,48,.08);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.lang a{display:block;width:26px;height:26px;border-radius:50%;opacity:.55;filter:saturate(.7);transition:opacity .2s,filter .2s,transform .2s,box-shadow .2s}
-.lang a:hover{opacity:1;filter:none;transform:scale(1.08)}
-.lang a.on{opacity:1;filter:none;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #4E3AFF}
-.lang svg{display:block;width:100%;height:100%}
-@media(max-width:640px){.nav-right{gap:8px}.lang{gap:4px;padding:3px}.lang a{width:24px;height:24px}}
+.lang{position:relative}
+.lang-cur{display:flex;align-items:center;gap:6px;padding:4px 8px 4px 4px;border-radius:999px;cursor:pointer;font:inherit;
+  background:rgba(255,255,255,.6);border:1px solid rgba(26,23,48,.1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background .2s}
+.lang-cur:hover{background:#fff}
+.lang-cur svg.flag{width:26px;height:26px;display:block}
+.lang-cur .chev{width:10px;height:10px;stroke:#4B4763;fill:none;stroke-width:2.4;transition:transform .2s}
+.lang.open .lang-cur .chev{transform:rotate(180deg)}
+.lang-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,-6px);display:flex;flex-direction:column;gap:6px;padding:6px;
+  border-radius:999px;background:rgba(255,255,255,.92);border:1px solid rgba(26,23,48,.08);box-shadow:0 14px 30px -14px rgba(26,23,48,.35);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s}
+.lang.open .lang-menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.lang-menu a{display:block;width:28px;height:28px;border-radius:50%;transition:transform .2s}
+.lang-menu a:hover{transform:scale(1.1)}
+.lang-menu a.on{display:none}
+.lang-menu svg{display:block;width:100%;height:100%}
+@media(max-width:640px){.nav-right{gap:8px}.lang-cur svg.flag{width:24px;height:24px}}
 </style>
 </head>
 <body>
@@ -1199,7 +1207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#topo" aria-label="Clint"><img class="logo-img" src="/Logo%20Clint.svg" alt="Clint" /></a>
     </div>
     <div class="nav-right">
-      <nav class="lang" aria-label="Language"><a href="/" hreflang="en-US" lang="en-US" aria-label="Português" data-lang="pt" ><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-br"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-br)"><rect width="32" height="32" fill="#1E9E4A"/><path d="M16 5 29 16 16 27 3 16z" fill="#FFD233"/><circle cx="16" cy="16" r="6.2" fill="#24378F"/><path d="M10 15.2c4-1.4 8.6-.8 12 1.6" stroke="#fff" stroke-width="1.1" fill="none"/></g></svg></a><a href="/es/" hreflang="es-MX" lang="es-MX" aria-label="Español" data-lang="es"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-mx"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-mx)"><rect width="11" height="32" fill="#006847"/><rect x="11" width="10" height="32" fill="#fff"/><rect x="21" width="11" height="32" fill="#CE1126"/><circle cx="16" cy="16" r="2.6" fill="#8C5A2B"/><path d="M13.4 18.2c1.6 1.2 3.6 1.2 5.2 0" stroke="#3E8E3E" stroke-width="1" fill="none"/></g></svg></a><a href="/en/" hreflang="en-US" lang="en-US" aria-label="English" data-lang="en" class="on" aria-current="true"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-us"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-us)"><rect width="32" height="32" fill="#fff"/><g fill="#C8102E"><rect y="0" width="32" height="2.5"/><rect y="4.9" width="32" height="2.5"/><rect y="9.8" width="32" height="2.5"/><rect y="14.7" width="32" height="2.5"/><rect y="19.6" width="32" height="2.5"/><rect y="24.5" width="32" height="2.5"/><rect y="29.4" width="32" height="2.6"/></g><rect width="15" height="17.2" fill="#0A3161"/><g fill="#fff"><circle cx="3.5" cy="3.5" r=".9"/><circle cx="7.5" cy="3.5" r=".9"/><circle cx="11.5" cy="3.5" r=".9"/><circle cx="5.5" cy="7" r=".9"/><circle cx="9.5" cy="7" r=".9"/><circle cx="3.5" cy="10.5" r=".9"/><circle cx="7.5" cy="10.5" r=".9"/><circle cx="11.5" cy="10.5" r=".9"/><circle cx="5.5" cy="14" r=".9"/><circle cx="9.5" cy="14" r=".9"/></g></g></svg></a></nav>
+      <div class="lang"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language"></button><nav class="lang-menu" aria-label="Language"><a href="/" hreflang="en-US" lang="en-US" aria-label="Português" data-lang="pt"    ><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-br"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-br)"><rect width="32" height="32" fill="#1E9E4A"/><path d="M16 5 29 16 16 27 3 16z" fill="#FFD233"/><circle cx="16" cy="16" r="6.2" fill="#24378F"/><path d="M10 15.2c4-1.4 8.6-.8 12 1.6" stroke="#fff" stroke-width="1.1" fill="none"/></g></svg></a><a href="/es/" hreflang="es-MX" lang="es-MX" aria-label="Español" data-lang="es"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-mx"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-mx)"><rect width="11" height="32" fill="#006847"/><rect x="11" width="10" height="32" fill="#fff"/><rect x="21" width="11" height="32" fill="#CE1126"/><circle cx="16" cy="16" r="2.6" fill="#8C5A2B"/><path d="M13.4 18.2c1.6 1.2 3.6 1.2 5.2 0" stroke="#3E8E3E" stroke-width="1" fill="none"/></g></svg></a><a href="/en/" hreflang="en-US" lang="en-US" aria-label="English" data-lang="en" class="on" aria-current="true"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-us"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-us)"><rect width="32" height="32" fill="#fff"/><g fill="#C8102E"><rect y="0" width="32" height="2.5"/><rect y="4.9" width="32" height="2.5"/><rect y="9.8" width="32" height="2.5"/><rect y="14.7" width="32" height="2.5"/><rect y="19.6" width="32" height="2.5"/><rect y="24.5" width="32" height="2.5"/><rect y="29.4" width="32" height="2.6"/></g><rect width="15" height="17.2" fill="#0A3161"/><g fill="#fff"><circle cx="3.5" cy="3.5" r=".9"/><circle cx="7.5" cy="3.5" r=".9"/><circle cx="11.5" cy="3.5" r=".9"/><circle cx="5.5" cy="7" r=".9"/><circle cx="9.5" cy="7" r=".9"/><circle cx="3.5" cy="10.5" r=".9"/><circle cx="7.5" cy="10.5" r=".9"/><circle cx="11.5" cy="10.5" r=".9"/><circle cx="5.5" cy="14" r=".9"/><circle cx="9.5" cy="14" r=".9"/></g></g></svg></a></nav></div>
     <a class="btn btn-wa nav-cta" href="https://api.whatsapp.com/send?phone=5548996789080&text=Hi%21%20I%20would%20like%20to%20see%20how%20Clint%20helps%20medical%20clinics%20confirm%20appointments%2C%20bring%20patients%20back%20and%20automate%20patient%20care%20with%20AI.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer" aria-label="Talk to the AI on WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
       <span class="nav-cta-label">Talk to the AI on WhatsApp</span>
@@ -2529,6 +2537,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;update();});}},{passive:true});
   var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){layout(false);},150);});
   layout(true);
+})();
+
+/* seletor de idioma: botão mostra a bandeira da página e abre as demais */
+(function(){
+  var box=document.querySelector('.lang');if(!box)return;
+  var btn=box.querySelector('.lang-cur'),cur=box.querySelector('.lang-menu a.on')||box.querySelector('.lang-menu a');
+  var f=cur.querySelector('svg').cloneNode(true);f.setAttribute('class','flag');
+  f.querySelectorAll('clipPath').forEach(function(c){var id=c.id+'-cur';f.innerHTML=f.innerHTML.split(c.id).join(id);});
+  btn.appendChild(f);
+  btn.insertAdjacentHTML('beforeend','<svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>');
+  btn.setAttribute('aria-label',cur.getAttribute('aria-label'));
+  function set(o){box.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!box.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!box.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
 })();
 </script>
 </body>
