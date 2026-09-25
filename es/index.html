@@ -722,8 +722,11 @@ header .btn-wa svg{width:17px;height:17px}
    ============================================================ */
 .logo-img{height:22px;width:auto;display:block}
 
-.lhero{position:relative;overflow:hidden;isolation:isolate;color:var(--ink);
-  height:max(680px,min(100vh,56.25vw));
+/* coluna do hero: 1192px centralizados = o texto começa na mesma margem do header e das seções (wrap 1180 + 24).
+   Até 1192px de largura, --hu = 1vw e --hx = 0, ou seja, exatamente o layout do Figma. */
+.lhero{--hu:min(1cqw,11.92px);--hx:max(0px,calc((100cqw - 1192px)/2))}
+.lhero{position:relative;overflow:hidden;isolation:isolate;color:var(--ink);container-type:inline-size;
+  height:max(680px,min(100vh,calc(56.25*min(1vw,11.92px))));
   background:radial-gradient(115% 130% at 30% 0%, #EDF1F7 0%, #E2E8F1 44%, #D5DDE9 100%)}
 
 /* fundo decorativo: anéis concêntricos + tick ring + watermark */
@@ -738,7 +741,7 @@ header .btn-wa svg{width:17px;height:17px}
 
 /* zona do cérebro — full-bleed no desktop (posições = % do hero, spec 1440×810) */
 .brain-zone{position:absolute;inset:0;z-index:1}
-.brain-video{position:absolute;left:16.6%;top:6.2%;width:94.6%;aspect-ratio:16/9;
+.brain-video{position:absolute;left:calc(var(--hx) + 16.6*var(--hu));top:6.2%;width:calc(94.6*var(--hu));aspect-ratio:16/9;
   object-fit:cover;pointer-events:none;filter:saturate(1.05) brightness(1.02);
   -webkit-mask-image:radial-gradient(ellipse 56% 58% at 54% 47%, #000 60%, transparent 86%);
           mask-image:radial-gradient(ellipse 56% 58% at 54% 47%, #000 60%, transparent 86%)}
@@ -761,26 +764,26 @@ img.brain-video{display:none}
   background:linear-gradient(115deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 30%);opacity:.55}
 
 /* card IA — spec: x545 y150 w230 h175 */
-.fc-ia{left:37.85%;top:18.5%;width:clamp(190px,16vw,246px);padding:1.25vw 1.4vw 1.1vw;
+.fc-ia{left:calc(var(--hx) + 37.85*var(--hu));top:18.5%;width:clamp(190px,calc(16*var(--hu)),246px);padding:calc(1.25*var(--hu)) calc(1.4*var(--hu)) calc(1.1*var(--hu));
   background:linear-gradient(135deg,rgba(30,60,120,.30) 0%,rgba(30,60,120,.40) 50%,rgba(30,60,120,.32) 100%)}
 .fc-ia-head{display:flex;align-items:center;gap:.9vw}
-.fc-ia-badge{width:clamp(46px,4.45vw,68px);height:clamp(46px,4.45vw,68px);flex:none;border-radius:50%;
+.fc-ia-badge{width:clamp(46px,calc(4.45*var(--hu)),68px);height:clamp(46px,calc(4.45*var(--hu)),68px);flex:none;border-radius:50%;
   display:grid;place-items:center;background:rgba(255,255,255,.16);
   border:1px solid rgba(255,255,255,.65);
   box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 8px 20px -10px rgba(35,48,90,.35)}
 .fc-ia-badge svg{width:64%;height:64%;
   filter:drop-shadow(0 1px 2px rgba(25,35,65,.3))}
 .fc-ia-text{display:flex;flex-direction:column;line-height:1.2}
-.fc-ia-text strong{font-size:clamp(20px,2vw,30px);font-weight:700}
+.fc-ia-text strong{font-size:clamp(20px,calc(2*var(--hu)),30px);font-weight:700}
 .fc-ia-text span{font-size:clamp(10px,.82vw,12.5px);opacity:.92}
-.fc-wave{width:100%;height:clamp(26px,2.6vw,40px);margin-top:.9vw;overflow:visible}
+.fc-wave{width:100%;height:clamp(26px,calc(2.6*var(--hu)),40px);margin-top:.9vw;overflow:visible}
 .fc-wave path{stroke:rgba(255,255,255,.95);stroke-width:2;fill:none;stroke-linecap:round;
   filter:drop-shadow(0 1px 2px rgba(25,35,65,.25))}
 .fc-wave circle{fill:#fff}
 
 /* play orb — spec: centro (893,405) Ø132 */
-.play-orb{position:absolute;z-index:6;left:62%;top:50%;transform:translate(-50%,-50%);
-  width:clamp(96px,9.2vw,140px);aspect-ratio:1;border-radius:50%;cursor:pointer;
+.play-orb{position:absolute;z-index:6;left:calc(var(--hx) + 62*var(--hu));top:50%;transform:translate(-50%,-50%);
+  width:clamp(96px,calc(9.2*var(--hu)),140px);aspect-ratio:1;border-radius:50%;cursor:pointer;
   display:grid;place-items:center;border:1px solid rgba(255,255,255,.65);
   background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.45),rgba(255,255,255,.12) 60%,rgba(255,255,255,.22));
   -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
@@ -792,26 +795,26 @@ img.brain-video{display:none}
 .play-orb:hover{transform:translate(-50%,-50%) scale(1.06)}
 
 /* card 24/7 — spec: x1090 y402 w230 h166 */
-.fc-stat{left:75.7%;top:49.6%;width:clamp(190px,16vw,246px);
-  padding:1.1vw 1.2vw 1.25vw;text-align:center;
+.fc-stat{left:calc(var(--hx) + 75.7*var(--hu));top:49.6%;width:clamp(190px,calc(16*var(--hu)),246px);
+  padding:calc(1.1*var(--hu)) calc(1.2*var(--hu)) calc(1.25*var(--hu));text-align:center;
   background:linear-gradient(135deg,rgba(30,60,120,.30) 0%,rgba(30,60,120,.40) 50%,rgba(30,60,120,.32) 100%)}
-.fc-gauge{width:clamp(110px,10.4vw,160px);height:auto;margin:0 auto -4px;display:block;overflow:visible}
+.fc-gauge{width:clamp(110px,calc(10.4*var(--hu)),160px);height:auto;margin:0 auto -4px;display:block;overflow:visible}
 .fc-gauge line{stroke:rgba(255,255,255,.9);stroke-width:2;stroke-linecap:round}
-.fc-num{font-size:clamp(28px,2.8vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff}
+.fc-num{font-size:clamp(28px,calc(2.8*var(--hu)),44px);font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff}
 .fc-lbl{font-size:clamp(10px,.82vw,12.5px);opacity:.92;margin-top:5px}
 
 /* bloco de texto — spec: x36 y158 */
-.lhero-copy{position:absolute;z-index:8;left:2.5%;top:18.8%;width:min(38vw,540px)}
+.lhero-copy{position:absolute;z-index:8;left:calc(var(--hx) + 2.5*var(--hu));top:18.8%;width:min(calc(38*var(--hu)),540px)}
 .lhero-title{font-weight:700;line-height:1.06;letter-spacing:-.008em;white-space:nowrap;
-  text-transform:uppercase;color:#2E3A56;font-size:clamp(24px,3.15vw,48px)}
+  text-transform:uppercase;color:#2E3A56;font-size:clamp(24px,calc(3.15*var(--hu)),48px)}
 .lhero-title .ghost{display:block;font-family:'Poppins',sans-serif;font-weight:600;
   font-size:1.36em;line-height:1.02;letter-spacing:-.008em;
   background:linear-gradient(180deg,#9BADC7 0%,#444D8E 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 1px 1px rgba(255,255,255,.55))}
-.lhero-sub{margin-top:1.6vw;max-width:28.6vw;font-size:clamp(13px,1.15vw,17.5px);
+.lhero-sub{margin-top:calc(1.6*var(--hu));max-width:calc(28.6*var(--hu));font-size:clamp(13px,calc(1.15*var(--hu)),17.5px);
   line-height:1.5;color:#46536F}
-.lhero-ctas{display:flex;flex-wrap:wrap;gap:1.5vw;margin-top:2.6vw;width:max-content;max-width:60vw}
+.lhero-ctas{display:flex;flex-wrap:wrap;gap:calc(1.5*var(--hu));margin-top:calc(2.6*var(--hu));width:max-content;max-width:calc(60*var(--hu))}
 .lhero-ctas .hero-cta-group{width:auto;min-width:min(344px,100%);max-width:100%}
 .lhero-ctas .btn{width:100%;min-height:54px;height:auto;padding:12px 24px;justify-content:center;border:1px solid transparent;line-height:1.25;white-space:nowrap}
 @media(max-width:560px){.lhero-ctas .btn{white-space:normal;text-align:center}}
@@ -1207,7 +1210,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#topo" aria-label="Clint"><img class="logo-img" src="/Logo%20Clint.svg" alt="Clint" /></a>
     </div>
     <div class="nav-right">
-      <div class="lang"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma"></button><nav class="lang-menu" aria-label="Idioma"><a href="/" hreflang="es-MX" lang="es-MX" aria-label="Português" data-lang="pt"    ><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-br"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-br)"><rect width="32" height="32" fill="#1E9E4A"/><path d="M16 5 29 16 16 27 3 16z" fill="#FFD233"/><circle cx="16" cy="16" r="6.2" fill="#24378F"/><path d="M10 15.2c4-1.4 8.6-.8 12 1.6" stroke="#fff" stroke-width="1.1" fill="none"/></g></svg></a><a href="/es/" hreflang="es-MX" lang="es-MX" aria-label="Español" data-lang="es" class="on" aria-current="true"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-mx"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-mx)"><rect width="11" height="32" fill="#006847"/><rect x="11" width="10" height="32" fill="#fff"/><rect x="21" width="11" height="32" fill="#CE1126"/><circle cx="16" cy="16" r="2.6" fill="#8C5A2B"/><path d="M13.4 18.2c1.6 1.2 3.6 1.2 5.2 0" stroke="#3E8E3E" stroke-width="1" fill="none"/></g></svg></a><a href="/en/" hreflang="en-US" lang="en-US" aria-label="English" data-lang="en"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-us"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-us)"><rect width="32" height="32" fill="#fff"/><g fill="#C8102E"><rect y="0" width="32" height="2.5"/><rect y="4.9" width="32" height="2.5"/><rect y="9.8" width="32" height="2.5"/><rect y="14.7" width="32" height="2.5"/><rect y="19.6" width="32" height="2.5"/><rect y="24.5" width="32" height="2.5"/><rect y="29.4" width="32" height="2.6"/></g><rect width="15" height="17.2" fill="#0A3161"/><g fill="#fff"><circle cx="3.5" cy="3.5" r=".9"/><circle cx="7.5" cy="3.5" r=".9"/><circle cx="11.5" cy="3.5" r=".9"/><circle cx="5.5" cy="7" r=".9"/><circle cx="9.5" cy="7" r=".9"/><circle cx="3.5" cy="10.5" r=".9"/><circle cx="7.5" cy="10.5" r=".9"/><circle cx="11.5" cy="10.5" r=".9"/><circle cx="5.5" cy="14" r=".9"/><circle cx="9.5" cy="14" r=".9"/></g></g></svg></a></nav></div>
+      <div class="lang"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma"></button><nav class="lang-menu" aria-label="Idioma"><a href="/" hreflang="es-MX" lang="es-MX" aria-label="Português" data-lang="pt"     ><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-br"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-br)"><rect width="32" height="32" fill="#1E9E4A"/><path d="M16 5 29 16 16 27 3 16z" fill="#FFD233"/><circle cx="16" cy="16" r="6.2" fill="#24378F"/><path d="M10 15.2c4-1.4 8.6-.8 12 1.6" stroke="#fff" stroke-width="1.1" fill="none"/></g></svg></a><a href="/es/" hreflang="es-MX" lang="es-MX" aria-label="Español" data-lang="es" class="on" aria-current="true"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-mx"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-mx)"><rect width="11" height="32" fill="#006847"/><rect x="11" width="10" height="32" fill="#fff"/><rect x="21" width="11" height="32" fill="#CE1126"/><circle cx="16" cy="16" r="2.6" fill="#8C5A2B"/><path d="M13.4 18.2c1.6 1.2 3.6 1.2 5.2 0" stroke="#3E8E3E" stroke-width="1" fill="none"/></g></svg></a><a href="/en/" hreflang="en-US" lang="en-US" aria-label="English" data-lang="en"><svg viewBox="0 0 32 32" aria-hidden="true"><clipPath id="fl-us"><circle cx="16" cy="16" r="16"/></clipPath><g clip-path="url(#fl-us)"><rect width="32" height="32" fill="#fff"/><g fill="#C8102E"><rect y="0" width="32" height="2.5"/><rect y="4.9" width="32" height="2.5"/><rect y="9.8" width="32" height="2.5"/><rect y="14.7" width="32" height="2.5"/><rect y="19.6" width="32" height="2.5"/><rect y="24.5" width="32" height="2.5"/><rect y="29.4" width="32" height="2.6"/></g><rect width="15" height="17.2" fill="#0A3161"/><g fill="#fff"><circle cx="3.5" cy="3.5" r=".9"/><circle cx="7.5" cy="3.5" r=".9"/><circle cx="11.5" cy="3.5" r=".9"/><circle cx="5.5" cy="7" r=".9"/><circle cx="9.5" cy="7" r=".9"/><circle cx="3.5" cy="10.5" r=".9"/><circle cx="7.5" cy="10.5" r=".9"/><circle cx="11.5" cy="10.5" r=".9"/><circle cx="5.5" cy="14" r=".9"/><circle cx="9.5" cy="14" r=".9"/></g></g></svg></a></nav></div>
     <a class="btn btn-wa nav-cta" href="https://api.whatsapp.com/send?phone=5548996789080&text=Hola%21%20Me%20gustar%C3%ADa%20ver%20c%C3%B3mo%20Clint%20ayuda%20a%20las%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20citas%2C%20recuperar%20pacientes%20y%20automatizar%20la%20atenci%C3%B3n%20con%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer" aria-label="Hablar con la IA en WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
       <span class="nav-cta-label">Hablar con la IA en WhatsApp</span>
