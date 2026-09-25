@@ -125,7 +125,6 @@ em{font-style:normal}
 .eyebrow .dash{color:var(--grape);font-weight:700}
 .eyebrow .txt{color:var(--grape-soft)}
 .section-light .eyebrow .txt{color:var(--purple)}
-.section-light .divider-label .dash{background:var(--pink)}
 /* barra-divisora gradiente (assinatura Clint) sob o hero */
 .hero-divider{height:5px;width:100%;
   background:linear-gradient(90deg,transparent,#FF2D6F 20%,#D11E5B 50%,#FF2D6F 80%,transparent);
@@ -192,10 +191,14 @@ section{position:relative}
 .pad{padding:96px 0}
 .pad-sm{padding:72px 0}
 
-.divider-label{display:flex;align-items:center;gap:16px;margin-bottom:26px}
-.divider-label .dash{display:inline-block;width:22px;height:2px;border-radius:2px;background:var(--pink);flex:none}
-.divider-label .lbl{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6)}
-.section-light .divider-label .lbl{color:#8a86a0}
+.divider-label{display:flex;align-items:center;margin-bottom:24px}
+/* rótulo de seção em pílula: mesma fonte da página, borda fina e um ponto de cor da marca */
+.divider-label .lbl{display:inline-flex;align-items:center;gap:9px;padding:7px 15px 7px 12px;border-radius:999px;
+  font-size:13px;font-weight:500;letter-spacing:.01em;line-height:1.2;
+  color:rgba(255,255,255,.88);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.divider-label .lbl::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--grad-brand);flex:none}
+.section-light .divider-label .lbl{color:#4E3AFF;background:rgba(78,58,255,.06);border-color:rgba(78,58,255,.16);box-shadow:0 1px 2px rgba(26,23,48,.04)}
 
 /* efeitos de fundo */
 .glow-top{position:absolute;inset:0;pointer-events:none;overflow:hidden}
@@ -518,7 +521,7 @@ header{
 .pratica-phone{display:flex;justify-content:center}
 /* citação da conversa real */
 .pratica-quote{margin:30px 0 0;position:relative;padding-left:22px;border-left:3px solid rgba(139,92,255,.35);max-width:44ch}
-.pq-tag{font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;line-height:1.5}
+.pq-tag{font-size:13px;font-weight:500;color:var(--purple);margin-bottom:14px;line-height:1.5}
 .pratica-quote blockquote{margin:0}
 .pq-in{font-size:clamp(16px,1.4vw,18px);color:var(--ink-soft);line-height:1.45}
 .pq-out{font-size:clamp(21px,2.1vw,27px);font-weight:600;color:var(--ink);line-height:1.3;letter-spacing:-.01em;margin-top:14px}
@@ -1241,7 +1244,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===================== O DIA A DIA ===================== -->
 <section id="dia-a-dia" class="section-light pad">
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">O dia a dia da clínica</span></div>
+    <div class="divider-label reveal"><span class="lbl">O dia a dia da clínica</span></div>
     <h2 class="h-sec reveal">Alguma dessas situações já aconteceu na sua clínica</h2>
     <p class="intro-note reveal">Não é sobre atrair paciente novo, mas não deixar o paciente que você já tem escapar pela sua agenda.</p>
 
@@ -1439,7 +1442,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="grid-bg"></div>
   <div class="orb" style="width:400px;height:400px;background:#8B5CFF;top:0;right:-140px;opacity:.28"></div>
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">Como o sistema da Clint resolve</span></div>
+    <div class="divider-label reveal"><span class="lbl">Como o sistema da Clint resolve</span></div>
     <h2 class="h-sec reveal">Quatro passos, sem complicação</h2>
 
     <div class="steps">
@@ -1482,7 +1485,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="pratica-grid">
       <div class="pratica-copy reveal">
-        <div class="divider-label"><span class="dash" aria-hidden="true"></span><span class="lbl">Na prática</span></div>
+        <div class="divider-label"><span class="lbl">Na prática</span></div>
         <h2 class="h-sec">Veja como fica uma conversa de verdade</h2>
         <p class="intro-note">O paciente chama no WhatsApp e a Inteligência Artificial cuida de tudo.</p>
         <figure class="pratica-quote">
@@ -1507,16 +1510,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="wa-avatar"><img src="/ia-clint.webp" alt="Clara" /></div>
               <div>
                 <div class="who">Clara · Clint Saúde</div>
-                <div class="st">digitando...</div>
+                <div class="st" id="chatStatus">online agora</div>
               </div>
             </div>
-            <div class="wa-body" aria-label="Exemplo de conversa real no WhatsApp">
-              <span class="wa-day">Hoje</span>
-              <div class="bubble out">oi, gostaria de saber se tem horário essa semana<span class="t">09:41 ✓✓</span></div>
-              <div class="bubble in">sim! tenho quinta às 14h ou sexta às 10h, qual prefere?<span class="t">09:41</span></div>
-              <div class="bubble out">quinta às 14h<span class="t">09:42 ✓✓</span></div>
-              <div class="bubble in typing frozen" aria-label="Clara está digitando"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
-            </div>
+            <div class="wa-body" id="chatAnim" aria-label="Exemplo de conversa real no WhatsApp"><span class="wa-day">Hoje</span></div>
           </div>
         </div>
       </div>
@@ -1534,7 +1531,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="sys-orb o3"></span>
   </div>
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">O sistema completo</span></div>
+    <div class="divider-label reveal"><span class="lbl">O sistema completo</span></div>
     <h2 class="h-sec reveal">Tudo acontece em um só lugar.</h2>
     <p class="lead reveal pd-lead">Da primeira mensagem ao indicador do dia, cada passo do paciente fica registrado na mesma plataforma. Role para acompanhar um atendimento.</p>
   </div>
@@ -1566,7 +1563,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===================== A DIFERENÇA (comparativo) ===================== -->
 <section class="section-light pad">
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">A diferença na prática</span></div>
+    <div class="divider-label reveal"><span class="lbl">A diferença na prática</span></div>
     <h2 class="h-sec reveal">Entenda o que muda quando você escolhe a Clint</h2>
     <p class="intro-note reveal">O mercado de saúde já tem vários robôs de WhatsApp. A diferença não está em ter IA, está no que essa IA consegue fazer.</p>
 
@@ -1578,10 +1575,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cmp-row">
         <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Chatbot mecânico, com perguntas decoradas</div>
         <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>IA que entende o que o paciente escreve, mesmo fora do roteiro</div>
-      </div>
-      <div class="cmp-row">
-        <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Roda sozinho, sem ninguém acompanhando a conversa</div>
-        <div class="clint"><span class="mk yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Squad da Clint calibra a operação periodicamente</div>
       </div>
       <div class="cmp-row">
         <div class="others"><span class="mk no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Só confirma consulta</div>
@@ -1615,7 +1608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="grid-bg"></div>
   <div class="orb" style="width:380px;height:380px;background:#FF2D6F;top:10%;left:-140px;opacity:.22"></div>
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">Resultado real</span></div>
+    <div class="divider-label reveal"><span class="lbl">Resultado real</span></div>
     <h2 class="h-sec reveal">De agenda vazia pra fatura maior</h2>
     <p class="lead result-lead reveal">Quem tinha agenda vazia e bagunçada hoje fatura mais, sem gastar mais em anúncio e sem planilha que só uma pessoa da equipe sabia usar.</p>
 
@@ -1667,7 +1660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="next-grid">
       <div class="next-copy reveal">
-        <div class="divider-label"><span class="dash" aria-hidden="true"></span><span class="lbl">Próximo passo</span></div>
+        <div class="divider-label"><span class="lbl">Próximo passo</span></div>
         <h2 class="h-sec">Sua clínica também pode operar assim</h2>
         <p class="lead">Manda uma mensagem agora no WhatsApp e fale com a Clara, a agente inteligente da Clint. Ou marque uma conversa com um especialista.</p>
         <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20ver%20como%20a%20Clint%20ajuda%20cl%C3%ADnicas%20m%C3%A9dicas%20a%20confirmar%20consultas%2C%20recuperar%20pacientes%20e%20automatizar%20o%20atendimento%20com%20IA.&utm_source=novo-site&utm_medium=botao&utm_campaign=site-clinicas" target="_blank" rel="noopener noreferrer">
@@ -1691,7 +1684,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===================== FAQ ===================== -->
 <section id="faq" class="section-light pad">
   <div class="wrap">
-    <div class="divider-label reveal"><span class="dash" aria-hidden="true"></span><span class="lbl">FAQ</span></div>
+    <div class="divider-label reveal"><span class="lbl">FAQ</span></div>
     <h2 class="h-sec reveal">As dúvidas que toda clínica tem</h2>
 
     <div class="faq">
@@ -1724,6 +1717,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
         </summary>
         <div class="ans">Não. A Clint conecta com os sistemas que sua clínica já usa. Nossa equipe configira tudo e você não perde nenhum dado.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Como funciona o pagamento? Dá pra testar antes?
+          <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </summary>
+        <div class="ans">Você escolhe entre o plano mensal ou o anual. E antes de decidir, pode testar a Clint por 7 dias grátis, sem precisar cadastrar cartão de crédito.</div>
       </details>
     </div>
   </div>
@@ -1911,6 +1910,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 })();
 
+/* animação da conversa (Na prática): mensagens aparecendo uma a uma */
+(function(){
+  var body=document.getElementById('chatAnim');
+  if(!body)return;
+  var script=[
+    {s:'out',t:'oi, gostaria de saber se tem horário essa semana', time:'09:41 ✓✓'},
+    {s:'in', t:'sim! tenho quinta às 14h ou sexta às 10h, qual prefere?', time:'09:41'},
+    {s:'out',t:'quinta às 14h', time:'09:42 ✓✓'}
+  ];
+  var status=document.getElementById('chatStatus');
+  function typingOn(on){if(status)status.textContent=on?'digitando...':'online agora';}
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function scrollBottom(){body.scrollTop=body.scrollHeight;}
+  function makeBubble(m){
+    var d=document.createElement('div');
+    d.className='bubble '+m.s;
+    d.textContent=m.t;                 /* textContent preserva a copy exata */
+    var sp=document.createElement('span');sp.className='t';sp.textContent=m.time;
+    d.appendChild(sp);
+    return d;
+  }
+  function makeTyping(){
+    var d=document.createElement('div');
+    d.className='bubble in typing';
+    d.innerHTML='<span class="dots"><i></i><i></i><i></i></span>';
+    return d;
+  }
+  var played=false;
+  function playAll(){
+    if(played)return;played=true;
+    if(reduce){script.forEach(function(m){body.appendChild(makeBubble(m));});body.appendChild(makeTyping());typingOn(true);scrollBottom();return;}
+    (async function(){
+      await sleep(400);
+      for(var i=0;i<script.length;i++){
+        var m=script[i];
+        if(m.s==='in'){
+          var tp=makeTyping();body.appendChild(tp);typingOn(true);scrollBottom();
+          await sleep(1050);
+          body.removeChild(tp);typingOn(false);
+        } else {
+          await sleep(520);
+        }
+        body.appendChild(makeBubble(m));scrollBottom();
+        await sleep(720);
+      }
+      /* termina com a Clara digitando a próxima resposta */
+      await sleep(500);body.appendChild(makeTyping());typingOn(true);scrollBottom();
+    })();
+  }
+  function inView(){
+    var r=body.getBoundingClientRect();
+    var h=window.innerHeight||document.documentElement.clientHeight;
+    return r.top < h*0.82 && r.bottom > 0;
+  }
+  function maybePlay(){
+    if(played)return;
+    if(inView()){
+      playAll();
+      window.removeEventListener('scroll',maybePlay);
+      window.removeEventListener('resize',maybePlay);
+    }
+  }
+  window.addEventListener('scroll',maybePlay,{passive:true});
+  window.addEventListener('resize',maybePlay);
+  maybePlay();
+})();
 /* seção de dores: layout responsivo das cenas + stack sticky */
 (function(){
   var stackEl=document.querySelector('.pain-stack');
