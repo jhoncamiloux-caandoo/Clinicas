@@ -516,6 +516,20 @@ header{
   background:var(--whatsapp);color:var(--whatsapp-fg);font-size:13px;font-weight:600;box-shadow:var(--shadow-green)}
 .pratica-badge svg{width:16px;height:16px}
 .pratica-phone{display:flex;justify-content:center}
+/* citação da conversa real */
+.pratica-quote{margin:30px 0 0;position:relative;padding-left:22px;border-left:3px solid rgba(139,92,255,.35);max-width:44ch}
+.pq-tag{font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;line-height:1.5}
+.pratica-quote blockquote{margin:0}
+.pq-in{font-size:clamp(16px,1.4vw,18px);color:var(--ink-soft);line-height:1.45}
+.pq-out{font-size:clamp(21px,2.1vw,27px);font-weight:600;color:var(--ink);line-height:1.3;letter-spacing:-.01em;margin-top:14px}
+.pq-in::before,.pq-out::before{content:'“'}.pq-in::after,.pq-out::after{content:'”'}
+.pq-who{display:block;margin-top:6px;font-size:12.5px;font-weight:500;color:#8a86a0}
+.pq-who.is-ia{color:var(--purple)}
+/* "digitando..." congelado: pontos parados em opacidades diferentes, como um print */
+.bubble.typing.frozen i{animation:none}
+.bubble.typing.frozen i:nth-child(1){opacity:.9}.bubble.typing.frozen i:nth-child(2){opacity:.6}.bubble.typing.frozen i:nth-child(3){opacity:.35}
+.pratica-phone .wa-body{justify-content:flex-end}
+.pratica-phone .wa-day{align-self:center;margin-bottom:auto;font-size:10.5px;color:rgba(255,255,255,.55);background:rgba(255,255,255,.06);border-radius:8px;padding:4px 10px}
 
 /* ============================================================
    SISTEMA COMPLETO (features) — fundo premium diferenciado + zigzag
@@ -1318,6 +1332,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="divider-label"><span class="dash" aria-hidden="true"></span><span class="lbl">Na prática</span></div>
         <h2 class="h-sec">Veja como fica uma conversa de verdade</h2>
         <p class="intro-note">O paciente chama no WhatsApp e a Inteligência Artificial cuida de tudo.</p>
+        <figure class="pratica-quote">
+          <figcaption class="pq-tag">Atendimento humanizado, que aproxima a clínica do paciente</figcaption>
+          <blockquote>
+            <p class="pq-in">oi, gostaria de saber se tem horário essa semana</p>
+            <span class="pq-who">Paciente</span>
+            <p class="pq-out">sim! tenho quinta às 14h ou sexta às 10h, qual prefere?</p>
+            <span class="pq-who is-ia">Clara, IA da Clint</span>
+          </blockquote>
+        </figure>
         <span class="pratica-badge">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.31-1.95 1.35-.5.04-1.12.2-3.6-.75-3.02-1.19-4.94-4.28-5.09-4.48-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.12.07.71-.17 1.39Z"/></svg>
           WhatsApp · Clara, agente inteligente da Clint
@@ -1331,10 +1354,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="wa-avatar"><img src="/ia-clint.webp" alt="Clara" /></div>
               <div>
                 <div class="who">Clara · Clint Saúde</div>
-                <div class="st">● online agora</div>
+                <div class="st">digitando...</div>
               </div>
             </div>
-            <div class="wa-body" id="chatAnim" aria-label="Exemplo de conversa"></div>
+            <div class="wa-body" aria-label="Exemplo de conversa real no WhatsApp">
+              <span class="wa-day">Hoje</span>
+              <div class="bubble out">oi, gostaria de saber se tem horário essa semana<span class="t">09:41 ✓✓</span></div>
+              <div class="bubble in">sim! tenho quinta às 14h ou sexta às 10h, qual prefere?<span class="t">09:41</span></div>
+              <div class="bubble out">quinta às 14h<span class="t">09:42 ✓✓</span></div>
+              <div class="bubble in typing frozen" aria-label="Clara está digitando"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1781,71 +1810,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 })();
 
-/* animação da conversa (Na prática): mensagens aparecendo uma a uma */
-(function(){
-  var body=document.getElementById('chatAnim');
-  if(!body)return;
-  var script=[
-    {s:'in', t:'Oi Marina, tudo bem? Passando pra lembrar da sua consulta amanhã às 14h com a Dra. Camila.', time:'14:02'},
-    {s:'out',t:'pode confirmar sim', time:'14:05 ✓✓'},
-    {s:'in', t:'Consulta confirmada. Até amanhã 😊', time:'14:05'},
-    {s:'in', t:'Marina, já faz 6 meses da sua última limpeza. Quer marcar o retorno essa semana?', time:'14:06'},
-    {s:'out',t:'pode ser quinta de manhã', time:'14:08 ✓✓'}
-  ];
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
-  function scrollBottom(){body.scrollTop=body.scrollHeight;}
-  function makeBubble(m){
-    var d=document.createElement('div');
-    d.className='bubble '+m.s;
-    d.textContent=m.t;                 /* textContent preserva a copy exata */
-    var sp=document.createElement('span');sp.className='t';sp.textContent=m.time;
-    d.appendChild(sp);
-    return d;
-  }
-  function makeTyping(){
-    var d=document.createElement('div');
-    d.className='bubble in typing';
-    d.innerHTML='<span class="dots"><i></i><i></i><i></i></span>';
-    return d;
-  }
-  var played=false;
-  function playAll(){
-    if(played)return;played=true;
-    if(reduce){script.forEach(function(m){body.appendChild(makeBubble(m));});scrollBottom();return;}
-    (async function(){
-      await sleep(400);
-      for(var i=0;i<script.length;i++){
-        var m=script[i];
-        if(m.s==='in'){
-          var tp=makeTyping();body.appendChild(tp);scrollBottom();
-          await sleep(1050);
-          body.removeChild(tp);
-        } else {
-          await sleep(520);
-        }
-        body.appendChild(makeBubble(m));scrollBottom();
-        await sleep(720);
-      }
-    })();
-  }
-  function inView(){
-    var r=body.getBoundingClientRect();
-    var h=window.innerHeight||document.documentElement.clientHeight;
-    return r.top < h*0.82 && r.bottom > 0;
-  }
-  function maybePlay(){
-    if(played)return;
-    if(inView()){
-      playAll();
-      window.removeEventListener('scroll',maybePlay);
-      window.removeEventListener('resize',maybePlay);
-    }
-  }
-  window.addEventListener('scroll',maybePlay,{passive:true});
-  window.addEventListener('resize',maybePlay);
-  maybePlay();
-})();
 /* seção de dores: layout responsivo das cenas + stack sticky */
 (function(){
   var stackEl=document.querySelector('.pain-stack');
