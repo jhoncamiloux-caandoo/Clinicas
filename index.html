@@ -103,6 +103,7 @@ body{
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   overflow-x:hidden;
+  overflow-x:clip; /* clip não vira container de rolagem, então position:sticky funciona */
   line-height:1.55;
 }
 a{color:inherit;text-decoration:none}
@@ -323,31 +324,42 @@ header{
    ============================================================ */
 .pain-stack{margin-top:56px;position:relative}
 .pain-card{
-  position:sticky;top:calc(96px + var(--i)*20px);
+  position:relative;z-index:calc(var(--i) + 1);
   display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:40px;
-  min-height:460px;margin-bottom:9vh;padding:44px 44px 44px 52px;
+  min-height:460px;margin-bottom:28px;padding:44px 44px 44px 52px;
   background:#fff;border:1px solid #E6E3F2;border-radius:32px;
   box-shadow:0 30px 70px -40px rgba(26,23,48,.35),0 2px 0 rgba(255,255,255,.8) inset;
-  transform-origin:50% 0;transform:scale(calc(1 - var(--p,0)*.05));
-  filter:brightness(calc(1 - var(--p,0)*.06));will-change:transform;
+  transform-origin:50% 0;
 }
 .pain-card:last-child{margin-bottom:0}
+/* cards de trás escurecem por uma camada (opacidade no card deixaria o de baixo aparecer) */
+.pain-card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:#1A1730;opacity:var(--dim,0);pointer-events:none}
+/* desktop: sticky stacking (JS liga .is-stack e calcula --top0 e --gap pela viewport) */
+.pain-stack.is-stack .pain-card{position:sticky;top:calc(var(--top0,96px) + var(--i)*14px);margin-bottom:0;will-change:transform}
+/* espaço de scroll entre etapas: elemento irmão (margem no card faria o sticky soltar antes) */
+.pain-gap{display:none}
+.pain-stack.is-stack .pain-gap{display:block}
+#dia-a-dia:has(.is-stack){padding-bottom:40px}
+/* tablet e mobile: fluxo normal com entrada individual */
+.pain-stack.is-flow .pain-card{opacity:0;transform:translateY(40px) scale(.98);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.pain-stack.is-flow .pain-card.pc-in{opacity:1;transform:none}
 .pain-num{display:inline-flex;align-items:baseline;gap:2px;font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--pink);margin-bottom:22px}
 .pain-num i{font-style:normal;color:#b3afc6}
 .pain-copy h3{font-size:clamp(24px,2.6vw,34px);line-height:1.12;margin-bottom:16px;color:var(--ink)}
 .pain-copy p{font-size:clamp(16px,1.3vw,18px);color:var(--ink-soft);line-height:1.6;max-width:40ch}
-.pain-scene{position:relative;border-radius:24px;padding:14px;
+.pain-scene{position:relative;border-radius:24px;padding:14px;min-width:0;
   background:radial-gradient(120% 90% at 80% 0%,rgba(255,45,111,.09),transparent 60%),linear-gradient(160deg,#F7F5FF,#F1EEFB);
   border:1px solid #ECE9F7}
-.pain-scene svg{width:100%;height:auto;overflow:visible}
+.pain-scene svg{width:100%;height:auto;overflow:hidden}
+@media(max-width:1180px){.pain-card{padding:36px 32px 36px 40px;gap:32px}}
 @media(max-width:860px){
-  .pain-card{grid-template-columns:1fr;gap:22px;padding:26px 20px 20px;min-height:0;top:calc(76px + var(--i)*12px);border-radius:26px;margin-bottom:6vh}
+  .pain-card{grid-template-columns:1fr;gap:22px;padding:26px 16px 16px;min-height:0;border-radius:26px;margin-bottom:20px}
+  .pain-copy{padding:0 6px}
   .pain-num{margin-bottom:12px}
   .pain-copy h3{margin-bottom:10px}
   .pain-copy p{font-size:15px}
-  .pain-scene{padding:8px;border-radius:18px}
+  .pain-scene{padding:6px;border-radius:18px}
 }
-@media(max-width:860px) and (max-height:760px){.pain-copy p{display:none}}
 
 /* textos e peças comuns das cenas */
 .pain-scene text{font-family:'Poppins',sans-serif;fill:var(--ink)}
@@ -365,8 +377,8 @@ header{
 
 /* 01 no-show */
 .sc-noshow .slot>rect{fill:#F7F6FC}
-.sc-noshow .pill.ok{fill:rgba(37,211,102,.14)}.sc-noshow .t-pill{font-size:9.5px;font-weight:600;text-anchor:middle}
-.sc-noshow .t-pill.ok{fill:#139a4a}.sc-noshow .pill.wait{fill:rgba(245,166,35,.18)}.sc-noshow .t-pill.wait{fill:#b8740b}
+.sc-noshow .pa text{font-size:9.5px;font-weight:600}
+.sc-noshow .pa.ok rect{fill:rgba(37,211,102,.14)}.sc-noshow .pa.ok text{fill:#139a4a}.sc-noshow .pa.wait rect{fill:rgba(245,166,35,.18)}.sc-noshow .pa.wait text{fill:#b8740b}
 .sc-noshow .slot-maria>rect{fill:#fff;stroke:#F5A623;stroke-dasharray:5 4;animation:dash 1.2s linear infinite}
 .sc-noshow .miss{opacity:0;animation:n-miss 9s infinite}
 .sc-noshow .miss rect{fill:#FFEFF4;stroke:var(--pink);stroke-width:1.5}
@@ -437,7 +449,7 @@ header{
 .sc-desk .badge circle{fill:var(--pink)}
 .sc-desk .badge{animation:pop 1s ease-in-out infinite}
 .sc-desk .w-count{font-size:12px;font-weight:700;fill:#fff!important;text-anchor:middle}
-.sc-desk .msgs g{opacity:0;animation:msg 6s ease-out infinite;animation-delay:var(--d)}
+.sc-desk .msgs .m{opacity:0;animation:msg 6s ease-out infinite;animation-delay:var(--d)}
 .sc-desk .msgs rect{fill:#fff;filter:drop-shadow(0 4px 8px rgba(26,23,48,.08))}
 .sc-desk .t-b{font-size:11px}
 .sc-desk .card-r rect{fill:#fff;stroke:#E6E3F2}
@@ -454,10 +466,22 @@ header{
 @keyframes ring{0%,40%,100%{transform:rotate(0)}5%,15%,25%{transform:rotate(-16deg)}10%,20%,30%{transform:rotate(16deg)}}
 @keyframes ringbox{0%,40%,100%{stroke:#E6E3F2}10%,30%{stroke:var(--pink)}}
 
+/* mobile: fonte maior em unidades do SVG para compensar a escala; o JS re-quebra as linhas */
+@media(max-width:600px){
+  .sc-noshow .t-h,.sc-desk .t-h{font-size:21px}
+  .sc-noshow .t-s,.sc-return .t-s,.sc-desk .t-s{font-size:15px}
+  .sc-noshow .t-name,.sc-return .t-name,.sc-desk .t-name{font-size:17px}
+  .sc-noshow .t-time{font-size:17px}
+  .sc-noshow .t-b,.sc-desk .t-b{font-size:15.5px}
+  .sc-noshow .pa text{font-size:12px}
+  .sc-noshow .noreply text,.sc-return .mark30 text,.sc-return .late text{font-size:14px}
+  .sc-return .t-hand{font-size:24px}
+  .sc-desk .w-count{font-size:14px}
+}
 @media(prefers-reduced-motion:reduce){
-  .pain-card{transform:none;filter:none}
+  .pain-card,.pain-stack.is-flow .pain-card{transform:none!important;opacity:1!important;transition:none}
   .pain-scene [class]{animation:none!important}
-  .sc-noshow .miss,.sc-noshow .noreply,.sc-desk .msgs g{opacity:1}
+  .sc-noshow .miss,.sc-noshow .noreply,.sc-desk .msgs .m{opacity:1}
   .sc-idle .coins g,.sc-idle .zz{opacity:0}
   .sc-idle .spark{stroke-dashoffset:0}
 }
@@ -946,19 +970,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p>Ele agenda com duas semanas de antecedência, esquece, ninguém confirma direito.</p>
         </div>
         <div class="pain-scene sc-noshow" aria-hidden="true">
-          <svg viewBox="0 0 480 380">
+          <svg viewBox="0 0 480 380" data-auto>
             <rect class="panel" x="16" y="18" width="292" height="344" rx="20"/>
-            <text class="t-h" x="38" y="54">Agenda de terça</text>
-            <text class="t-s" x="38" y="74">3 consultas marcadas</text>
-            <g class="slot"><rect x="34" y="92" width="256" height="70" rx="14"/><text class="t-time" x="52" y="123">13:00</text><text class="t-name" x="110" y="123">Carlos Lima</text><text class="t-s" x="110" y="143">Retorno</text><rect class="pill ok" x="212" y="112" width="64" height="20" rx="10"/><text class="t-pill ok" x="244" y="126">Confirmado</text></g>
-            <g class="slot slot-maria"><rect x="34" y="174" width="256" height="70" rx="14"/><text class="t-time" x="52" y="205">14:00</text><text class="t-name" x="110" y="205">Maria Souza</text><text class="t-s" x="110" y="225">Primeira consulta</text><rect class="pill wait" x="212" y="194" width="64" height="20" rx="10"/><text class="t-pill wait" x="244" y="208">Pendente</text>
-              <g class="miss"><rect x="34" y="174" width="256" height="70" rx="14"/><text class="t-time pk" x="52" y="205">14:00</text><text class="t-name pk" x="110" y="205">Horário vazio</text><text class="t-s pk" x="110" y="225">Maria não compareceu</text><path class="x" d="M246 196l18 18M264 196l-18 18"/></g>
+            <text class="t-h" x="38" y="54" data-fit="250">Agenda de terça</text>
+            <text class="t-s" x="38" y="74" data-fit="250">3 consultas marcadas</text>
+            <g class="slot"><rect x="34" y="92" width="256" height="70" rx="14"/><text class="t-time" x="52" y="123">13:00</text><text class="t-name" x="110" y="123" data-fit-before=".pa rect" data-sm-fit-before="none" data-sm-fit="166">Carlos Lima</text><text class="t-s" x="110" y="143" data-fit="166" data-sm-fit="none" data-sm-fit-before=".pa rect">Retorno</text><g class="pa ok" data-right="276" data-mid="122" data-sm-mid="138"><rect x="212" y="112" width="64" height="20" rx="10"/><text x="244" y="126">Confirmado</text></g></g>
+            <g class="slot slot-maria"><rect x="34" y="174" width="256" height="70" rx="14"/><text class="t-time" x="52" y="205">14:00</text><text class="t-name" x="110" y="205" data-fit-before=".pa rect" data-sm-fit-before="none" data-sm-fit="166">Maria Souza</text><text class="t-s" x="110" y="225" data-fit="166" data-sm-fit="none" data-sm-fit-before=".pa rect">Primeira consulta</text><g class="pa wait" data-right="276" data-mid="204" data-sm-mid="220"><rect x="212" y="194" width="64" height="20" rx="10"/><text x="244" y="208">Pendente</text></g>
+              <g class="miss"><rect x="34" y="174" width="256" height="70" rx="14"/><text class="t-time pk" x="52" y="205">14:00</text><text class="t-name pk" x="110" y="205" data-fit="126">Horário vazio</text><text class="t-s pk" x="110" y="225" data-fit="126" data-sm-fit="166">Maria não compareceu</text><path class="x" d="M246 196l18 18M264 196l-18 18"/></g>
             </g>
-            <g class="slot"><rect x="34" y="256" width="256" height="70" rx="14"/><text class="t-time" x="52" y="287">15:00</text><text class="t-name" x="110" y="287">Pedro Alves</text><text class="t-s" x="110" y="307">Exame</text><rect class="pill ok" x="212" y="276" width="64" height="20" rx="10"/><text class="t-pill ok" x="244" y="290">Confirmado</text></g>
-            <g class="bubble"><rect x="296" y="46" width="172" height="78" rx="16"/><text class="t-b" x="312" y="74">Oi Maria! Confirma sua</text><text class="t-b" x="312" y="92">consulta de amanhã, 14h?</text><text class="t-s" x="400" y="113">09:12</text><path class="tick" d="M436 108l4 4 7-8"/></g>
-            <g class="noreply"><rect x="330" y="136" width="104" height="26" rx="13"/><text x="382" y="153">Sem resposta</text></g>
-            <g class="clock" transform="translate(394 262)"><circle r="44"/><circle class="c-in" r="36"/><line class="h-h" x1="0" y1="0" x2="0" y2="-18"/><line class="h-m" x1="0" y1="0" x2="0" y2="-27"/><circle class="dot" r="3.5"/></g>
-            <text class="t-s cap" x="394" y="332">14:20 e nada</text>
+            <g class="slot"><rect x="34" y="256" width="256" height="70" rx="14"/><text class="t-time" x="52" y="287">15:00</text><text class="t-name" x="110" y="287" data-fit-before=".pa rect" data-sm-fit-before="none" data-sm-fit="166">Pedro Alves</text><text class="t-s" x="110" y="307" data-fit="166" data-sm-fit="none" data-sm-fit-before=".pa rect">Exame</text><g class="pa ok" data-right="276" data-mid="286" data-sm-mid="302"><rect x="212" y="276" width="64" height="20" rx="10"/><text x="244" y="290">Confirmado</text></g></g>
+            <g class="bubble"><g class="flow" data-x="310" data-w="144" data-pad="12" data-gap="6"><rect class="bx" x="296" y="42" width="172" height="78" rx="16"/><text class="t-b" data-i data-wrap x="310">Oi Maria! Confirma sua consulta de amanhã, 14h?</text><g data-i><text class="t-s" x="436" y="113" text-anchor="end">09:12</text><path class="tick" d="M440 108l4 4 7-8"/></g></g></g>
+            <g class="noreply"><g class="pa aft" data-center="382" data-after=".bubble .flow" data-gap="12"><rect x="330" y="134" width="104" height="26" rx="13"/><text x="382" y="151">Sem resposta</text></g></g>
+            <g class="aft" data-after=".noreply .pa" data-gap="14">
+              <g class="clock" transform="translate(388 238)"><circle r="42"/><circle class="c-in" r="34"/><line class="h-h" x1="0" y1="0" x2="0" y2="-17"/><line class="h-m" x1="0" y1="0" x2="0" y2="-26"/><circle class="dot" r="3.5"/></g>
+              <text class="t-s cap" x="388" y="304" data-fit="150">14:20 e nada</text>
+            </g>
           </svg>
         </div>
       </article>
@@ -971,18 +997,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p>O médico pede retorno em 30 dias. Ele esquece e ninguém liga.</p>
         </div>
         <div class="pain-scene sc-return" aria-hidden="true">
-          <svg viewBox="0 0 480 380">
-            <g class="note"><rect x="22" y="26" width="200" height="92" rx="10"/><text class="t-s" x="40" y="54">Receituário</text><text class="t-hand" x="40" y="84">Retorno em 30 dias</text><path class="scribble" d="M40 100c20-6 40 4 60-2s30-4 44 0"/></g>
-            <g class="patient"><rect x="248" y="30" width="210" height="84" rx="16"/><circle class="av" cx="286" cy="72" r="20"/><circle class="av-h" cx="286" cy="66" r="7"/><path class="av-b" d="M273 86c3-8 23-8 26 0"/><text class="t-name" x="318" y="66">Ana Paula</text><text class="t-s" x="318" y="86">Última consulta: 12/03</text></g>
+          <svg viewBox="0 0 480 380" data-auto>
+            <g class="note"><g class="flow" data-x="40" data-w="164" data-pad="14" data-gap="6"><rect class="bx" x="22" y="26" width="200" height="92" rx="10"/><text class="t-s" data-i x="40">Receituário</text><text class="t-hand" data-i data-wrap x="40">Retorno em 30 dias</text><g data-i><path class="scribble" d="M40 100c20-6 40 4 60-2s30-4 44 0"/></g></g></g>
+            <g class="patient"><g class="flow" data-x="318" data-w="126" data-pad="14" data-gap="3"><rect class="bx" x="248" y="30" width="210" height="84" rx="16"/><g class="ic"><circle class="av" cx="286" cy="72" r="20"/><circle class="av-h" cx="286" cy="66" r="7"/><path class="av-b" d="M273 86c3-8 23-8 26 0"/></g><text class="t-name" data-i data-wrap x="318">Ana Paula</text><text class="t-s" data-i data-wrap x="318">Última consulta: 12/03</text></g></g>
             <text class="t-big" x="240" y="200" text-anchor="middle"><tspan>Dia </tspan><tspan class="d-count">0</tspan></text>
-            <text class="t-s" x="240" y="226" text-anchor="middle">desde a última consulta</text>
+            <text class="t-s" x="240" y="226" text-anchor="middle" data-fit="400">desde a última consulta</text>
             <line class="track" x1="40" y1="282" x2="440" y2="282"/>
             <line class="track-fill" x1="40" y1="282" x2="440" y2="282"/>
-            <g class="mark30"><line x1="173" y1="264" x2="173" y2="300"/><rect x="118" y="244" width="110" height="22" rx="11"/><text x="173" y="259" text-anchor="middle">Retorno previsto</text></g>
-            <text class="t-s" x="40" y="318" text-anchor="middle">0</text><text class="t-s" x="173" y="318" text-anchor="middle">30</text><text class="t-s" x="307" y="318" text-anchor="middle">60</text><text class="t-s" x="440" y="318" text-anchor="middle">90 dias</text>
+            <g class="mark30"><line x1="173" y1="264" x2="173" y2="300"/><g class="pa" data-center="173" data-bottom="266"><rect x="118" y="244" width="110" height="22" rx="11"/><text x="173" y="259">Retorno previsto</text></g></g>
+            <text class="t-s" x="40" y="318" text-anchor="middle">0</text><text class="t-s" x="173" y="318" text-anchor="middle">30</text><text class="t-s" x="307" y="318" text-anchor="middle">60</text><text class="t-s" x="446" y="318" text-anchor="end">90 dias</text>
             <circle class="runner" cx="40" cy="282" r="8"/>
-            <g class="calls"><path d="M40 344c0-4 3-7 7-7l3 5-3 3c2 4 5 7 9 9l3-3 5 3c0 4-3 7-7 7-9 0-17-8-17-17z"/><text class="t-s" x="74" y="356">Ligações feitas: <tspan class="b">0</tspan></text></g>
-            <g class="late"><rect x="316" y="338" width="124" height="26" rx="13"/><text x="378" y="355" text-anchor="middle">Retorno atrasado</text></g>
+            <g class="calls"><path d="M40 344c0-4 3-7 7-7l3 5-3 3c2 4 5 7 9 9l3-3 5 3c0 4-3 7-7 7-9 0-17-8-17-17z"/><text class="t-s" x="74" y="356" data-fit-before=".late rect">Ligações feitas: <tspan class="b">0</tspan></text></g>
+            <g class="late"><g class="pa" data-right="446" data-mid="351"><rect x="316" y="338" width="124" height="26" rx="13"/><text x="378" y="355">Retorno atrasado</text></g></g>
           </svg>
         </div>
       </article>
@@ -1019,21 +1045,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p>Confirmar consulta, marcar e remarcar horário, responder WhatsApp e ainda cuidar de quem chega na clínica. Uma pessoa só não segura isso o dia inteiro, todo dia.</p>
         </div>
         <div class="pain-scene sc-desk" aria-hidden="true">
-          <svg viewBox="0 0 480 380">
+          <svg viewBox="0 0 480 380" data-auto>
             <rect class="phone" x="24" y="14" width="210" height="352" rx="30"/>
             <rect class="screen" x="34" y="24" width="190" height="332" rx="22"/>
-            <text class="t-h" x="52" y="58">WhatsApp</text>
+            <text class="t-h" x="52" y="58" data-fit="120">WhatsApp</text>
             <g class="badge"><circle cx="198" cy="52" r="15"/><text class="w-count" x="198" y="57">3</text></g>
-            <g class="msgs">
-              <g style="--d:0s"><rect x="46" y="78" width="166" height="44" rx="12"/><text class="t-b" x="58" y="98">Consigo remarcar pra sexta?</text><text class="t-s" x="58" y="114">Luciana</text></g>
-              <g style="--d:.9s"><rect x="46" y="130" width="166" height="44" rx="12"/><text class="t-b" x="58" y="150">Qual o valor da consulta?</text><text class="t-s" x="58" y="166">Número novo</text></g>
-              <g style="--d:1.8s"><rect x="46" y="182" width="166" height="44" rx="12"/><text class="t-b" x="58" y="202">Vocês aceitam convênio?</text><text class="t-s" x="58" y="218">Tiago</text></g>
-              <g style="--d:2.7s"><rect x="46" y="234" width="166" height="44" rx="12"/><text class="t-b" x="58" y="254">Preciso do meu exame</text><text class="t-s" x="58" y="270">Dona Célia</text></g>
-              <g style="--d:3.6s"><rect x="46" y="286" width="166" height="44" rx="12"/><text class="t-b" x="58" y="306">Oi? Alguém aí?</text><text class="t-s" x="58" y="322">Luciana</text></g>
+            <g class="msgs stack" data-y="76" data-gap="8">
+              <g class="m" style="--d:0s"><g class="flow" data-x="57" data-w="144" data-pad="9" data-gap="2"><rect class="bx" x="46" y="0" width="166" height="44" rx="12"/><text class="t-b" data-i data-wrap x="57">Consigo remarcar pra sexta?</text><text class="t-s" data-i x="57">Luciana</text></g></g>
+              <g class="m" style="--d:.9s"><g class="flow" data-x="57" data-w="144" data-pad="9" data-gap="2"><rect class="bx" x="46" y="0" width="166" height="44" rx="12"/><text class="t-b" data-i data-wrap x="57">Qual o valor da consulta?</text><text class="t-s" data-i x="57">Número novo</text></g></g>
+              <g class="m" style="--d:1.8s"><g class="flow" data-x="57" data-w="144" data-pad="9" data-gap="2"><rect class="bx" x="46" y="0" width="166" height="44" rx="12"/><text class="t-b" data-i data-wrap x="57">Vocês aceitam convênio?</text><text class="t-s" data-i x="57">Tiago</text></g></g>
+              <g class="m" style="--d:2.7s"><g class="flow" data-x="57" data-w="144" data-pad="9" data-gap="2"><rect class="bx" x="46" y="0" width="166" height="44" rx="12"/><text class="t-b" data-i data-wrap x="57">Preciso do meu exame</text><text class="t-s" data-i x="57">Dona Célia</text></g></g>
+              <g class="m" style="--d:3.6s"><g class="flow" data-x="57" data-w="144" data-pad="9" data-gap="2"><rect class="bx" x="46" y="0" width="166" height="44" rx="12"/><text class="t-b" data-i data-wrap x="57">Oi? Alguém aí?</text><text class="t-s" data-i x="57">Luciana</text></g></g>
             </g>
-            <g class="card-r rng"><rect x="252" y="22" width="210" height="96" rx="18"/><g class="bell"><path d="M284 52c0-4 3-7 7-7l4 7-4 4c3 5 7 9 12 12l4-4 7 4c0 4-3 7-7 7-13 0-23-10-23-23z"/></g><text class="t-name" x="332" y="62">Telefone tocando</text><text class="t-s" x="332" y="82">Perdidas: <tspan class="b call-count">1</tspan></text></g>
-            <g class="card-r"><rect x="252" y="138" width="210" height="96" rx="18"/><g class="queue"><circle cx="286" cy="176" r="8"/><path d="M272 204c2-10 26-10 28 0"/><circle class="q2" cx="304" cy="182" r="6"/></g><text class="t-name" x="332" y="178">No balcão</text><text class="t-s" x="332" y="198"><tspan class="b q-count">1</tspan> esperando</text></g>
-            <g class="card-r warn"><rect x="252" y="254" width="210" height="96" rx="18"/><g transform="translate(288 302)"><circle class="clk" r="17"/><line class="h-m" x1="0" y1="0" x2="0" y2="-11"/></g><text class="t-name" x="332" y="294">Tempo de resposta</text><text class="t-s" x="332" y="316"><tspan class="b t-count">4</tspan> min</text></g>
+            <g class="rcol stack" data-y="22" data-gap="18">
+              <g class="card-r rng"><g class="flow" data-x="326" data-w="122" data-pad="16" data-gap="4"><rect class="bx" x="250" y="0" width="212" height="96" rx="18"/><g class="ic"><g class="bell"><path d="M280 40c0-4 3-7 7-7l4 7-4 4c3 5 7 9 12 12l4-4 7 4c0 4-3 7-7 7-13 0-23-10-23-23z"/></g></g><text class="t-name" data-i data-wrap x="326">Telefone tocando</text><text class="t-s" data-i x="326" data-fit="122">Perdidas: <tspan class="b call-count">1</tspan></text></g></g>
+              <g class="card-r"><g class="flow" data-x="326" data-w="122" data-pad="16" data-gap="4"><rect class="bx" x="250" y="0" width="212" height="96" rx="18"/><g class="ic queue"><circle cx="284" cy="40" r="8"/><path d="M270 68c2-10 26-10 28 0"/><circle class="q2" cx="302" cy="46" r="6"/></g><text class="t-name" data-i data-wrap x="326">No balcão</text><text class="t-s" data-i x="326" data-fit="122"><tspan class="b q-count">1</tspan> esperando</text></g></g>
+              <g class="card-r warn"><g class="flow" data-x="326" data-w="122" data-pad="16" data-gap="4"><rect class="bx" x="250" y="0" width="212" height="96" rx="18"/><g class="ic"><g transform="translate(288 48)"><circle class="clk" r="17"/><line class="h-m" x1="0" y1="0" x2="0" y2="-11"/></g></g><text class="t-name" data-i data-wrap x="326">Tempo de resposta</text><text class="t-s" data-i x="326" data-fit="122"><tspan class="b t-count">4</tspan> min</text></g></g>
+            </g>
           </svg>
         </div>
       </article>
@@ -1621,73 +1649,223 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   window.addEventListener('resize',maybePlay);
   maybePlay();
 })();
-/* seção de dores: stack sticky + cenas animadas */
+/* seção de dores: layout responsivo das cenas + stack sticky */
 (function(){
-  var cards=[].slice.call(document.querySelectorAll('.pain-card'));
-  if(!cards.length)return;
+  var stackEl=document.querySelector('.pain-stack');
+  if(!stackEl)return;
+  var cards=[].slice.call(stackEl.querySelectorAll('.pain-card'));
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* cartões de trás encolhem conforme o próximo sobe */
-  if(!reduce){
-    var tick=false;
-    function stack(){
-      tick=false;
-      for(var i=0;i<cards.length-1;i++){
-        var a=cards[i].getBoundingClientRect(),b=cards[i+1].getBoundingClientRect();
-        var p=(a.bottom-b.top)/a.height;
-        cards[i].style.setProperty('--p',Math.max(0,Math.min(1,p)).toFixed(3));
-      }
-    }
-    window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(stack);}},{passive:true});
-    window.addEventListener('resize',stack);stack();
-  }
+  /* ---------- layout dos textos dentro dos SVGs ----------
+     O SVG escala por inteiro, então o que muda entre larguras é o font-size (CSS por breakpoint).
+     Aqui cada texto é medido com a fonte real: quebra em linhas pela largura disponível,
+     caixas crescem na vertical, pílulas se ajustam ao texto e o viewBox cresce se precisar. */
+  var SVGNS='http://www.w3.org/2000/svg';
+  function fs(el){return parseFloat(getComputedStyle(el).fontSize)||12;}
+  function num(el,a,d){var v=el.getAttribute(a);return v===null?d:parseFloat(v);}
+  function ty(el){var m=/translate\(\s*[-\d.]+[ ,]+([-\d.]+)/.exec(el.getAttribute('transform')||'');return m?+m[1]:0;}
+  function setTy(el,y){el.setAttribute('transform','translate(0 '+y+')');}
+  function bottomOf(el){var b=el.getBBox();return b.y+b.height+ty(el);}
 
-  /* contadores que rodam em loop enquanto a cena está visível */
+  function fit(t,w){
+    t.style.fontSize='';
+    var f=fs(t),min=f*.72;
+    while(t.getComputedTextLength()>w&&f>min){f-=.5;t.style.fontSize=f+'px';}
+  }
+  function wrap(t,w,x){
+    var words=(t.dataset.src||(t.dataset.src=t.textContent.trim())).split(/\s+/);
+    while(t.firstChild)t.removeChild(t.firstChild);
+    var lines=[],cur=null;
+    function line(){cur=document.createElementNS(SVGNS,'tspan');cur.setAttribute('x',x);t.appendChild(cur);lines.push(cur);}
+    line();
+    words.forEach(function(wd){
+      var prev=cur.textContent;cur.textContent=prev?prev+' '+wd:wd;
+      if(prev&&cur.getComputedTextLength()>w){cur.textContent=prev;line();cur.textContent=wd;}
+    });
+    return lines;
+  }
+  function pill(g){
+    var r=g.querySelector('rect'),t=g.querySelector('text'),f=fs(t);
+    var w=t.getComputedTextLength()+f*1.6,h=Math.max(num(r,'data-h0',0)||(r.dataset.h0=num(r,'height')),f*2.1);
+    var x=g.dataset.right?+g.dataset.right-w:g.dataset.center?+g.dataset.center-w/2:num(r,'x');
+    var y=g.dataset.bottom?+g.dataset.bottom-h:g.dataset.mid?+g.dataset.mid-h/2:num(r,'y');
+    r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',w);r.setAttribute('height',h);r.setAttribute('rx',h/2);
+    t.setAttribute('x',x+w/2);t.setAttribute('y',y+h/2+f*.35);t.setAttribute('text-anchor','middle');
+  }
+  function flow(g){
+    var r=g.querySelector(':scope>rect.bx'),x=+g.dataset.x,w=+g.dataset.w,pad=+g.dataset.pad,gap=+g.dataset.gap;
+    var h0=+(r.dataset.h0||(r.dataset.h0=num(r,'height'))),top0=num(r,'y');
+    var items=[].slice.call(g.querySelectorAll(':scope>[data-i]'));
+    var sizes=items.map(function(el){
+      if(el.tagName==='text'){
+        var f=fs(el),lh=f*1.32;
+        if(el.hasAttribute('data-wrap')){
+          /* quebra equilibrada: estreita a largura enquanto o número de linhas não muda */
+          var n=wrap(el,w,x).length,bw=w;
+          if(n>1){while(bw>w*.5&&wrap(el,bw-4,x).length===n)bw-=4;wrap(el,bw,x);}
+          return {h:n*lh,f:f,lh:lh};
+        }
+        if(el.dataset.fit)fit(el,+el.dataset.fit);else fit(el,w);
+        f=fs(el);return {h:f*1.32,f:f,lh:f*1.32};
+      }
+      el.removeAttribute('transform');var b=el.getBBox();return {h:b.height,top:b.y};
+    });
+    var total=sizes.reduce(function(a,s){return a+s.h;},0)+gap*(items.length-1);
+    var H=Math.max(h0,total+pad*2);r.setAttribute('height',H);
+    var cur=top0+(H-total)/2;
+    items.forEach(function(el,i){
+      var s=sizes[i];
+      if(el.tagName==='text'){
+        var base=cur+(s.lh-s.f)/2+s.f*.8;
+        el.setAttribute('y',base);
+        [].forEach.call(el.querySelectorAll(':scope>tspan[x]'),function(sp,k){sp.setAttribute('y',base+k*s.lh);});
+      }else setTy(el,cur-s.top);
+      cur+=s.h+gap;
+    });
+    [].forEach.call(g.querySelectorAll(':scope>.ic'),function(ic){setTy(ic,(H-h0)/2);});
+  }
+  function layout(svg){
+    if(!svg._src)svg._src=svg.innerHTML;else svg.innerHTML=svg._src;
+    /* no mobile, data-sm-* substitui o atributo equivalente ("none" remove) */
+    if(mqFont.matches)svg.querySelectorAll('*').forEach(function(el){
+      [].slice.call(el.attributes).forEach(function(a){
+        if(a.name.indexOf('data-sm-')!==0)return;
+        var k='data-'+a.name.slice(8);
+        if(a.value==='none')el.removeAttribute(k);else el.setAttribute(k,a.value);
+      });
+    });
+    svg.querySelectorAll('.pa').forEach(pill);
+    svg.querySelectorAll('.flow').forEach(flow);
+    svg.querySelectorAll('.stack').forEach(function(st){
+      var cur=+st.dataset.y,gap=+st.dataset.gap;
+      [].forEach.call(st.querySelectorAll(':scope>g>.flow'),function(f){
+        var r=f.querySelector(':scope>rect.bx');setTy(f,cur-num(r,'y'));cur+=num(r,'height')+gap;
+      });
+      st._bottom=cur-gap;
+    });
+    svg.querySelectorAll('text[data-fit]:not([data-i])').forEach(function(t){fit(t,+t.dataset.fit);});
+    svg.querySelectorAll('text[data-fit-before]').forEach(function(t){
+      var ref=(t.closest('.slot')||svg).querySelector(t.dataset.fitBefore);
+      fit(t,num(ref,'x')-10-num(t,'x'));
+    });
+    svg.querySelectorAll('[data-after]').forEach(function(el){
+      var ref=svg.querySelector(el.dataset.after);if(!ref)return;
+      el.removeAttribute('transform');
+      var d=bottomOf(ref)+(+el.dataset.gap)-el.getBBox().y;if(d>0)setTy(el,d);
+    });
+    /* celular do card 04 acompanha a pilha de mensagens */
+    var msgs=svg.querySelector('.msgs');
+    if(msgs){
+      var sc=svg.querySelector('.screen'),ph=svg.querySelector('.phone');
+      var sh=Math.max(332,msgs._bottom+14-24);sc.setAttribute('height',sh);ph.setAttribute('height',sh+20);
+    }
+    /* viewBox cresce na vertical se o conteúdo passar de 380 */
+    var vb=svg.viewBox.baseVal,bot=380;
+    [].forEach.call(svg.children,function(c){try{var b=c.getBBox();bot=Math.max(bot,b.y+b.height+ty(c)+12);}catch(e){}});
+    svg.setAttribute('viewBox','0 0 '+vb.width+' '+Math.ceil(bot));
+  }
+  var mqFont=window.matchMedia('(max-width:600px)');
+  var autos=[].slice.call(document.querySelectorAll('.pain-scene svg[data-auto]'));
+  function layoutAll(){autos.forEach(layout);}
+  layoutAll();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layoutAll);
+  (mqFont.addEventListener?mqFont.addEventListener('change',layoutAll):mqFont.addListener(layoutAll));
+
+  /* ---------- sticky stacking (desktop) / entrada individual (tablet e mobile) ---------- */
+  var mqStack=window.matchMedia('(min-width:1024px) and (min-height:640px)');
+  var gaps=cards.map(function(c){var g=document.createElement('div');g.className='pain-gap';g.setAttribute('aria-hidden','true');c.after(g);return g;});
+  var header=document.querySelector('header');
+  var flowIO=null,tick=false;
+  function measure(){
+    if(!stackEl.classList.contains('is-stack'))return;
+    var vh=window.innerHeight,top0=(header?header.offsetHeight:72)+24;
+    /* se algum card não cabe inteiro abaixo do ponto de encaixe, usa o modo em fluxo */
+    var tallest=Math.max.apply(null,cards.map(function(c){return c.offsetHeight;}));
+    if(tallest>vh-top0-(cards.length-1)*14-16){stackEl.classList.remove('is-stack');setFlow();return;}
+    stackEl.style.setProperty('--top0',top0+'px');
+    /* segura a pilha completa um instante antes de liberar a seção */
+    var last=cards[cards.length-1];
+    /* espaçador final: a pilha completa fica parada um instante antes de a seção seguir */
+    gaps[cards.length-1].style.height=Math.round(vh*.22)+'px';
+    cards.forEach(function(c,i){
+      if(i===cards.length-1)return;
+      /* o próximo card começa a entrar pela base da tela quando este gruda no topo */
+      var top=top0+i*14,gap=Math.max(28,vh-top-c.offsetHeight);
+      gaps[i].style.height=gap+'px';
+    });
+    render();
+  }
+  function render(){
+    tick=false;
+    if(!stackEl.classList.contains('is-stack'))return;
+    var vh=window.innerHeight,top0=parseFloat(stackEl.style.getPropertyValue('--top0'))||96;
+    /* p[j]: quanto o card j já subiu da base da tela até seu ponto de encaixe (0 a 1) */
+    var p=cards.map(function(c,j){
+      if(j===0)return 1;
+      var stickTop=top0+j*14,t=c.getBoundingClientRect().top;
+      return Math.max(0,Math.min(1,(vh-t)/(vh-stickTop)));
+    });
+    cards.forEach(function(c,i){
+      var depth=0;for(var j=i+1;j<cards.length;j++)depth+=p[j];
+      depth=Math.min(depth,3);
+      if(depth<=0){c.style.transform='';c.style.removeProperty('--dim');return;}
+      c.style.transform='translateY('+(-depth*6).toFixed(1)+'px) scale('+(1-depth*.03).toFixed(4)+')';
+      c.style.setProperty('--dim',(Math.min(depth,2)*.035).toFixed(3));
+    });
+  }
+  function setMode(){
+    var stack=mqStack.matches&&!reduce;
+    stackEl.classList.toggle('is-stack',stack);
+    stackEl.classList.toggle('is-flow',!stack&&!reduce);
+    cards.forEach(function(c){c.style.transform='';c.style.removeProperty('--dim');});
+    if(flowIO){flowIO.disconnect();flowIO=null;}
+    if(stack)measure();else setFlow();
+  }
+  function setFlow(){
+    if(reduce){cards.forEach(function(c){c.classList.add('pc-in');});return;}
+    stackEl.classList.add('is-flow');
+    cards.forEach(function(c){c.style.transform='';c.style.removeProperty('--dim');});
+    if(flowIO||!('IntersectionObserver' in window)){if(!flowIO)cards.forEach(function(c){c.classList.add('pc-in');});return;}
+    flowIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('pc-in');flowIO.unobserve(e.target);}});},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+    cards.forEach(function(c){if(!c.classList.contains('pc-in'))flowIO.observe(c);});
+  }
+  setMode();
+  (mqStack.addEventListener?mqStack.addEventListener('change',setMode):mqStack.addListener(setMode));
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(render);}},{passive:true});
+  window.addEventListener('resize',function(){requestAnimationFrame(function(){if(mqStack.matches&&!reduce&&!stackEl.classList.contains('is-stack'))setMode();else measure();});});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+
+  /* ---------- contadores em loop enquanto a cena está visível ---------- */
   function loop(scene,dur,hold,step){
     var t0=null,raf=null;
-    function frame(t){
-      if(t0===null)t0=t;
-      var k=((t-t0)%(dur+hold))/dur;step(Math.min(1,k));
-      raf=requestAnimationFrame(frame);
-    }
+    function frame(t){if(t0===null)t0=t;step(Math.min(1,((t-t0)%(dur+hold))/dur));raf=requestAnimationFrame(frame);}
     scene._start=function(){if(!raf){t0=null;raf=requestAnimationFrame(frame);}};
     scene._stop=function(){cancelAnimationFrame(raf);raf=null;};
   }
+  function q(s,sel){return s.querySelector(sel);}
   function fmt(n){return Math.round(n).toLocaleString('pt-BR');}
-
   var ret=document.querySelector('.sc-return');
   if(ret){
-    var dc=ret.querySelector('.d-count');
-    var set=function(k){
-      var d=Math.round(k*90);dc.textContent=d;
-      ret.querySelector('svg').style.setProperty('--prog',k);
-      ret.classList.toggle('is-late',d>30);
-    };
-    if(reduce)set(1);else loop(ret,6500,2200,set);
+    var s2=function(k){var d=Math.round(k*90);q(ret,'.d-count').textContent=d;q(ret,'svg').style.setProperty('--prog',k);ret.classList.toggle('is-late',d>30);};
+    if(reduce)s2(1);else loop(ret,6500,2200,s2);
   }
   var idle=document.querySelector('.sc-idle');
   if(idle){
-    var ac=idle.querySelector('.ad-count');
-    var s3=function(k){ac.textContent=fmt(k*2480);};
+    var s3=function(k){q(idle,'.ad-count').textContent=fmt(k*2480);};
     if(reduce)s3(1);else loop(idle,5000,2000,s3);
   }
   var desk=document.querySelector('.sc-desk');
   if(desk){
-    var wc=desk.querySelector('.w-count'),cc=desk.querySelector('.call-count'),qc=desk.querySelector('.q-count'),tc=desk.querySelector('.t-count');
     var s4=function(k){
-      wc.textContent=3+Math.round(k*44);cc.textContent=1+Math.round(k*4);
-      qc.textContent=1+Math.round(k*3);tc.textContent=4+Math.round(k*43);
+      q(desk,'.w-count').textContent=3+Math.round(k*44);q(desk,'.call-count').textContent=1+Math.round(k*4);
+      q(desk,'.q-count').textContent=1+Math.round(k*3);q(desk,'.t-count').textContent=4+Math.round(k*43);
     };
     if(reduce)s4(1);else loop(desk,6000,1500,s4);
   }
-
   var scenes=document.querySelectorAll('.pain-scene');
   if(reduce||!('IntersectionObserver' in window)){scenes.forEach(function(s){s.classList.add('play');s._start&&s._start();});return;}
   var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      var s=e.target;s.classList.toggle('play',e.isIntersecting);
-      if(e.isIntersecting){s._start&&s._start();}else{s._stop&&s._stop();}
-    });
+    es.forEach(function(e){var s=e.target;s.classList.toggle('play',e.isIntersecting);if(e.isIntersecting){s._start&&s._start();}else{s._stop&&s._stop();}});
   },{threshold:.35});
   scenes.forEach(function(s){io.observe(s);});
 })();
